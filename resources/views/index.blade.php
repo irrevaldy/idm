@@ -10,16 +10,16 @@
           <b>Summary EDC Monitoring</b>
         </div>
         <div class="col-lg-12" style="height:50px">
-          Total EDC : {{print_r($total_edc)}}
+          Total EDC : {{ $total_edc }}
         </div>
         <div class="col-lg-12" style="height:50px">
-          EDC Active : {{print_r($total_active)}}
+          EDC Active :{{ $total_active }}
         </div>
         <div class="col-lg-12" style="height:50px">
-          EDC Non Active : {{print_r($total_non_active)}}
+          EDC Non Active : {{ $total_not_active }}
         </div>
         <div class="col-lg-12" style="height:50px">
-          EDC Active Transaction : {{print_r($total_active_transaction)}}
+          EDC Active Transaction : {{ $total_active_transaction }}
         </div>
     </div>
 

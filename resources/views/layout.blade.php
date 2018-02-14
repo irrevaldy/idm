@@ -3,8 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <meta name="description" content="admin-themes-lab">
-    <meta name="author" content="themes-lab">
+
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <link rel="icon" href="{{ asset('assets/img/favicon.ico') }}" type="image/png">
     <title>Wirecard</title>
@@ -115,7 +114,7 @@
             </div>
             <ul class="nav nav-sidebar navigation" id="navigation">
               @foreach($main_menu as $key => $value)
-                <li class="nav-parent">
+                <li class="">
                   <a href="{{ URL::to($value->LINK) }}"><i class="fa {{ $value->LOGO }}" aria-hidden="true"></i><span data-translate="{{ $value->NAME }}">{{ $value->NAME }}</span><!--<span class="fa arrow"></span>--></a>
                   <ul class="children collapse">
                     @foreach($sub_menu as $key2 => $value2)

@@ -32,3 +32,7 @@ Route::get('/', function(){
 //Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+//search_transaction
+Route::get('/search_transaction', 'SearchController@index');
+Route::post('/search_transaction/main_data', ['uses' => 'SearchController@getDataSearchTransaction']);

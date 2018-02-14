@@ -21,7 +21,7 @@ class loginController extends Controller
         return view('auth.login');
     }
 
-	public function sendLoginData(Request $request){
+	  public function sendLoginData(Request $request){
 
     $client = new \GuzzleHttp\Client();
 		$username = $request->input('username');
@@ -44,10 +44,13 @@ class loginController extends Controller
 			Session::put('username', $var->data->username);
 			Session::put('group_id', $var->data->group_id);
 			Session::put('apitoken', $var->data->token);
-       Session::put('total_edc', $var->data->total_edc);
+      // Session::put('merchant', $var->data->merchant);
+      // Session::put('branch', $var->data->branch);
+
+      Session::put('total_edc', $var->data->total_edc);
       Session::put('total_active', $var->data->total_active);
-     Session::put('total_non_active', $var->data->total_non_active);
-       Session::put('total_active_Transaction', $var->data->total_active_transaction);
+      Session::put('total_not_active', $var->data->total_not_active);
+      Session::put('total_active_transaction', $var->data->total_active_transaction);
 
 			return redirect('/home');
 
