@@ -9,7 +9,8 @@
       <div class="col-lg-12">
         <div class="panel">
           <div class="panel-content">
-            <form role="form" class=" form-horizontal form-validation" id="searchTransaction_form" autocomplete="off">
+            <form role="form" method="POST" class=" form-horizontal form-validation" id="searchTransaction_form" autocomplete="off" action="{{ route('search_transaction_main') }}">
+                  {{ csrf_field() }}
               <h4>Search by Filter:</h4>
               <div class="form-group">
                 <label class="col-sm-3 control-label">Store Code</label>
@@ -67,8 +68,9 @@
               </div>
               <div class="modal-footer">
                 <button type="submit" id="true-button-insert" style="visibility: hidden;">Submit</button>
-                <button type="button" class="btn btn-primary btn-embossed" id="btnSubmit">Submit</button>
+                <button type="button" class="btn btn-primary btn-embossed" id="btnSubmit"  >Submit</button>
               </div>
+              @if(isset($attrib))
               <div class="form-group">
                 <div class="panel-content pagination2 force-table-responsive" style="overflow-x: hidden;">
                   <table class="table" id="tableSearch" >
@@ -94,10 +96,33 @@
                       </tr>
                     </thead>
                     <tbody>
+
+                      @foreach($attrib as $key => $value)
+                      <tr>
+                        <td>{{ $value->FNAME }}</td>
+                        <td>{{ $value->FMID }}</td>
+                        <td>{{ $value->FTID }}</td>
+                        <td>{{ $value->FBRANCHCODE }}</td>
+                        <td>{{ $value->FSTORECODE }}</td>
+                        <td>{{ $value->FTRX_LABEL }}</td>
+                        <td>{{ $value->FCARDNUM }}</td>
+                        <td>{{ $value->FPREPAIDCARDNUM }}</td>
+                        <td>{{ $value->FINVNUM }}</td>
+                        <td>{{ $value->FDATE }}</td>
+                        <td>{{ $value->FTIME }}</td>
+                        <td>{{ $value->FRESPCODE }}</td>
+                        <td>{{ $value->FSTATUS }}</td>
+                        <td>{{ $value->FAPPRCODE }}</td>
+                        <td>{{ $value->FAMOUNT }}</td>
+                        <td>{{ $value->FREDEEM }}</td>
+                        <td>{{ $value->NET }}</td>
+                        <tr>
+                          @endforeach
                     </tbody>
                   </table>
                 </div>
                 </div>
+                @endif
             </form>
           </div>
   			</div>
@@ -115,19 +140,21 @@
 <!-- END PAGE SCRIPTS -->
 
 <script type="text/javascript">
+
 function initTable(){
   var tableSearch = $('#tableSearch').DataTable();
 
+
 }
+/*
 
-initTable();
+$("#btnSubmit").click(function(e)
+{
+  e.preventDefault();
 
-$("#btnSubmit").click(function(e){
-    e.preventDefault();
+  $('.btn-primary').prop('disabled', true);
 
-    $('.btn-primary').prop('disabled', true);
-
-      $.ajax({
+  $.ajax({
         type: 'POST',
         data: {
           store_code          : $('input[name="store_code"]').val(),
@@ -143,16 +170,17 @@ $("#btnSubmit").click(function(e){
         },
         headers: {'X-CSRF-TOKEN': "{{ csrf_token() }}"},
         url: '/search_transaction/main_data',
-
-        success: function (data) {
-
-            if(res['success'] == true) {
-
+        success: function (data)
+        {
+            if(res['success'] == true)
+            {
+              initTable();
               data = data['data'];
 
               var searchCount = 0;
 
-              for (var i = 0; i < data.length; i++) {
+              for (var i = 0; i < data.length; i++)
+              {
 
                 var fname = data[i]['FNAME'];
                 var fmid = data[i]['FMID'];
@@ -193,8 +221,9 @@ $("#btnSubmit").click(function(e){
                       );
                   tableSearch.row.add(jRow).draw();
                   localCount++;
-              }
+                }
             } // end if(data['status'] == '#SUCCESS')
+
             else {
 
               console.log(res['result']);
@@ -202,9 +231,9 @@ $("#btnSubmit").click(function(e){
         }
       });
 
-
     $('.btn-primary').prop('disabled', false);
   });
+*/
 
 </script>
 @endsection
