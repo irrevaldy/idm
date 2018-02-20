@@ -25,7 +25,5 @@ Route::get('home', 'HomeController@index')->name('home');
 Route::get('/search_transaction', 'SearchController@index');
 Route::post('/search_transaction/main_data', ['as' => 'search_transaction_main','uses' => 'SearchController@getDataSearchTransaction']);
 
-Route::get('foo', function()
-{
-	return "Hello World";
-});
+//report
+Route::get('/report/transaction_report','TransactionReportController@index');
