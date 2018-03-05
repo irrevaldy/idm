@@ -27,3 +27,19 @@ Route::post('/search_transaction/main_data', ['as' => 'search_transaction_main',
 
 //report
 Route::get('/report/transaction_report','TransactionReportController@index');
+//Route::post('/report/transaction_report/generate_report', [ 'as' => 'transaction_report_generate','uses' => 'TransactionReportController@generateReport']);
+Route::post('/report/transaction_report', 'TransactionReportController@generateReport')->name('transaction_report');
+//Route::get('create-zip', 'ZipArchiveController@index')->name('create-zip');
+Route::get('/report/transaction_report_financial','TransactionReportFinancialController@index');
+Route::post('/report/transaction_report_financial', 'TransactionReportFinancialController@generateFinancialReport')->name('transaction_report_financial');
+
+Route::get('/report/summary','SummaryController@index');
+
+Route::get('/tcash','TcashController@index');
+
+Route::get('/edc_data','EdcDataController@index');
+
+Route::get('/administration/corporate_merchant','CorporateMerchantController@index');
+Route::get('/administration/users_groups','UsersGroupsController@index');
+
+Route::get('/audit_trail','AuditTrailController@index');
