@@ -24,6 +24,7 @@
           </div>
           <style type="text/css">
 
+
             .logopanel img {
               width: 100%;
             }
@@ -43,7 +44,7 @@
             }
 
             .theme-sdtl.color-default:not(.sidebar-top) .logopanel {
-                background: #ffffff  none repeat scroll 0 0;
+                background: #7abcff  none repeat scroll 0 0;
             }
 
             .page-content .header h2,
@@ -138,7 +139,7 @@
 
       <div class="main-content">
         <!-- BEGIN TOPBAR -->
-        <div class="topbar">
+        <div class="topbar" style="background: #7abcff">
           <div class="header-left">
             <div class="topnav">
               <a class="menutoggle" href="#" data-toggle="sidebar-collapsed"><span class="menu__handle"><span>Menu</span></span></a>
