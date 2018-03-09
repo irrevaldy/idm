@@ -69,7 +69,7 @@
 
         <div class="login-box-footer text-center">
           <strong>Copyright &copy; 2018 Wirecard | PT Prima Vista Solusi.</strong><br> All rights reserved.
-
+          <br> Version 0.0.1 - Mar 2018
         </div>
       </div><!-- /.login-box -->
 

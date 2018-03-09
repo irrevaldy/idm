@@ -46,10 +46,12 @@ class loginController extends Controller
       Session::put('name', $var->data->name);
       Session::put('FID', $var->data->FID);
       Session::put('group_id', $var->data->group_id);
+      Session::put('groupName', $var->data->groupName);
       Session::put('merch_id', $var->data->merch_id);
       Session::put('FCODE', $var->data->FCODE);
       Session::put('FNAME', $var->data->FNAME);
 			Session::put('apitoken', $var->data->token);
+      Session::put('branch_code', $var->data->branch_code);
       //Session::put('merchant', $var->data->merchant);
      //Session::put('branch', $var->data->branch);
 

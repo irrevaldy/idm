@@ -34,8 +34,11 @@ Route::get('/report/transaction_report_financial','TransactionReportFinancialCon
 Route::post('/report/transaction_report_financial', 'TransactionReportFinancialController@generateFinancialReport')->name('transaction_report_financial');
 
 Route::get('/report/summary','SummaryController@index');
+Route::post('/report/summary/transaction','SummaryController@generateSummaryTransaction')->name('summary_transaction');
+Route::post('/report/summary/responsecode','SummaryController@generateSummaryResponseCode')->name('summary_response_code');
 
 Route::get('/tcash','TcashController@index');
+Route::post('/tcash/setlimit','TcashController@setLimit')->name('tcash_setup');
 
 Route::get('/edc_data','EdcDataController@index');
 
@@ -43,3 +46,4 @@ Route::get('/administration/corporate_merchant','CorporateMerchantController@ind
 Route::get('/administration/users_groups','UsersGroupsController@index');
 
 Route::get('/audit_trail','AuditTrailController@index');
+Route::post('/audit_trail/result','AuditTrailController@getAuditTrail')->name('search_audit_trail');

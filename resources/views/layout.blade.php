@@ -3,13 +3,15 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-
+    <meta name="description" content="admin-themes-lab">
+    <meta name="author" content="themes-lab">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <link rel="icon" href="{{ asset('assets/img/favicon.ico') }}" type="image/png">
     <title>Wirecard</title>
-    <link rel="stylesheet" href="{{ asset('css/style0.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/theme.css') }}">
     <link rel="stylesheet" href="{{ asset('css/ui.css') }}">
+      <link rel="stylesheet" href="{{ asset('bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/plugins/select2-4.0.3/dist/css/select2.css') }}">
     <script src="{{ asset('assets/plugins/modernizr/modernizr-2.6.2-respond-1.1.0.min.js') }}"></script>
     </head>
@@ -114,7 +116,11 @@
             </div>
             <ul class="nav nav-sidebar navigation" id="navigation">
               @foreach($main_menu as $key => $value)
+              @if($value->LINK == "#")
+                <li class="nav-parent">
+              @else
                 <li class="">
+              @endif
                   <a href="{{ URL::to($value->LINK) }}"><i class="fa {{ $value->LOGO }}" aria-hidden="true"></i><span data-translate="{{ $value->NAME }}">{{ $value->NAME }}</span><!--<span class="fa arrow"></span>--></a>
                   <ul class="children collapse">
                     @foreach($sub_menu as $key2 => $value2)
@@ -146,7 +152,7 @@
             <!-- BEGIN USER DROPDOWN -->
             <li class="dropdown" id="user-header">
               <a href="#" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-              <span class="username">[ {{ Session::get('username') }} ]</span>
+              <span class="username"> {{ Session::get('name') }} </span>
               </a>
               <ul class="dropdown-menu">
                 <li>
