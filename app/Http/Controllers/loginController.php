@@ -74,7 +74,9 @@ class loginController extends Controller
 		$client = new \GuzzleHttp\Client();
 		$form_post = $client->request('POST', config('constants.api_server').'logout/'.session()->get('username'), [
 			'json' => [
-				'username' => Session::get('username')
+				'username' => Session::get('username'),
+        'user_id' => Session::get('user_id'),
+        'name' => Session::get('name')
 			]
 		]);
 

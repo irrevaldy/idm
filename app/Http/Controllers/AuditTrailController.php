@@ -20,6 +20,7 @@ class AuditTrailController extends Controller
     $this->main_menu = $request->get('main_menu');
     $this->sub_menu = $request->get('sub_menu');
 
+    date_default_timezone_set('Asia/Jakarta');
     $now = date("Ymdhis");
     $past = date("Ym", strtotime("-3 month"));
     $past .= "01000000";
