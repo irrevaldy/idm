@@ -139,7 +139,7 @@
 
       <div class="main-content">
         <!-- BEGIN TOPBAR -->
-        <div class="topbar" style="background: #7abcff">
+        <div class="topbar" style="background: linear-gradient(to right,  #7abcff 0%,#60abf8 2%,#1f81ba 100%);">
           <div class="header-left">
             <div class="topnav">
               <a class="menutoggle" href="#" data-toggle="sidebar-collapsed"><span class="menu__handle"><span>Menu</span></span></a>
@@ -153,7 +153,7 @@
             <!-- BEGIN USER DROPDOWN -->
             <li class="dropdown" id="user-header">
               <a href="#" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-              <span class="username"> {{ Session::get('name') }} </span>
+              <span class="username" style="color:white;"> {{ Session::get('name') }} </span>
               </a>
               <ul class="dropdown-menu">
                 <li>
