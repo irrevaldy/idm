@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use ZIPARCHIVE;
 use Illuminate\Support\Facades\DB;
+use GuzzleHttp\Client;
+use Session;
 
 class TransactionReportFinancialController extends Controller
 {
@@ -161,6 +163,16 @@ class TransactionReportFinancialController extends Controller
       }
 
       //$files = array('20170301.csv', '20170302.csv', '20170303.csv', '20170304.csv', '20170305.csv');
+
+      $client = new \GuzzleHttp\Client();
+      $audit_trail_post = $client->request('POST', config('constants.api_server').'transaction_report_financial', [
+        'json' => [
+          'username' => Session::get('username'),
+          'user_id' => Session::get('user_id'),
+          'name' => Session::get('name')
+        ]
+      ]);
+
 
       $zipname = $username.'.zip';
       $zip = new ZipArchive;

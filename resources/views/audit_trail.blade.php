@@ -21,32 +21,21 @@
                 <button type="submit" id="true-button-insert" style="visibility: hidden;">Submit</button>
                 <button type="button" class="btn btn-primary btn-embossed" id="btnSubmit"  >Submit</button>
               </div>
-              @if(isset($attrib))
               <div class="form-group">
                 <div class="panel-content pagination2 force-table-responsive" style="overflow-x: hidden;">
                   <table class="table" id="tableAuditTrail" >
                     <thead>
                       <tr>
+                        <th>#</th>
                         <th>Username</th>
                         <th>Date</th>
                         <th>Activity</th>
                         <th>Description</th>
                       </tr>
                     </thead>
-                    <tbody>
-                      @foreach($attrib as $key => $value)
-                      <tr>
-                        <td>{{ $value->username }}</td>
-                        <td>{{ $value->DATE }}</td>
-                        <td>{{ $value->name }}</td>
-                        <td>{{ $value->description }}</td>
-                        <tr>
-                          @endforeach
-                    </tbody>
                   </table>
                 </div>
                 </div>
-                @endif
             </form>
           </div>
         </div>
@@ -60,5 +49,80 @@
 <script src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script> <!-- Tables Filtering, Sorting & Editing -->
 <script src="{{ asset('assets/js/pages/table_dynamic.js') }}"></script>
 <script src="{{ asset('assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js') }}"></script> <!-- >Bootstrap Date Picker -->
+<script type="text/javascript">
+  $(document).ready(function(){
+    var tableAuditTrail = $('#tableAuditTrail').DataTable();
+
+    $.ajax({
+      dataType: 'JSON',
+      type: 'GET',
+      url: '/audit_trail/get_all_data',
+			success: function (data) {
+				tableAuditTrail.clear().draw();
+
+				for (var i = 0; i < data.length; i++) {
+          var username = data[i].username;
+          var date = data[i].DATE;
+          var name = data[i].name;
+          var description = data[i].description;
+
+          var jRow = $('<tr>').append(
+            '<td>'+ (i + 1) +'</td>',
+              '<td>'+ username +'</td>',
+              '<td>'+ date +'</td>',
+              '<td>'+ name +'</td>',
+              '<td>'+ description +'</td>'
+              );
+
+          tableAuditTrail.row.add(jRow).draw();
+				}
+			}
+			});
+  });
+</script>
 <!-- END PAGE SCRIPTS -->
+<!--function initTable(){
+  var tableAuditTrail = $('#tableAuditTrail').DataTable();
+
+        $.ajax({
+        dataType: 'JSON',
+        type: 'POST',
+        url: '/audit_trail',
+        success: function (data) {
+
+            tableAuditTrail.clear().draw();
+
+            if(data['success'] == TRUE) {
+
+              data = data['result'];
+
+              for (var i = 0; i < data.length; i++) {
+
+                var username = data[i].username;
+                var date = data[i].DATE;
+                var name = data[i].name;
+                var description = data[i].description;
+
+
+                var jRow = $('<tr>').append(
+                    '<td>'+ username +'</td>',
+                    '<td>'+ date +'</td>',
+                    '<td>'+ name +'</td>',
+                    '<td>'+ description +'</td>'
+                    );
+                tableAuditTrail.row.add(jRow).draw();
+              }
+            } // end if(data['status'] == '#SUCCESS')
+            else {
+
+              console.log("Query Exception, Please Check Database");
+            }
+        }
+
+    });
+
+
+initTable();
+</script>-->
+
 @endsection

@@ -46,4 +46,5 @@ Route::get('/administration/corporate_merchant','CorporateMerchantController@ind
 Route::get('/administration/users_groups','UsersGroupsController@index');
 
 Route::get('/audit_trail','AuditTrailController@index');
+Route::get('/audit_trail/get_all_data','AuditTrailController@getAllData');
 Route::post('/audit_trail/result','AuditTrailController@getAuditTrail')->name('search_audit_trail');
