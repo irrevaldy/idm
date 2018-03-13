@@ -41,6 +41,9 @@ Route::get('/tcash','TcashController@index');
 Route::post('/tcash/setlimit','TcashController@setLimit')->name('tcash_setup');
 
 Route::get('/edc_data','EdcDataController@index');
+Route::post('/edc_data/checkSN','EdcDataController@CheckSN');
+Route::post('/edc_data/getSN','EdcDataController@GetSN');
+
 
 Route::get('/administration/corporate_merchant','CorporateMerchantController@index');
 Route::get('/administration/users_groups','UsersGroupsController@index');
