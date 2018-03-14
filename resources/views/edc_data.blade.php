@@ -12,6 +12,9 @@
             <form role="form" method="POST" class=" form-horizontal form-validation" id="searchTransaction_form" autocomplete="off" action="{{ route('search_transaction_main') }}">
                   {{ csrf_field() }}
               <h4>Search SN</h4>
+              <div class="export-box">
+                        <a class="btn btn-primary export-btn deletes" data-toggle="modal" data-target="#addEdcModal"> Register New SN </a>
+                      </div>
               <div class="form-group">
                 <label class="col-sm-3 control-label" for="exampleInputEmail1">SN</label><strong class="" id="silang_text" style="color: #FF5656;display: none;">SN is not found</strong><strong id="centang_text" style="color: #2AE800;display: none;"> is Exist</strong>
                 <div class="input-group">
@@ -49,100 +52,6 @@
       </div>
     </div>
 
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="panel">
-          <div class="panel-content">
-            <form role="form" method="POST" class=" form-horizontal form-validation" id="searchTransaction_form" autocomplete="off" action="{{ route('search_transaction_main') }}">
-                  {{ csrf_field() }}
-              <h4>Register New SN</h4>
-                <h4>Register New EDC</h4>
-              <div class="form-group">
-                <label class="col-sm-3 control-label">Corporate</label>
-                <div class="col-sm-9">
-                  <input class="form-control form-white" name="corporate" id="corporate" type="text" placeholder="">
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="col-sm-3 control-label">Merchant</label>
-                <div class="col-sm-9">
-                  <input class="form-control form-white" name="merchant" id="merchant" type="text" placeholder="">
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="col-sm-3 control-label">Excel File</label>
-                <div class="input-group input-group-sm">
-                  <input type="file" name="uploadedfile" id="logoBrowse" style="display:none;" onChange="setFileName()">
-                  <input type="text" class="form-control" readonly="readonly" id="logoText">
-                  <span class="input-group-btn">
-                    <button class="btn btn-info btn-flat" id="browseFile" type="button" onclick="$('#logoBrowse').click();">Browse</button>
-                  </span>
-                </div><!-- /input-group -->
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-primary btn-embossed" id="btnDelete" style="background-color:red" >Delete</button>
-                <button type="submit" id="true-button-insert" style="visibility: hidden;">Submit</button>
-                <button type="button" class="btn btn-primary btn-embossed" id="a" >Search</button>
-              </div>
-              @if(isset($attrib))
-              <div class="form-group">
-                <div class="panel-content pagination2 force-table-responsive" style="overflow-x: hidden;">
-                  <table class="table" id="tableSearch" >
-                    <thead>
-                      <tr>
-                        <th>Host</th>
-                        <th>MID</th>
-                        <th>TID</th>
-                        <th>Branch</th>
-                        <th>Store</th>
-                        <th>Transaction</th>
-                        <th>Card Num</th>
-                        <th>Prepaid Card Num</th>
-                        <th>Inv Num</th>
-                        <th>Date</th>
-                        <th>Time</th>
-                        <th>RC</th>
-                        <th>Status</th>
-                        <th>APPR Code</th>
-                        <th>Amount</th>
-                        <th>Redeem</th>
-                        <th>Net</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-
-                      @foreach($attrib as $key => $value)
-                      <tr>
-                        <td>{{ $value->FNAME }}</td>
-                        <td>{{ $value->FMID }}</td>
-                        <td>{{ $value->FTID }}</td>
-                        <td>{{ $value->FBRANCHCODE }}</td>
-                        <td>{{ $value->FSTORECODE }}</td>
-                        <td>{{ $value->FTRX_LABEL }}</td>
-                        <td>{{ $value->FCARDNUM }}</td>
-                        <td>{{ $value->FPREPAIDCARDNUM }}</td>
-                        <td>{{ $value->FINVNUM }}</td>
-                        <td>{{ $value->FDATE }}</td>
-                        <td>{{ $value->FTIME }}</td>
-                        <td>{{ $value->FRESPCODE }}</td>
-                        <td>{{ $value->FSTATUS }}</td>
-                        <td>{{ $value->FAPPRCODE }}</td>
-                        <td>{{ $value->FAMOUNT }}</td>
-                        <td>{{ $value->FREDEEM }}</td>
-                        <td>{{ $value->NET }}</td>
-                        <tr>
-                          @endforeach
-                    </tbody>
-                  </table>
-                </div>
-                </div>
-                @endif
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-
 <!--modal -->
     <div id="delEdcModal" class="modal fade" role="dialog">
       <div class="modal-dialog">
@@ -163,6 +72,80 @@
           </div>
         </div>
 
+      </div>
+    </div>
+
+    <div class="modal fade" id="addEdcModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog " role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel"><i class="fa fa-fax" aria-hidden="true"></i> Register New Edc </h4>
+          </div>
+
+          <!-- form profile -->
+          <form role="form" id="upload_form" method="POST" action="/edc_data/upload_edc" autocomplete="off" enctype="multipart/form-data">
+          <div class="modal-body">
+            <div class="box-body">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>Corporate </label>
+                    <input type="text" class="form-control" id="corporate" name="corporate">
+                  </div><!-- /.form-group -->
+                </div>
+
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>Merchant </label>
+                    <input type="text" class="form-control" id="merchant" name="merchant">
+
+                  </div><!-- /.form-group -->
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Excel File</label>
+                    <strong class="" id="silang_text" style="color: #FF5656;display: none;"> must be filled</strong>
+                    <div class="input-group input-group-sm">
+                      <input type="file" name="uploadedfile" id="logoBrowse" style="display:none;" onChange="setFileName()">
+                      <input type="text" class="form-control" readonly="readonly" id="logoText">
+                      <span class="input-group-btn">
+                        <button class="btn btn-info btn-flat" id="browseFile" type="button" onclick="$('#logoBrowse').click();">Browse</button>
+                      </span>
+                    </div><!-- /input-group -->
+                  </div>
+                </div>
+
+                <script type="text/javascript">
+
+                  function setFileName() {
+                    var input = document.getElementById("logoBrowse");
+                    var logoText = document.getElementById("logoText");
+                    var browseFile = document.getElementById("browseFile");
+                    //alert(input.files[0].name);
+
+                    logoText.value = input.files[0].name;
+                    if(logoText.value != '') {
+                      logoText.style.borderColor = "";
+                      browseFile.style.borderColor = "";
+                      silang_text.style.display = "none";
+                    }
+
+                  }
+
+                </script>
+
+              </div>
+
+            </div>
+          </div>
+          
+          <div class="modal-footer">
+            <button type="button" class="btn btn-warning" data-dismiss="modal" id="closeLimit">Close</button>
+            <button type="submit" class="btn btn-primary" id="submitModal">Submit</button>
+          </div>
+        </form> <!-- end of form profile -->
+        </div>
       </div>
     </div>
 
@@ -351,9 +334,6 @@ function deleteDataSn() {
 });
 
 }
-
-
-
 
 </script>
 @endsection

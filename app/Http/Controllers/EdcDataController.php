@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Storage;
+
+
 class EdcDataController extends Controller
 {
   private $main_menu;
@@ -89,5 +92,41 @@ class EdcDataController extends Controller
       //return redirect()->action('HomeController@index');
       //return $username;
     }
+  }
+
+  public function UploadEdc(Request $request)
+  {
+
+    $corporate = $request->input('corporate');
+    $merchant = $request->input('merchant');
+    $file = $request->file('uploadedfile');
+
+    $filename = $file->getClientOriginalName();
+        	// return $filename;
+    $path = Storage::putFileAs('/public/upload', $file, $filename); // simpen di folder nya front end
+    /*
+
+    	$client = new \GuzzleHttp\Client();
+		$response = $client->request('POST', config('constants.api_server').'edc_data/upload_edc', [
+      'json' => [
+        'corporate' => $corporate,
+        'merchant' => $merchant,
+        'file' => $file
+      ]
+    ]);
+
+		$var = json_decode($response->getBody()->getContents(), true);
+
+    if($var->success == true){
+      // Session::put('id', $var->data->Id);
+
+      $this->attrib = $var->result;
+
+      return $this->attrib;
+
+      //return redirect()->action('HomeController@index');
+      //return $username;
+    }
+    */
   }
 }
