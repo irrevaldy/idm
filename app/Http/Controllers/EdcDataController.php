@@ -68,4 +68,26 @@ class EdcDataController extends Controller
       //return $username;
     }
   }
+
+  public function DeleteSN(Request $request)
+  {
+    $client = new \GuzzleHttp\Client();
+    $username = $request->input('username');
+
+    $form_post = $client->request('POST', config('constants.api_server').'edc_data/deleteSN', [
+      'json' => [
+        'username' => $username
+      ]
+    ]);
+    $var = json_decode($form_post->getBody()->getContents());
+
+    if($var->success == true){
+      // Session::put('id', $var->data->Id);
+
+      return $var->status;
+
+      //return redirect()->action('HomeController@index');
+      //return $username;
+    }
+  }
 }

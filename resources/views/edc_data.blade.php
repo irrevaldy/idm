@@ -25,8 +25,9 @@
                 </div><!-- /.input group -->
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-primary btn-embossed" id="delSn" style="background-color:red">Delete</button>
-                <button type="submit" id="true-button-insert" style="visibility: hidden;">Submit</button>
+
+                <button type="button" class="btn btn-danger" id="delSn" onclick="deleteSnConfirm()" >Delete</button>
+                <a class="btn btn-primary export-btn deletes" id="confirmDelete" data-toggle="modal" data-target="#delEdcModal" style="display: none;"> Delete </a>
                 <button type="button" class="btn btn-primary btn-embossed" id="getSn"  onclick="getDataSn()">Search</button>
               </div>
             </form>
@@ -37,20 +38,25 @@
                 </li>
               </ul>
             </div>
+            <div class="box-footer" style="display: none;" id="deleteFooter">
+              <ul>
+              	<li>
+              		<span id="deleteSnText">Delete SN</span>
+              	</li>
+              </ul>
           </div>
   			</div>
       </div>
     </div>
 
-    <div>Register New SN</div>
-    <div>Register New EDC</div>
     <div class="row">
       <div class="col-lg-12">
         <div class="panel">
           <div class="panel-content">
             <form role="form" method="POST" class=" form-horizontal form-validation" id="searchTransaction_form" autocomplete="off" action="{{ route('search_transaction_main') }}">
                   {{ csrf_field() }}
-              <h4>Search by Filter:</h4>
+              <h4>Register New SN</h4>
+                <h4>Register New EDC</h4>
               <div class="form-group">
                 <label class="col-sm-3 control-label">Corporate</label>
                 <div class="col-sm-9">
@@ -134,6 +140,29 @@
             </form>
           </div>
         </div>
+      </div>
+    </div>
+
+<!--modal -->
+    <div id="delEdcModal" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" id="closeDeleteModal" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Delete SN</h4>
+          </div>
+          <div class="modal-body">
+            <p>SN <span id="modalSnText"></span> will be deleted, are you sure ?</p>
+            <form style="display: none;" action="process/delete_user.php" method="POST"><input type="text" name="user_id" id="user_ids" /><input type="submit" id="submitUser"/></form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-primary" onClick="deleteDataSn()">Submit</button>
+          </div>
+        </div>
+
       </div>
     </div>
 
@@ -272,5 +301,59 @@ function getDataSn() {
   }
 });
 }
+
+function deleteSnConfirm() {
+  //alert(username.value);
+
+  var modalSnText = document.getElementById('modalSnText');
+  modalSnText.innerHTML = username.value;
+
+  confirmDelete.click();
+
+  /* */
+}
+
+function deleteDataSn() {
+  $.ajax({
+  type: 'POST',
+  data: { username : username.value },
+  url: "/edc_data/deleteSN",
+  cache: false,
+  success: function(data){
+
+
+    if(data == 'sukses') {
+      deleteFooter.style.display = "";
+      footer.style.display = "none";
+      deleteSnText.innerHTML = "Delete SN <b>" + username.value + "</b> sukses.";
+
+      getSn.disabled = true;
+      delSn.disabled = true;
+
+      $('#delEdcModal').modal('hide');
+    } else if(data == 'gagal') {
+      deleteFooter.style.display = "";
+      footer.style.display = "none";
+      deleteSnText.innerHTML = "Delete SN <b>" + username.value + "</b> gagal.";
+
+      $('#delEdcModal').modal('hide');
+    } else {
+      deleteSnText.innerHTML = "Error.";
+      deleteFooter.style.display = "";
+      footer.style.display = "none";
+
+      $('#delEdcModal').modal('hide');
+    }
+
+
+
+  }
+});
+
+}
+
+
+
+
 </script>
 @endsection
