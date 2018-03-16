@@ -96,6 +96,8 @@ class EdcDataController extends Controller
 
   public function UploadEdc(Request $request)
   {
+    $this->main_menu = $request->get('main_menu');
+    $this->sub_menu = $request->get('sub_menu');
 
     $corporate = $request->input('corporate');
     $merchant = $request->input('merchant');
@@ -104,29 +106,30 @@ class EdcDataController extends Controller
     $filename = $file->getClientOriginalName();
         	// return $filename;
     $path = Storage::putFileAs('/public/upload', $file, $filename); // simpen di folder nya front end
-    /*
+    $storage_path = storage_path('app/public/upload/'.$filename);
+    //return $storage_path;
 
     	$client = new \GuzzleHttp\Client();
 		$response = $client->request('POST', config('constants.api_server').'edc_data/upload_edc', [
       'json' => [
         'corporate' => $corporate,
         'merchant' => $merchant,
-        'file' => $file
+        'storage_path' => $storage_path
       ]
     ]);
 
-		$var = json_decode($response->getBody()->getContents(), true);
+		$var = json_decode($response->getBody()->getContents());
 
     if($var->success == true){
       // Session::put('id', $var->data->Id);
 
       $this->attrib = $var->result;
+      $this->attrib2 = $var->header2;
 
-      return $this->attrib;
-
+      return view('edc_data')->with(['main_menu' => $this->main_menu, 'sub_menu' => $this->sub_menu, 'attrib' => $this->attrib, 'attrib2' => $this->attrib2]);
+      //return $this->attrib;
       //return redirect()->action('HomeController@index');
       //return $username;
     }
-    */
   }
 }

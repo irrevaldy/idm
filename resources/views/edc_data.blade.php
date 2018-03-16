@@ -5,6 +5,7 @@
     <div class="header">
         <h2><i class="fa fa-th" aria-hidden="true"></i><strong>EDC Data</strong></h2>
     </div>
+    @if(!isset($attrib))
     <div class="row">
       <div class="col-lg-12">
         <div class="panel">
@@ -48,10 +49,78 @@
               	</li>
               </ul>
           </div>
+        </div>
   			</div>
       </div>
     </div>
+    @elseif(isset($attrib))
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="panel">
+          <div class="panel-content">
+            <p>
+              <i class="fa fa-circle-o" aria-hidden="true"></i>
+              <b>Corporate Name :</b> {{ $attrib->corporate }}
+            </p><p>
+              <i class="fa fa-circle-o" aria-hidden="true"></i>
+              <b>Merchant Name :</b> {{ $attrib->merchant }}
+            </p>
+            <p>
+              <i class="fa fa-circle-o" aria-hidden="true"></i>
+              <b>Total EDC Existing :</b>
+            </p>
+            <p>
+              <i class="fa fa-circle-o" aria-hidden="true"></i>
+              <b>Total Data will be imported :</b> {{ $attrib->highestRow_count }}
+            </p>
+            <p>
+              <i class="fa fa-circle-o" aria-hidden="true"></i>
+              <b>Total error data :</b>
+            </p>
+            <div class="box-footer with-border" id="footerForm">
+            <form role="form" action="process/import_edc.php" method="POST" autocomplete="off" enctype="multipart/form-data">
+              <input type="text" name="merchant" value="<?php echo $attrib->corporate; ?>" style="display:none">
+              <input type="text" name="target_file" value="<?php echo $attrib->storage_path; ?>" style="display:none">
 
+              <button type="submit" class="btn btn-primary" style="float:right;">Submit</button>
+              <a href="data-edc.php"><button type="button" class="btn btn-warning" style="float:right; margin-right: 5px;">Cancel</button></a>
+
+              </form>
+              <br>
+              <br>
+            </div><!-- /.box-header -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="panel">
+        <div class="panel-content">
+          <div class="form-group">
+            <div class="panel-content pagination2 force-table-responsive" style="overflow-x: hidden;">
+              <h3 class="box-title">List data from file</h3>
+              <table class="table table-bordered" id="tableEdcData">
+                <thead>
+                  <tr>
+                    <th>No</th>
+                  @for ($i = 0; $i < count($attrib2); $i++)
+                    <th>{{ $attrib2[$i] }}</th>
+                      @endfor
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+              </table>
+            </div>
+            </div>
+      </div>
+    </div>
+  </div>
+</div>
+    @endif
 <!--modal -->
     <div id="delEdcModal" class="modal fade" role="dialog">
       <div class="modal-dialog">
@@ -139,7 +208,7 @@
 
             </div>
           </div>
-          
+
           <div class="modal-footer">
             <button type="button" class="btn btn-warning" data-dismiss="modal" id="closeLimit">Close</button>
             <button type="submit" class="btn btn-primary" id="submitModal">Submit</button>
@@ -160,6 +229,11 @@
 <!-- END PAGE SCRIPTS -->
 
 <script type = "text/javascript">
+
+$(document).ready(function(){
+  var tableEdcData = $('#tableEdcData').DataTable();
+
+});
 
 var dataSnText = document.getElementById("dataSnText");
 
@@ -334,6 +408,8 @@ function deleteDataSn() {
 });
 
 }
+
+
 
 </script>
 @endsection
