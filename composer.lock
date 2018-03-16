@@ -4,7 +4,11 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
+<<<<<<< HEAD
     "content-hash": "04e886487aac23055e69b85299b2b85c",
+=======
+    "content-hash": "3329eea63c30d9d2703098b48a83d8f0",
+>>>>>>> 3f67d45d4622579e4708b580c3302579a38b6fba
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -1027,6 +1031,7 @@
             "time": "2015-05-01T07:00:55+00:00"
         },
         {
+<<<<<<< HEAD
             "name": "phpoffice/phpspreadsheet",
             "version": "1.2.0",
             "source": {
@@ -1113,6 +1118,8 @@
             "time": "2018-03-04T20:41:15+00:00"
         },
         {
+=======
+>>>>>>> 3f67d45d4622579e4708b580c3302579a38b6fba
             "name": "psr/http-message",
             "version": "1.0.1",
             "source": {
