@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use Storage;
+use Session;
 
 
 class EdcDataController extends Controller
@@ -107,6 +108,8 @@ class EdcDataController extends Controller
         	// return $filename;
     $path = Storage::putFileAs('/public/upload', $file, $filename); // simpen di folder nya front end
     $storage_path = storage_path('app/public/upload/'.$filename);
+    Session::put('storage_path', $storage_path);
+    $storage_path2 = Session::get('storage_path');
     //return $storage_path;
 
     	$client = new \GuzzleHttp\Client();
@@ -130,6 +133,35 @@ class EdcDataController extends Controller
       //return $this->attrib;
       //return redirect()->action('HomeController@index');
       //return $username;
+    //  return $storage_path2;
+    }
+  }
+
+  public function GetUploadEdcData(Request $request)
+  {
+    $corporate = $request->input('corporate');
+    $merchant = $request->input('merchant');
+    $storage_path = Session::get('storage_path');
+    //return $storage_path;
+
+    $client = new \GuzzleHttp\Client();
+    $response = $client->request('POST', config('constants.api_server').'edc_data/upload_edc', [
+      'json' => [
+        'corporate' => $corporate,
+        'merchant' => $merchant,
+        'storage_path' => $storage_path
+      ]
+    ]);
+
+    $var = json_decode($response->getBody()->getContents());
+
+    if($var->success == true){
+      // Session::put('id', $var->data->Id);
+
+        $this->attrib3 = $var->body;
+
+      return $this->attrib3;
+
     }
   }
 }

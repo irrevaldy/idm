@@ -98,7 +98,7 @@
       <div class="panel">
         <div class="panel-content">
           <div class="form-group">
-            <div class="panel-content pagination2 force-table-responsive" style="overflow-x: hidden;">
+            <div class="panel-content pagination2 force-table-responsive" style="overflow-x: scroll;">
               <h3 class="box-title">List data from file</h3>
               <table class="table table-bordered" id="tableEdcData">
                 <thead>
@@ -110,9 +110,15 @@
                     <th>Status</th>
                   </tr>
                 </thead>
-                <tbody>
-
-                </tbody>
+              <!--  <tbody>
+                  <tr>
+                    <th>1</th>
+                    @for ($i = 0; $i < count($attrib2); $i++)
+                      <th>{{ $attrib2[$i] }}</th>
+                        @endfor
+                    <th>Status</th>
+                      <tr>
+                </tbody>-->
               </table>
             </div>
             </div>
@@ -232,6 +238,61 @@
 
 $(document).ready(function(){
   var tableEdcData = $('#tableEdcData').DataTable();
+
+  $.ajax({
+    dataType: 'JSON',
+    type: 'GET',
+    url: '/edc_data/get_edc_data',
+    success: function (data) {
+      tableEdcData.clear().draw();
+
+      for (var i = 0; i < data.length; i++) {
+        var a = data[i][1];
+        var b = data[i][9];
+        var c = data[i][10];
+        var d = data[i][13];
+        var e = data[i][14];
+        var f = data[i][17];
+        var g = data[i][18];
+        var h = data[i][21];
+        var ii = data[i][22];
+        var j = data[i][25];
+        var k = data[i][26];
+        var l = data[i][30];
+        var m = data[i][31];
+        var n = data[i][32];
+        var o = data[i][33];
+        var p = data[i][34];
+        var q = data[i][35];
+        var r = data[i]['status'];
+
+
+        var jRow = $('<tr>').append(
+          '<td>'+ (i + 1) +'</td>',
+            '<td>'+ a +'</td>',
+            '<td>'+ b +'</td>',
+            '<td>'+ c +'</td>',
+            '<td>'+ d +'</td>',
+            '<td>'+ e +'</td>',
+            '<td>'+ f +'</td>',
+            '<td>'+ g +'</td>',
+            '<td>'+ h +'</td>',
+            '<td>'+ ii +'</td>',
+            '<td>'+ j +'</td>',
+            '<td>'+ k +'</td>',
+            '<td>'+ l +'</td>',
+            '<td>'+ m +'</td>',
+            '<td>'+ n +'</td>',
+            '<td>'+ o +'</td>',
+            '<td>'+ p +'</td>',
+            '<td>'+ q +'</td>',
+            '<td>'+ r +'</td>'
+            );
+
+        tableEdcData.row.add(jRow).draw();
+      }
+    }
+    });
 
 });
 
