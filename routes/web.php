@@ -46,7 +46,7 @@ Route::post('/edc_data/getSN','EdcDataController@GetSN');
 Route::post('/edc_data/deleteSN','EdcDataController@DeleteSN');
 Route::post('/edc_data/upload_edc','EdcDataController@UploadEdc');
 Route::get('/edc_data/get_edc_data','EdcDataController@GetUploadEdcData');
-
+Route::post('edc_data/activate_edc','EdcDataController@ActivateEdc');
 
 Route::get('/administration/corporate_merchant','CorporateMerchantController@index');
 Route::get('/administration/users_groups','UsersGroupsController@index');

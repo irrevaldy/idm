@@ -10,6 +10,11 @@
       <div class="col-lg-12">
         <div class="panel">
           <div class="panel-content">
+            @if(isset($attrib4))
+            <div>
+              Add corporate Success
+              </div>
+              @endif
             <form role="form" method="POST" class=" form-horizontal form-validation" id="searchTransaction_form" autocomplete="off" action="{{ route('search_transaction_main') }}">
                   {{ csrf_field() }}
               <h4>Search SN</h4>
@@ -78,12 +83,12 @@
               <b>Total error data :</b>
             </p>
             <div class="box-footer with-border" id="footerForm">
-            <form role="form" action="process/import_edc.php" method="POST" autocomplete="off" enctype="multipart/form-data">
-              <input type="text" name="merchant" value="<?php echo $attrib->corporate; ?>" style="display:none">
-              <input type="text" name="target_file" value="<?php echo $attrib->storage_path; ?>" style="display:none">
+            <form role="form" action="/edc_data/activate_edc" method="POST" autocomplete="off" enctype="multipart/form-data">
+              <input type="text" name="merchant" value="<?php echo $attrib->merchant; ?>" style="display:none">
+              <input type="text" name="storage_path" value="<?php echo $attrib->storage_path; ?>" style="display:none">
 
               <button type="submit" class="btn btn-primary" style="float:right;">Submit</button>
-              <a href="data-edc.php"><button type="button" class="btn btn-warning" style="float:right; margin-right: 5px;">Cancel</button></a>
+              <a href="/edc_data/upload_edc"><button type="button" class="btn btn-warning" style="float:right; margin-right: 5px;">Cancel</button></a>
 
               </form>
               <br>
@@ -469,8 +474,5 @@ function deleteDataSn() {
 });
 
 }
-
-
-
 </script>
 @endsection

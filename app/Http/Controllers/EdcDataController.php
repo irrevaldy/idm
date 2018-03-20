@@ -164,4 +164,36 @@ class EdcDataController extends Controller
 
     }
   }
+
+  public function ActivateEdc(Request $request)
+  {
+    $this->main_menu = $request->get('main_menu');
+    $this->sub_menu = $request->get('sub_menu');
+
+    $merchant = $request->input('merchant');
+    $storage_path = $request->input('storage_path');
+
+    $client = new \GuzzleHttp\Client();
+    $response = $client->request('POST', config('constants.api_server').'edc_data/activate_edc', [
+      'json' => [
+        'merchant' => $merchant,
+        'storage_path' => $storage_path,
+        'username' => Session::get('username'),
+        'user_id' => Session::get('user_id'),
+        'name' => Session::get('name')
+      ]
+    ]);
+
+    $var = json_decode($response->getBody()->getContents());
+
+    if($var->success == true){
+      // Session::put('id', $var->data->Id);
+
+        $this->attrib4 = $var->result;
+
+        //return $this->attrib4;
+      return view('edc_data')->with(['main_menu' => $this->main_menu, 'sub_menu' => $this->sub_menu, 'attrib4' => $this->attrib4]);
+
+    }
+  }
 }
