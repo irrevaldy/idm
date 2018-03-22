@@ -202,7 +202,7 @@
               </div>
 
               <!-- form profile -->
-              <form autocomplete="off">
+              <form id="updatePassword_form" autocomplete="off">
               <div class="modal-body">
 
                 <div class="box-body">
@@ -292,12 +292,12 @@
                 </div>
               </div>
               <button type="submit" class="btn btn-primary" style="display: none;" id="submitBtn">Save changes</button>
-              </form> <!-- end of form profile -->
+
               <div class="modal-footer">
                 <button type="button" class="btn btn-warning" data-dismiss="modal" id="closeProfile">Close</button>
-                <button type="button" class="btn btn-primary" onClick="submit()" id="submitModal">Save changes</button>
+                <button type="button" class="btn btn-primary" id="submitModal">Save changes</button>
               </div>
-
+            </form> <!-- end of form profile -->
             </div>
           </div>
         </div>
@@ -392,7 +392,8 @@
         }
       });
 
-      $("#submitModal").click(function(e){
+      $("#submitModal").click(function(e)
+      {
     e.preventDefault();
 
     $('.btn-primary').prop('disabled', true);
@@ -421,18 +422,25 @@
           console.log(data['status']);
           var result = data['status'];
 
-          if(result == '#SUCCESS') {
+          if(result == '#SUCCESS')
+          {
+            $('#oldPassword').val('').trigger('change');
+            $('#newPassword').val('').trigger('change');
+
+          //  $('#updatePassword_form')[0].reset();
 
             setTimeout(function(){ $('#profileModal').modal('hide'); }, 1500);
-          }
+
+              }
           else if(result == '#ERROR')
           {
+
 
           }
         }
       });
     }
-    //$('.btn-primary').prop('disabled', false);
+    $('.btn-primary').prop('disabled', false);
   });
 
     </script>
