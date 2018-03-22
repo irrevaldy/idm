@@ -148,25 +148,159 @@
           </div>
           <div class="header-right">
             <ul class="header-menu nav navbar-nav">
+              <li class="dropdown user user-menu">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  <!-- <img src="dist/img/photo.png" class="user-image" alt="User Image">-->
+                  <span class="name" style="color:white;">{{ Session::get('name') }}</span>
+                </a>
+                <ul class="dropdown-menu">
+                  <!-- User image -->
+                  <li class="user-header">
+                    <!-- <img src="dist/img/photo.png" class="img-circle" alt="User Image"> -->
+                    <p>
+                      <span class="name">{{ Session::get('name') }}</span><br>
+                      <small>{{ Session::get('groupName') }} - {{ Session::get('FNAME') }} ({{ Session::get('branch_code') }})</small>
+                    </p>
+                  </li>
+                  <!-- Menu Body -->
+                  <!-- <li class="user-body">
+                    <div class="col-xs-4 text-center">
+                      <a href="#">Followers</a>
+                    </div>
+                    <div class="col-xs-4 text-center">
+                      <a href="#">Sales</a>
+                    </div>
+                    <div class="col-xs-4 text-center">
+                      <a href="#">Friends</a>
+                    </div>
+                  </li> -->
+                  <!-- Menu Footer-->
+                  <li class="user-footer">
+                    <div class="pull-left">
+                      <!-- <a href="#" class="btn btn-default btn-flat" data-toggle="modal" data-target="#myModal">Profile</a> -->
+                      <button type="button" class="btn btn-default btn-flat" data-toggle="modal" data-target="#profileModal">Profile</button>
+                    </div>
+                    <div class="pull-right">
+                      <a href="{{ route('logout') }}" class="btn btn-default btn-flat">Sign out</a>
+                    </div>
+                  </li>
+                </ul>
+              </li>
 
 
-            <!-- BEGIN USER DROPDOWN -->
-            <li class="dropdown" id="user-header">
-              <a href="#" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-              <span class="username" style="color:white;"> {{ Session::get('name') }} </span>
-              </a>
-              <ul class="dropdown-menu">
-                <li>
-                  <a href="{{ route('logout') }}"><i class="icon-logout"></i><span>Logout</span></a>
-                </li>
-              </ul>
-            </li>
-            <!-- END USER DROPDOWN -->
           </ul>
         </div>
         <!-- header-right -->
       </div>
         <!-- END TOPBAR -->
+        <div class="modal fade" id="profileModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel"><i class="fa fa-user" aria-hidden="true"></i> Edit Profile </h4>
+              </div>
+
+              <!-- form profile -->
+              <form autocomplete="off">
+              <div class="modal-body">
+
+                <div class="box-body">
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Group</label>
+                                <select class="form-control select2" name="group" id="group" style="width: 100%;" required="required" onChange="checkGroup(this)" disabled>
+                                  @if( Session::get('FCODE') == 'pvs1909' )
+                                  <option value="a" selected></option>
+                                  @else
+                                  <option value="b" selected>{{ Session::get('groupName') }}</option>
+                                  @endif
+                                <option></option>
+
+
+                                </select>
+                            </div><!-- /.form-group -->
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Branch</label>
+                                <input type="text" class="form-control" id="branch" name="branch" placeholder="Branch" maxlength="30" value="{{ Session::get('branch_code') }}">
+                            </div><!-- /.form-group -->
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                  	        <div class="form-group">
+                                <label for="exampleInputEmail1">Name</label>
+                                <input type="hidden" name="user_id" id="user_id" value="{{ Session::get('user_id') }}">
+                                <input type="text" name="name" id="name" class="form-control" id="exampleInputEmail1" placeholder="Name" maxlength="50" value="{{ Session::get('name') }}" required="required">
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Username</label>
+                                <input type="text" class="form-control readonly" id="username" name="username" placeholder="Username" maxlength="30" value="{{ Session::get('username') }}" required="required">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Old Password</label>
+                                <input type="password" class="form-control" id="oldPassword" name="oldPassword" placeholder="Old Password" maxlength="50" onchange="checkOldPass(this)">
+                            </div>
+                        </div>
+
+                        <script type="text/javascript">
+
+                            function checkOldPass(id){
+                                //alert(id.value);
+
+                                var newPassword = document.getElementById('newPassword');
+
+                                if(id.value == '') {
+                                    newPassword.disabled = true;
+                                } else {
+                                    newPassword.disabled = false;
+                                }
+                            }
+
+                        </script>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                    	        <label>New Password</label>
+                                <input type="password" class="form-control" id="newPassword" name="newPassword" placeholder="New Password" maxlength="50" required="required" disabled>
+                            </div><!-- /.form-group -->
+                        </div>
+                    </div>
+
+                    <div class="row" style="display: none;">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                    	        <label>Note</label>
+                                <textarea class="form-control" rows="3" name="note" id="note" placeholder="Type your note here ..." maxlength="300">a</textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-primary" style="display: none;" id="submitBtn">Save changes</button>
+              </form> <!-- end of form profile -->
+              <div class="modal-footer">
+                <button type="button" class="btn btn-warning" data-dismiss="modal" id="closeProfile">Close</button>
+                <button type="button" class="btn btn-primary" onClick="submit()" id="submitModal">Save changes</button>
+              </div>
+
+            </div>
+          </div>
+        </div>
         <!-- BEGIN PAGE CONTENT -->
         <div class="page-content">
           <!-- <div class="header">
@@ -257,6 +391,64 @@
           });
         }
       });
+
+      $("#submitModal").click(function(e){
+    e.preventDefault();
+
+    $('.btn-primary').prop('disabled', true);
+
+    if($('input[name="name"]').val().length <= 0)
+    {
+      $('#submitBtn').click();
+    }
+    else
+    {
+        $.ajax({
+        type: 'POST',
+        data: {
+          user_id           : $('input[name="user_id"]').val(),
+          name              : $('input[name="name"]').val(),
+          username          : $('input[name="username"]').val(),
+          oldPassword       : $('input[name="oldPassword"]').val(),
+          newPassword       : $('input[name="newPassword"]').val(),
+          note              : $('input[name="note"]').val(),
+          },
+        //headers: {'X-CSRF-TOKEN': "{{ csrf_token() }}"},
+        url: '/update_password',
+
+        success: function (data)
+        {
+          console.log(data['status']);
+          var result = data['status'];
+
+          if(result == '#SUCCESS') {
+            //alert('successs');
+            $('#profileModal .modal-title strong').notify(
+              'sukses',
+              {
+                position:"right",
+                className: 'success',
+              }
+            );
+
+            //$('.close').click();
+
+            setTimeout(function(){ $('#profileModal').modal('hide'); }, 1500);
+          }
+          else if(result == '#ERROR')
+          {
+            $('#profileModal .modal-title strong').notify(
+              'error',
+              {
+                position:"right",
+              }
+            );
+          }
+        }
+      });
+    }
+    //$('.btn-primary').prop('disabled', false);
+  });
 
     </script>
 
