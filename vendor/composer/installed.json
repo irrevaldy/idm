@@ -3843,7 +3843,6 @@
             "xlsx"
         ],
         "abandoned": "phpoffice/phpspreadsheet"
-<<<<<<< HEAD
     },
     {
         "name": "psr/simple-cache",
@@ -3982,7 +3981,5 @@
             "xls",
             "xlsx"
         ]
-=======
->>>>>>> 3f67d45d4622579e4708b580c3302579a38b6fba
     }
 ]
