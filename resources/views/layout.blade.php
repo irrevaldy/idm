@@ -422,27 +422,12 @@
           var result = data['status'];
 
           if(result == '#SUCCESS') {
-            //alert('successs');
-            $('#profileModal .modal-title strong').notify(
-              'sukses',
-              {
-                position:"right",
-                className: 'success',
-              }
-            );
-
-            //$('.close').click();
 
             setTimeout(function(){ $('#profileModal').modal('hide'); }, 1500);
           }
           else if(result == '#ERROR')
           {
-            $('#profileModal .modal-title strong').notify(
-              'error',
-              {
-                position:"right",
-              }
-            );
+
           }
         }
       });

@@ -52,6 +52,9 @@ Route::get('/administration/corporate_merchant','CorporateMerchantController@ind
 Route::get('/administration/users_groups','UsersGroupsController@index');
 Route::get('/administration/users_groups/get_all_dataUsers','UsersGroupsController@getUsersData');
 Route::get('/administration/users_groups/get_all_dataGroups','UsersGroupsController@getGroupsData');
+Route::get('/administration/users_groups/get_all_dataCorporate','CorporateMerchantController@getCorporateData');
+Route::get('/administration/users_groups/get_all_dataMerchant','CorporateMerchantController@getMerchantData');
+
 
 Route::get('/audit_trail','AuditTrailController@index');
 Route::get('/audit_trail/get_all_data','AuditTrailController@getAllData');

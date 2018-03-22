@@ -25,7 +25,7 @@
                 <label class="col-sm-3 control-label" for="exampleInputEmail1">SN</label><strong class="" id="silang_text" style="color: #FF5656;display: none;">SN is not found</strong><strong id="centang_text" style="color: #2AE800;display: none;"> is Exist</strong>
                 <div class="input-group">
 
-                  <input type="text" class="form-control" id="username" name="username" placeholder="SN" maxlength="30" required="required" onChange="checkUsername('username')" style="border-right: 0px;">
+                  <input type="text" class="form-control" id="sn" name="sn" placeholder="SN" maxlength="30" required="required" onChange="checkUsername('sn')" style="border-right: 0px;">
                   <div class="input-group-addon" id="addonBox" style="display:">
                     <i class="fa fa-spinner fa-pulse" id="spinner" style="color: #0055FF;display: none;"></i>
                     <i class="fa fa-check" id="centang" aria-hidden="true" style="color: #2AE800;display: none;"></i>
@@ -88,7 +88,7 @@
               <input type="text" name="storage_path" value="<?php echo $attrib->storage_path; ?>" style="display:none">
 
               <button type="submit" class="btn btn-primary" style="float:right;">Submit</button>
-              <a href="/edc_data/upload_edc"><button type="button" class="btn btn-warning" style="float:right; margin-right: 5px;">Cancel</button></a>
+              <a href="/edc_data"><button type="button" class="btn btn-warning" style="float:right; margin-right: 5px;">Cancel</button></a>
 
               </form>
               <br>
@@ -144,7 +144,7 @@
           </div>
           <div class="modal-body">
             <p>SN <span id="modalSnText"></span> will be deleted, are you sure ?</p>
-            <form style="display: none;" action="process/delete_user.php" method="POST"><input type="text" name="user_id" id="user_ids" /><input type="submit" id="submitUser"/></form>
+            <form style="display: none;" method="POST"><input type="text" name="user_id" id="user_id" /><input type="submit" id="submitUser"/></form>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
@@ -327,19 +327,19 @@ function checkUsername(id){
     spinner.style.display = "";
     $.ajax({
       type: 'POST',
-      data: { username : username.value },
+      data: { username : sn.value },
       url: "/edc_data/checkSN",
       cache: false,
-      success: function(msg){
+      success: function(data){
 
         //alert(msg);
 
-        if(msg == "not") {
+        if(data == "not") {
           spinner.style.display = "none";
           silang.style.display = "";
           silang_text.style.display = "";
 
-          username.style.borderColor = "#FF5656";
+          sn.style.borderColor = "#FF5656";
           addonBox.style.borderColor = "#FF5656";
 
           username_txt = "exist";
@@ -371,12 +371,12 @@ function checkUsername(id){
   }
 }
 
-var username = document.getElementById('username');
+var sn= document.getElementById('sn');
 var addonBox = document.getElementById('addonBox');
 
-username.onfocus = function() {
+sn.onfocus = function() {
 addonBox.style.borderColor = "#3c8dbc";
-username.style.borderColor = "#3c8dbc";
+sn.style.borderColor = "#3c8dbc";
 
 spinner.style.display = "none";
 silang.style.display = "none";
@@ -388,14 +388,14 @@ if ($(".blink")[0]){
     //alert('blink exist');
     $("#silang_text").removeClass("blink");
     $("#addonBox").removeClass("blinkBorder");
-    $("#username").removeClass("blinkBorder");
+    $("#sn").removeClass("blinkBorder");
 }
 
 $("#addonBox").removeClass("blinkBorderOk");
-$("#username").removeClass("blinkBorderOk");
+$("#sn").removeClass("blinkBorderOk");
 }
 
-username.onblur = function(){
+sn.onblur = function(){
 addonBox.style.borderColor = "#d2d6de";
 username.style.borderColor = "#d2d6de";
 

@@ -9,7 +9,7 @@
       <div class="col-lg-12">
         <div class="panel">
           <div class="panel-content">
-            <form role="form" method="POST" class=" form-horizontal form-validation" id="searchTransaction_form" autocomplete="off" action="{{ route('search_transaction_main') }}">
+            <form role="form" method="POST" class=" form-horizontal form-validation" id="searchTransaction_form" autocomplete="off">
                   {{ csrf_field() }}
               <h4>Search by Filter:</h4>
               <div class="form-group">
@@ -67,13 +67,12 @@
                 </div>
               </div>
               <div class="modal-footer">
-                <button type="submit" id="true-button-insert" style="visibility: hidden;">Submit</button>
-                <button type="button" class="btn btn-primary btn-embossed" id="btnSubmit"  >Submit</button>
+                  <button type="button" class="btn btn-primary btn-embossed" id="btnSubmit" onclick="summonTable()" >Submit</button>
               </div>
-              @if(isset($attrib))
+
               <div class="form-group">
                 <div class="panel-content pagination2 force-table-responsive" style="overflow-x: hidden;">
-                  <table class="table" id="tableSearch" >
+                  <table class="table" id="tableSearch">
                     <thead>
                       <tr>
                         <th>Host</th>
@@ -95,34 +94,9 @@
                         <th>Net</th>
                       </tr>
                     </thead>
-                    <tbody>
-
-                      @foreach($attrib as $key => $value)
-                      <tr>
-                        <td>{{ $value->FNAME }}</td>
-                        <td>{{ $value->FMID }}</td>
-                        <td>{{ $value->FTID }}</td>
-                        <td>{{ $value->FBRANCHCODE }}</td>
-                        <td>{{ $value->FSTORECODE }}</td>
-                        <td>{{ $value->FTRX_LABEL }}</td>
-                        <td>{{ $value->FCARDNUM }}</td>
-                        <td>{{ $value->FPREPAIDCARDNUM }}</td>
-                        <td>{{ $value->FINVNUM }}</td>
-                        <td>{{ $value->FDATE }}</td>
-                        <td>{{ $value->FTIME }}</td>
-                        <td>{{ $value->FRESPCODE }}</td>
-                        <td>{{ $value->FSTATUS }}</td>
-                        <td>{{ $value->FAPPRCODE }}</td>
-                        <td>{{ $value->FAMOUNT }}</td>
-                        <td>{{ $value->FREDEEM }}</td>
-                        <td>{{ $value->NET }}</td>
-                        <tr>
-                          @endforeach
-                    </tbody>
                   </table>
                 </div>
                 </div>
-                @endif
             </form>
           </div>
   			</div>
@@ -139,18 +113,15 @@
 <script src="{{ asset('assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js') }}"></script> <!-- >Bootstrap Date Picker -->
 <!-- END PAGE SCRIPTS -->
 
+
+
 <script type="text/javascript">
-
-function initTable(){
-  var tableSearch = $('#tableSearch').DataTable();
-
-
-}
-/*
-
 $("#btnSubmit").click(function(e)
 {
+
   e.preventDefault();
+
+  var tableSearch = $('#tableSearch').DataTable();
 
   $('.btn-primary').prop('disabled', true);
 
@@ -168,16 +139,11 @@ $("#btnSubmit").click(function(e)
           transaction_date    : $('input[name="transaction_date"]').val()
           // ,ModifiedBy        : "ADMIN"
         },
-        headers: {'X-CSRF-TOKEN': "{{ csrf_token() }}"},
+        //headers: {'X-CSRF-TOKEN': "{{ csrf_token() }}"},
         url: '/search_transaction/main_data',
         success: function (data)
         {
-            if(res['success'] == true)
-            {
-              initTable();
-              data = data['data'];
-
-              var searchCount = 0;
+              tableSearch.clear().draw();
 
               for (var i = 0; i < data.length; i++)
               {
@@ -220,20 +186,12 @@ $("#btnSubmit").click(function(e)
                       '<td>'+ fnet +'</td>',
                       );
                   tableSearch.row.add(jRow).draw();
-                  localCount++;
                 }
-            } // end if(data['status'] == '#SUCCESS')
-
-            else {
-
-              console.log(res['result']);
-            }
         }
       });
 
     $('.btn-primary').prop('disabled', false);
   });
-*/
 
 </script>
 @endsection
