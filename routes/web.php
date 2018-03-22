@@ -45,11 +45,19 @@ Route::post('/edc_data/checkSN','EdcDataController@CheckSN');
 Route::post('/edc_data/getSN','EdcDataController@GetSN');
 Route::post('/edc_data/deleteSN','EdcDataController@DeleteSN');
 Route::post('/edc_data/upload_edc','EdcDataController@UploadEdc');
-
+Route::get('/edc_data/get_edc_data','EdcDataController@GetUploadEdcData');
+Route::post('edc_data/activate_edc','EdcDataController@ActivateEdc');
 
 Route::get('/administration/corporate_merchant','CorporateMerchantController@index');
 Route::get('/administration/users_groups','UsersGroupsController@index');
+Route::get('/administration/users_groups/get_all_dataUsers','UsersGroupsController@getUsersData');
+Route::get('/administration/users_groups/get_all_dataGroups','UsersGroupsController@getGroupsData');
+Route::get('/administration/users_groups/get_all_dataCorporate','CorporateMerchantController@getCorporateData');
+Route::get('/administration/users_groups/get_all_dataMerchant','CorporateMerchantController@getMerchantData');
+
 
 Route::get('/audit_trail','AuditTrailController@index');
 Route::get('/audit_trail/get_all_data','AuditTrailController@getAllData');
 Route::post('/audit_trail/result','AuditTrailController@getAuditTrail')->name('search_audit_trail');
+
+Route::post('/update_password','GlobalController@UpdatePassword');

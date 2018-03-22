@@ -56,14 +56,15 @@ class SearchController extends Controller
 
     		//return $var;
 
-        if($var->success == true){
+        if($var->success == true)
+        {
     			// Session::put('id', $var->data->Id);
           $this->attrib = $var->result;
 
-    			return view('search_transaction')->with(['main_menu' => $this->main_menu, 'sub_menu' => $this->sub_menu, 'attrib' => $this->attrib]);
-
+    			//return view('search_transaction')->with(['main_menu' => $this->main_menu, 'sub_menu' => $this->sub_menu, 'attrib' => $this->attrib]);
+          //return redirect()->action('SearchController@index', ['attrib' => $this->attrib]);
           //return redirect()->action('HomeController@index');
-          //return $username;
+          return $this->attrib;
     		}
     		else{
     			return Redirect::back()->withInput()->withErrors($var->message);

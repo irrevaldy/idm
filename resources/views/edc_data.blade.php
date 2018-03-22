@@ -10,6 +10,11 @@
       <div class="col-lg-12">
         <div class="panel">
           <div class="panel-content">
+            @if(isset($attrib4))
+            <div>
+              Add corporate Success
+              </div>
+              @endif
             <form role="form" method="POST" class=" form-horizontal form-validation" id="searchTransaction_form" autocomplete="off" action="{{ route('search_transaction_main') }}">
                   {{ csrf_field() }}
               <h4>Search SN</h4>
@@ -20,7 +25,7 @@
                 <label class="col-sm-3 control-label" for="exampleInputEmail1">SN</label><strong class="" id="silang_text" style="color: #FF5656;display: none;">SN is not found</strong><strong id="centang_text" style="color: #2AE800;display: none;"> is Exist</strong>
                 <div class="input-group">
 
-                  <input type="text" class="form-control" id="username" name="username" placeholder="SN" maxlength="30" required="required" onChange="checkUsername('username')" style="border-right: 0px;">
+                  <input type="text" class="form-control" id="sn" name="sn" placeholder="SN" maxlength="30" required="required" onChange="checkUsername('sn')" style="border-right: 0px;">
                   <div class="input-group-addon" id="addonBox" style="display:">
                     <i class="fa fa-spinner fa-pulse" id="spinner" style="color: #0055FF;display: none;"></i>
                     <i class="fa fa-check" id="centang" aria-hidden="true" style="color: #2AE800;display: none;"></i>
@@ -78,12 +83,12 @@
               <b>Total error data :</b>
             </p>
             <div class="box-footer with-border" id="footerForm">
-            <form role="form" action="process/import_edc.php" method="POST" autocomplete="off" enctype="multipart/form-data">
-              <input type="text" name="merchant" value="<?php echo $attrib->corporate; ?>" style="display:none">
-              <input type="text" name="target_file" value="<?php echo $attrib->storage_path; ?>" style="display:none">
+            <form role="form" action="/edc_data/activate_edc" method="POST" autocomplete="off" enctype="multipart/form-data">
+              <input type="text" name="merchant" value="<?php echo $attrib->merchant; ?>" style="display:none">
+              <input type="text" name="storage_path" value="<?php echo $attrib->storage_path; ?>" style="display:none">
 
               <button type="submit" class="btn btn-primary" style="float:right;">Submit</button>
-              <a href="data-edc.php"><button type="button" class="btn btn-warning" style="float:right; margin-right: 5px;">Cancel</button></a>
+              <a href="/edc_data"><button type="button" class="btn btn-warning" style="float:right; margin-right: 5px;">Cancel</button></a>
 
               </form>
               <br>
@@ -98,7 +103,7 @@
       <div class="panel">
         <div class="panel-content">
           <div class="form-group">
-            <div class="panel-content pagination2 force-table-responsive" style="overflow-x: hidden;">
+            <div class="panel-content pagination2 force-table-responsive" style="overflow-x: scroll;">
               <h3 class="box-title">List data from file</h3>
               <table class="table table-bordered" id="tableEdcData">
                 <thead>
@@ -110,9 +115,15 @@
                     <th>Status</th>
                   </tr>
                 </thead>
-                <tbody>
-
-                </tbody>
+              <!--  <tbody>
+                  <tr>
+                    <th>1</th>
+                    @for ($i = 0; $i < count($attrib2); $i++)
+                      <th>{{ $attrib2[$i] }}</th>
+                        @endfor
+                    <th>Status</th>
+                      <tr>
+                </tbody>-->
               </table>
             </div>
             </div>
@@ -133,7 +144,7 @@
           </div>
           <div class="modal-body">
             <p>SN <span id="modalSnText"></span> will be deleted, are you sure ?</p>
-            <form style="display: none;" action="process/delete_user.php" method="POST"><input type="text" name="user_id" id="user_ids" /><input type="submit" id="submitUser"/></form>
+            <form style="display: none;" method="POST"><input type="text" name="user_id" id="user_id" /><input type="submit" id="submitUser"/></form>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
@@ -233,6 +244,61 @@
 $(document).ready(function(){
   var tableEdcData = $('#tableEdcData').DataTable();
 
+  $.ajax({
+    dataType: 'JSON',
+    type: 'GET',
+    url: '/edc_data/get_edc_data',
+    success: function (data) {
+      tableEdcData.clear().draw();
+
+      for (var i = 0; i < data.length; i++) {
+        var a = data[i][1];
+        var b = data[i][9];
+        var c = data[i][10];
+        var d = data[i][13];
+        var e = data[i][14];
+        var f = data[i][17];
+        var g = data[i][18];
+        var h = data[i][21];
+        var ii = data[i][22];
+        var j = data[i][25];
+        var k = data[i][26];
+        var l = data[i][30];
+        var m = data[i][31];
+        var n = data[i][32];
+        var o = data[i][33];
+        var p = data[i][34];
+        var q = data[i][35];
+        var r = data[i]['status'];
+
+
+        var jRow = $('<tr>').append(
+          '<td>'+ (i + 1) +'</td>',
+            '<td>'+ a +'</td>',
+            '<td>'+ b +'</td>',
+            '<td>'+ c +'</td>',
+            '<td>'+ d +'</td>',
+            '<td>'+ e +'</td>',
+            '<td>'+ f +'</td>',
+            '<td>'+ g +'</td>',
+            '<td>'+ h +'</td>',
+            '<td>'+ ii +'</td>',
+            '<td>'+ j +'</td>',
+            '<td>'+ k +'</td>',
+            '<td>'+ l +'</td>',
+            '<td>'+ m +'</td>',
+            '<td>'+ n +'</td>',
+            '<td>'+ o +'</td>',
+            '<td>'+ p +'</td>',
+            '<td>'+ q +'</td>',
+            '<td>'+ r +'</td>'
+            );
+
+        tableEdcData.row.add(jRow).draw();
+      }
+    }
+    });
+
 });
 
 var dataSnText = document.getElementById("dataSnText");
@@ -261,19 +327,19 @@ function checkUsername(id){
     spinner.style.display = "";
     $.ajax({
       type: 'POST',
-      data: { username : username.value },
+      data: { username : sn.value },
       url: "/edc_data/checkSN",
       cache: false,
-      success: function(msg){
+      success: function(data){
 
         //alert(msg);
 
-        if(msg == "not") {
+        if(data == "not") {
           spinner.style.display = "none";
           silang.style.display = "";
           silang_text.style.display = "";
 
-          username.style.borderColor = "#FF5656";
+          sn.style.borderColor = "#FF5656";
           addonBox.style.borderColor = "#FF5656";
 
           username_txt = "exist";
@@ -305,12 +371,12 @@ function checkUsername(id){
   }
 }
 
-var username = document.getElementById('username');
+var sn= document.getElementById('sn');
 var addonBox = document.getElementById('addonBox');
 
-username.onfocus = function() {
+sn.onfocus = function() {
 addonBox.style.borderColor = "#3c8dbc";
-username.style.borderColor = "#3c8dbc";
+sn.style.borderColor = "#3c8dbc";
 
 spinner.style.display = "none";
 silang.style.display = "none";
@@ -322,14 +388,14 @@ if ($(".blink")[0]){
     //alert('blink exist');
     $("#silang_text").removeClass("blink");
     $("#addonBox").removeClass("blinkBorder");
-    $("#username").removeClass("blinkBorder");
+    $("#sn").removeClass("blinkBorder");
 }
 
 $("#addonBox").removeClass("blinkBorderOk");
-$("#username").removeClass("blinkBorderOk");
+$("#sn").removeClass("blinkBorderOk");
 }
 
-username.onblur = function(){
+sn.onblur = function(){
 addonBox.style.borderColor = "#d2d6de";
 username.style.borderColor = "#d2d6de";
 
@@ -408,8 +474,5 @@ function deleteDataSn() {
 });
 
 }
-
-
-
 </script>
 @endsection
