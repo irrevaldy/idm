@@ -222,17 +222,19 @@
               </div>
 
               <!-- form profile -->
-              <form role="form" action="process/add_merchant.php" method="POST" autocomplete="off" enctype="multipart/form-data">
+              <form role="form" action="/administration/corporate_merchant/addMerchant" method="POST" autocomplete="off" enctype="multipart/form-data">
               <div class="modal-body">
                 <div class="box-body">
                   <div class="row">
                     <div class="col-md-6">
                       <div class="form-group">
                         <label>Corporate </label>
-                        <select class="form-control corp" name="corporateId" id="trxType" style="width: 100%;" required="required">
+                        <input type="text" class="form-control" name="corporateId" id="trxType" required="required" placeholder="corporate">
+
+                        <!--<select class="form-control corp" name="corporateId" id="trxType" style="width: 100%;" required="required">
                           <option></option>
 
-                        </select>
+                        </select>-->
                       </div><!-- /.form-group -->
                     </div>
                   </div>
@@ -249,10 +251,10 @@
                         <label for="exampleInputEmail1">Merchant Logo</label>
                         <strong class="" id="silang_text" style="color: #FF5656;display: none;"> must be filled</strong>
                         <div class="input-group input-group-sm">
-                          <input type="file" name="uploadedfile" id="logoBrowse" style="display:none;" onChange="setFileName()">
-                          <input type="text" class="form-control" readonly="readonly" id="logoText">
+                          <input type="file" name="uploadedfile" id="logoBrowseo" style="display:none;" onChange="setFileNameMerchant()">
+                          <input type="text" class="form-control" readonly="readonly" id="logoTexto">
                           <span class="input-group-btn">
-                            <button class="btn btn-info btn-flat" id="browseFile" type="button" onclick="$('#logoBrowse').click();">Browse</button>
+                            <button class="btn btn-info btn-flat" id="browseFileo" type="button" onclick="$('#logoBrowseo').click();">Browse</button>
                           </span>
                         </div><!-- /input-group -->
                       </div>
@@ -260,10 +262,10 @@
 
                     <script type="text/javascript">
 
-                      function setFileName() {
-                        var input = document.getElementById("logoBrowse");
-                        var logoText = document.getElementById("logoText");
-                        var browseFile = document.getElementById("browseFile");
+                      function setFileNameMerchant() {
+                        var input = document.getElementById("logoBrowseo");
+                        var logoText = document.getElementById("logoTexto");
+                        var browseFile = document.getElementById("browseFileo");
                         //alert(input.files[0].name);
 
                         logoText.value = input.files[0].name;
@@ -331,7 +333,7 @@
                           <input type="file" name="uploadedfile" id="editLogoBrowse" style="display:none;" onChange="setFileNameEdit()">
                           <input type="text" class="form-control" readonly="readonly" id="editLogoText">
                           <span class="input-group-btn">
-                            <button class="btn btn-info btn-flat" id="browseFile" type="button" onclick="$('#editLogoBrowse').click();">Browse</button>
+                            <button class="btn btn-info btn-flat" id="editBrowseFile" type="button" onclick="$('#editLogoBrowse').click();">Browse</button>
                           </span>
                         </div><!-- /input-group -->
                       </div>
