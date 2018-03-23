@@ -52,8 +52,14 @@ Route::get('/administration/corporate_merchant','CorporateMerchantController@ind
 Route::get('/administration/users_groups','UsersGroupsController@index');
 Route::get('/administration/users_groups/get_all_dataUsers','UsersGroupsController@getUsersData');
 Route::get('/administration/users_groups/get_all_dataGroups','UsersGroupsController@getGroupsData');
-Route::get('/administration/users_groups/get_all_dataCorporate','CorporateMerchantController@getCorporateData');
-Route::get('/administration/users_groups/get_all_dataMerchant','CorporateMerchantController@getMerchantData');
+Route::get('/administration/corporate_merchant/get_all_dataCorporate','CorporateMerchantController@getCorporateData');
+Route::get('/administration/corporate_merchant/get_all_dataMerchant','CorporateMerchantController@getMerchantData');
+Route::post('/administration/corporate_merchant/addCorporate','CorporateMerchantController@addCorporateData');
+Route::post('/administration/corporate_merchant/updateCorporate','CorporateMerchantController@updateCorporateData');
+Route::post('/administration/corporate_merchant/deleteCorporate','CorporateMerchantController@deleteCorporateData');
+Route::post('/administration/corporate_merchant/addMerchant','CorporateMerchantController@addMerchantData');
+Route::post('/administration/corporate_merchant/updateMerchant','CorporateMerchantController@updateMerchantData');
+Route::post('/administration/corporate_merchant/deleteMerchant','CorporateMerchantController@deleteMerchantData');
 
 
 Route::get('/audit_trail','AuditTrailController@index');
