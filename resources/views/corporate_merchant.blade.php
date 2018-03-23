@@ -262,7 +262,7 @@
 
                     <script type="text/javascript">
 
-                      function setFileNameMerchant() {
+                      function setFileNameMerchanta() {
                         var input = document.getElementById("logoBrowseo");
                         var logoText = document.getElementById("logoTexto");
                         var browseFile = document.getElementById("browseFileo");
