@@ -197,7 +197,7 @@ class CorporateMerchantController extends Controller
 
     $corporateId = $request->input('corporateId');
     $merchName = $request->input('merchName');
-    $name = $request->file('edituploadedfile');
+    $name = $request->file('uploadedfile');
 
     $ext = end((explode(".", $name))); # extra () to prevent notice
     if($name == ''){
@@ -247,9 +247,8 @@ class CorporateMerchantController extends Controller
     $now = date("Ymdhis");
 
     $merchId = $request->input('editMerchId');
-
     $corporateId = $request->input('corporateId');
-    $corporateName = $request->input('corporateName');
+    $merchName = $request->input('editMerchName');
     $name = $request->file('uploadedfile');
 
     $ext = end((explode(".", $name))); # extra () to prevent notice
@@ -269,11 +268,43 @@ class CorporateMerchantController extends Controller
     }
     $client = new \GuzzleHttp\Client();
 
-    $form_post = $client->request('POST', config('constants.api_server').'update_corporate', [
+    $form_post = $client->request('POST', config('constants.api_server').'update_merchant', [
       'json' => [
+        'merchId' => $merchId,
         'corporateId' => $corporateId,
-        'corporateName' => $corporateName,
+        'merchName' => $merchName,
         'file' => $storage_path
+      ]
+    ]);
+    $var = json_decode($form_post->getBody()->getContents());
+
+    if($var->success == true){
+      // Session::put('id', $var->data->Id);
+      $this->attrib = $var->result;
+
+      return view('corporate_merchant')->with(['main_menu' => $this->main_menu, 'sub_menu' => $this->sub_menu, 'attrib' => $this->attrib]);
+
+    }
+    else{
+      return Redirect::back()->withInput()->withErrors($var->message);
+    }
+  }
+
+  public function deleteMerchantData(Request $request)
+  {
+    $this->main_menu = $request->get('main_menu');
+    $this->sub_menu = $request->get('sub_menu');
+
+    date_default_timezone_set('Asia/Jakarta');
+    $now = date("Ymdhis");
+
+    $merchIdDel = $request->input('merchIdDel');
+
+    $client = new \GuzzleHttp\Client();
+
+    $form_post = $client->request('POST', config('constants.api_server').'delete_merchant', [
+      'json' => [
+        'merchIdDel' => $merchIdDel
       ]
     ]);
     $var = json_decode($form_post->getBody()->getContents());

@@ -49,9 +49,6 @@ Route::get('/edc_data/get_edc_data','EdcDataController@GetUploadEdcData');
 Route::post('edc_data/activate_edc','EdcDataController@ActivateEdc');
 
 Route::get('/administration/corporate_merchant','CorporateMerchantController@index');
-Route::get('/administration/users_groups','UsersGroupsController@index');
-Route::get('/administration/users_groups/get_all_dataUsers','UsersGroupsController@getUsersData');
-Route::get('/administration/users_groups/get_all_dataGroups','UsersGroupsController@getGroupsData');
 Route::get('/administration/corporate_merchant/get_all_dataCorporate','CorporateMerchantController@getCorporateData');
 Route::get('/administration/corporate_merchant/get_all_dataMerchant','CorporateMerchantController@getMerchantData');
 Route::post('/administration/corporate_merchant/addCorporate','CorporateMerchantController@addCorporateData');
@@ -61,6 +58,15 @@ Route::post('/administration/corporate_merchant/addMerchant','CorporateMerchantC
 Route::post('/administration/corporate_merchant/updateMerchant','CorporateMerchantController@updateMerchantData');
 Route::post('/administration/corporate_merchant/deleteMerchant','CorporateMerchantController@deleteMerchantData');
 
+Route::get('/administration/users_groups','UsersGroupsController@index');
+Route::get('/administration/users_groups/get_all_dataUsers','UsersGroupsController@getUsersData');
+Route::get('/administration/users_groups/get_all_dataGroups','UsersGroupsController@getGroupsData');
+Route::post('/administration/users_groups/addUsers','UsersGroupsController@addUsersData');
+Route::post('/administration/users_groups/updateUsers','UsersGroupsController@updateUsersData');
+Route::post('/administration/users_groups/deleteUsers','UsersGroupsController@deleteUsersData');
+Route::post('/administration/users_groups/addGroups','UsersGroupsController@addGroupsData');
+Route::post('/administration/users_groups/updateGroups','UsersGroupsController@updateGroupsData');
+Route::post('/administration/users_groups/deleteGroups','UsersGroupsController@deleteGroupsData');
 
 Route::get('/audit_trail','AuditTrailController@index');
 Route::get('/audit_trail/get_all_data','AuditTrailController@getAllData');

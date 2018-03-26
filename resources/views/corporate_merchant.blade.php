@@ -229,7 +229,7 @@
                     <div class="col-md-6">
                       <div class="form-group">
                         <label>Corporate </label>
-                        <input type="text" class="form-control" name="corporateId" id="trxType" required="required" placeholder="corporate">
+                        <input type="text" class="form-control" name="corporateId" id="corporateId" required="required" placeholder="corporate">
 
                         <!--<select class="form-control corp" name="corporateId" id="trxType" style="width: 100%;" required="required">
                           <option></option>
@@ -302,26 +302,23 @@
               </div>
 
               <!-- form profile -->
-              <form role="form" action="process/update_merchant.php" method="POST" autocomplete="off" enctype="multipart/form-data">
+              <form role="form" action="/administration/corporate_merchant/updateMerchant" method="POST" autocomplete="off" enctype="multipart/form-data">
               <div class="modal-body">
                 <div class="box-body">
                   <div class="row">
                     <div class="col-md-6">
                       <div class="form-group">
                         <label>Corporate </label>
-                        <select class="form-control corp" name="corporateId" id="corporateIdSelect" style="width: 100%;" required="required">
-                          <option value=""></option>
-
-                        </select>
-                      </div><!-- /.form-group -->
+                        <input type="text" class="form-control" name="corporateId" id="editCorporateId2" required="required">
+                    </div><!-- /.form-group -->
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-md-6">
                       <div class="form-group">
                         <label>Merchant Name </label>
-                        <input type="text" class="form-control" name="editMerchName" id="merchName" placeholder="Merchant" required="required">
-                        <input type="text" class="form-control" name="editMerchId" id="merchId" placeholder="Merchant" required="required" style="display: none;">
+                        <input type="text" class="form-control" name="editMerchName" id="editMerchName" required="required">
+                        <input type="text" class="form-control" name="editMerchId" id="editMerchId" placeholder="Merchant" style="display: none;">
                       </div><!-- /.form-group -->
                     </div>
 
@@ -344,7 +341,7 @@
                       function setFileNameEdit() {
                         var input = document.getElementById("editLogoBrowse");
                         var logoText = document.getElementById("editLogoText");
-                        var browseFile = document.getElementById("editLogoBrowse");
+                        var browseFile = document.getElementById("editBrowseFile");
                         //alert(input.files[0].name);
 
                         logoText.value = input.files[0].name;
@@ -386,7 +383,7 @@
               </div>
               <div class="modal-body">
                 <p>Merchant <span id="merchNameSpan"></span> will be deleted, are you sure ?</p>
-                <form style="display: none;" action="process/delete_merchant.php" method="POST"><input type="text" name="merchIdDel" id="merchIdDel" /><input type="submit" id="submitDelMerch"/></form>
+                <form style="display: none;" action="/administration/corporate_merchant/deleteMerchant" method="POST"><input type="text" name="merchIdDel" id="merchIdDel" /><input type="submit" id="submitDelMerch"/></form>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
@@ -449,10 +446,12 @@
   				tableMerchant.clear().draw();
 
   				for (var i = 0; i < data.length; i++) {
+            var FID = data[i].FID;
             var FMERCHNAME = data[i].FMERCHNAME;
             var CORP_NAME = data[i].CORP_NAME;
             var FMERCHLOGO = data[i].FMERCHLOGO;
             var FREG_DATE = data[i].FREG_DATE;
+            var ID = data[i].ID;
 
             var jRow = $('<tr>').append(
               '<td>'+ (i + 1) +'</td>',
@@ -460,7 +459,8 @@
                 '<td>'+ CORP_NAME +'</td>',
                 '<td>'+ FMERCHLOGO +'</td>',
                 '<td>'+ FREG_DATE +'</td>',
-                '<td><a class="edit btn btn-sm btn-default" href="javascript:;" data-toggle="modal" data-target="#editMerchModal" style="cursor: pointer;" onClick="" ><i class="icon-note"></i></a><a class="delete btn btn-sm btn-danger" href="javascript:;" data-toggle="modal" data-target="#delMerchModal" style="cursor: pointer;" onClick=""><i class="icons-office-52"></i></a></td>'
+                '<td><a class="edit btn btn-sm btn-default" href="javascript:;" data-toggle="modal" data-target="#editMerchModal" style="cursor: pointer;" onClick="editMerch('+ FID +', \''+ FMERCHNAME +', \''+ ID +'\')" ><i class="icon-note"></i></a><a class="delete btn btn-sm btn-danger" href="javascript:;" data-toggle="modal" data-target="#delMerchModal" style="cursor: pointer;" onClick="deleteMerch('+ FID +', \''+ FMERCHNAME +'\')"><i class="icons-office-52"></i></a></td>'
+
                 );
 
             tableMerchant.row.add(jRow).draw();
@@ -478,6 +478,20 @@
     corporateName.value = val;
   }
 
+  function editMerch(id, merch, corpid) {
+    var corporateId2 = document.getElementById('editCorporateId2');
+    var merchId = document.getElementById('editMerchId');
+    var merchName = document.getElementById('editMerchName');
+    //var corporateIdSelect = document.getElementById('corporateIdSelect').value = corpid;
+
+  //  $("#corporateIdSelect").val(corpid).trigger("change");
+
+    //alert(corpid);
+    corporateId2.value = corpid;
+    merchId.value = id;
+    merchName.value = merch;
+  }
+
   function deleteCorp(id, val) {
     //alert(val);
     $("#corporateNameSpan").html(val);
@@ -490,6 +504,20 @@
 
   function submitDelCorp(){
     $("#submitDelCorp").click();
+  }
+
+  function deleteMerch(id, val) {
+    //alert(val);
+    $("#merchNameSpan").html(val);
+
+    var merchIdDel = document.getElementById('merchIdDel');
+
+    merchIdDel.value = id;
+    //alert(user_id.value);
+  }
+
+  function submitDelMerch(){
+    $("#submitDelMerch").click();
   }
 </script>
 @endsection

@@ -56,57 +56,67 @@
                     <div class="modal-content">
                       <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel"><i class="fa fa-university" aria-hidden="true"></i> Register New Corporate </h4>
+                        <h4 class="modal-title" id="myModalLabel"><i class="fa fa-university" aria-hidden="true"></i> Please Input the Fields </h4>
                       </div>
 
                       <!-- form profile -->
-                      <form role="form" action="process/add_corporate.php" method="POST" autocomplete="off" enctype="multipart/form-data">
+                      <form role="form" action="" method="POST" autocomplete="off" enctype="multipart/form-data">
                       <div class="modal-body">
                         <div class="box-body">
                           <div class="row">
                             <div class="col-md-6">
                               <div class="form-group">
-                                <label>Corporate Name </label>
-                                <input type="text" class="form-control" name="corporateName" placeholder="Corporate..." required="required">
+                                <label>Name </label>
+                                <input type="text" name="name" id="name" class="form-control" placeholder="Name" maxlength="50" required="required">
+                            </div><!-- /.form-group -->
+                            </div>
+
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label>Group </label>
+                                <input type="text" name="group" id="group" class="form-control"  placeholder="Group" maxlength="50" required="required">
+                            </div><!-- /.form-group -->
+                            </div>
+
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label>Branch </label>
+                                <input type="text" name="branch" id="branch" class="form-control"  placeholder="Branch" maxlength="4" required="required">
+                            </div><!-- /.form-group -->
+                            </div>
+
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label for="exampleInputEmail1">Username</label><strong class="" id="silang_text" style="color: #FF5656;display: none;"> is Already Exist</strong><strong id="centang_text" style="color: #2AE800;display: none;"> is Available</strong>
+                                  <div class="input-group">
+
+                                    <input type="text" class="form-control" id="username" name="username" placeholder="Username" maxlength="30" required="required" onChange="checkUsername('username')" style="border-right: 0px;">
+                                    <div class="input-group-addon" id="addonBox" style="display:">
+                                      <i class="fa fa-spinner fa-pulse" id="spinner" style="color: #0055FF;display: none;"></i>
+                                      <i class="fa fa-check" id="centang" aria-hidden="true" style="color: #2AE800;display: none;"></i>
+                                      <i class="fa fa-times-circle" id="silang" aria-hidden="true" style="color: #FF0000;display: none;"></i>
+                                    </div>
+                                  </div><!-- /.input group -->
                               </div><!-- /.form-group -->
                             </div>
 
                             <div class="col-md-6">
                               <div class="form-group">
-                                <label for="exampleInputEmail1">Corporate Logo</label>
-                                <strong class="" id="silang_text" style="color: #FF5656;display: none;"> must be filled</strong>
-                                <div class="input-group input-group-sm">
-                                  <input type="file" name="uploadedfile" id="logoBrowse" style="display:none;" onChange="setFileName()">
-                                  <input type="text" class="form-control" readonly="readonly" id="logoText">
-                                  <span class="input-group-btn">
-                                    <button class="btn btn-info btn-flat" id="browseFile" type="button" onclick="$('#logoBrowse').click();">Browse</button>
-                                  </span>
-                                </div><!-- /input-group -->
-                              </div>
+                                <label>Password</label>
+                                <input type="password" name="password" id="password" class="form-control" placeholder="Password" maxlength="50" required="required">
+                            </div><!-- /.form-group -->
+
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label>Note </label>
+                                <textarea class="form-control" rows="3" name="note" id="note" placeholder="Type your note here ..." maxlength="300"></textarea>
+                              </div><!-- /.form-group -->
                             </div>
-
-                            <script type="text/javascript">
-
-                              function setFileName() {
-                                var input = document.getElementById("logoBrowse");
-                                var logoText = document.getElementById("logoText");
-                                var browseFile = document.getElementById("browseFile");
-                                //alert(input.files[0].name);
-
-                                logoText.value = input.files[0].name;
-                                if(logoText.value != '') {
-                                  logoText.style.borderColor = "";
-                                  browseFile.style.borderColor = "";
-                                  silang_text.style.display = "none";
-                                }
-
-                              }
-
-                            </script>
 
                           </div>
                         </div>
                       </div>
+                    </div>
 
                       <div class="modal-footer">
                         <button type="button" class="btn btn-warning" data-dismiss="modal" id="closeLimit">Close</button>
@@ -124,64 +134,74 @@
                     <div class="modal-content">
                       <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel"><i class="fa fa-university" aria-hidden="true"></i> Edit Corporate </h4>
+                        <h4 class="modal-title" id="myModalLabel"><i class="fa fa-university" aria-hidden="true"></i> Please Input The Fields</h4>
                       </div>
 
                       <!-- form profile -->
-                      <form role="form" action="process/update_corporate.php" method="POST" autocomplete="off" enctype="multipart/form-data">
+                      <form role="form" action="" method="POST" autocomplete="off" enctype="multipart/form-data">
                       <div class="modal-body">
                         <div class="box-body">
                           <div class="row">
                             <div class="col-md-6">
                               <div class="form-group">
-                                <label>Corporate Name </label>
-                                <input type="text" class="form-control" id="corporateId" name="corporateId" placeholder="Corporate..." required="required" style="display: none;">
-                                <input type="text" class="form-control" id="corporateName" name="corporateName" placeholder="Corporate..." required="required">
+                                <label>Name </label>
+                                <input type="text" name="name" id="name" class="form-control" placeholder="Name" maxlength="50" required="required">
+                            </div><!-- /.form-group -->
+                            </div>
+
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label>Group </label>
+                                <input type="text" name="group" id="group" class="form-control"  placeholder="Group" maxlength="50" required="required">
+                            </div><!-- /.form-group -->
+                            </div>
+
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label>Branch </label>
+                                <input type="text" name="branch" id="branch" class="form-control"  placeholder="Branch" maxlength="4" required="required">
+                            </div><!-- /.form-group -->
+                            </div>
+
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label for="exampleInputEmail1">Username</label><strong class="" id="silang_text" style="color: #FF5656;display: none;"> is Already Exist</strong><strong id="centang_text" style="color: #2AE800;display: none;"> is Available</strong>
+                                  <div class="input-group">
+
+                                    <input type="text" class="form-control" id="username" name="username" placeholder="Username" maxlength="30" required="required" onChange="checkUsername('username')" style="border-right: 0px;">
+                                    <div class="input-group-addon" id="addonBox" style="display:">
+                                      <i class="fa fa-spinner fa-pulse" id="spinner" style="color: #0055FF;display: none;"></i>
+                                      <i class="fa fa-check" id="centang" aria-hidden="true" style="color: #2AE800;display: none;"></i>
+                                      <i class="fa fa-times-circle" id="silang" aria-hidden="true" style="color: #FF0000;display: none;"></i>
+                                    </div>
+                                  </div><!-- /.input group -->
                               </div><!-- /.form-group -->
                             </div>
 
                             <div class="col-md-6">
                               <div class="form-group">
-                                <label for="exampleInputEmail1">Corporate Logo</label>
-                                <strong class="" id="silang_text" style="color: #FF5656;display: none;"> must be filled</strong>
-                                <div class="input-group input-group-sm">
-                                  <input type="file" name="uploadedfile" id="logoBrowse" style="display:none;" onChange="setFileName()">
-                                  <input type="text" class="form-control" readonly="readonly" id="logoText">
-                                  <span class="input-group-btn">
-                                    <button class="btn btn-info btn-flat" id="browseFile" type="button" onclick="$('#logoBrowse').click();">Browse</button>
-                                  </span>
-                                </div><!-- /input-group -->
-                              </div>
+                                <label>Password</label>
+                                <input type="password" name="password" id="password" class="form-control" placeholder="Password" maxlength="50" required="required">
+                            </div><!-- /.form-group -->
+
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label>Note </label>
+                                <textarea class="form-control" rows="3" name="note" id="note" placeholder="Type your note here ..." maxlength="300"></textarea>
+                              </div><!-- /.form-group -->
                             </div>
-
-                            <script type="text/javascript">
-
-                              function setFileName() {
-                                var input = document.getElementById("logoBrowse");
-                                var logoText = document.getElementById("logoText");
-                                var browseFile = document.getElementById("browseFile");
-                                //alert(input.files[0].name);
-
-                                logoText.value = input.files[0].name;
-                                if(logoText.value != '') {
-                                  logoText.style.borderColor = "";
-                                  browseFile.style.borderColor = "";
-                                  silang_text.style.display = "none";
-                                }
-
-                              }
-
-                            </script>
 
                           </div>
                         </div>
                       </div>
+                    </div>
 
                       <div class="modal-footer">
                         <button type="button" class="btn btn-warning" data-dismiss="modal" id="closeLimit">Close</button>
                         <button type="submit" class="btn btn-primary" id="submitModal">Submit</button>
                       </div>
                       </form> <!-- end of form profile -->
+
 
                     </div>
                   </div>
@@ -195,15 +215,15 @@
                     <div class="modal-content">
                       <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Delete Corporate</h4>
+                        <h4 class="modal-title">Delete User</h4>
                       </div>
                       <div class="modal-body">
-                        <p>Corporate <span id="corporateNameSpan"></span> will be deleted, are you sure ?</p>
-                        <form style="display: none;" action="process/delete_corporate.php" method="POST"><input type="text" name="corporateIdDel" id="corporateIdDel" /><input type="submit" id="submitDelCorp"/></form>
+                        <p>User <span id="user"></span> will be deleted, are you sure ?</p>
+                        <form style="display: none;" action="process/delete_user.php" method="POST"><input type="text" name="user_id" id="user_ids" /><input type="submit" id="submitUser"/></form>
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
-                        <button type="button" class="btn btn-primary" onClick="submitDelCorp()">Submit</button>
+                        <button type="button" class="btn btn-primary" onClick="submitUser()">Submit</button>
                       </div>
                     </div>
 
@@ -216,67 +236,50 @@
                     <div class="modal-content">
                       <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel"><i class="fa fa-university" aria-hidden="true"></i> Register New Merchant </h4>
+                        <h4 class="modal-title" id="myModalLabel"><i class="fa fa-university" aria-hidden="true"></i> Please Input The Fields </h4>
                       </div>
-
                       <!-- form profile -->
-                      <form role="form" action="process/add_merchant.php" method="POST" autocomplete="off" enctype="multipart/form-data">
+                      <form role="form" action="" method="POST" autocomplete="off" enctype="multipart/form-data">
                       <div class="modal-body">
                         <div class="box-body">
                           <div class="row">
                             <div class="col-md-6">
                               <div class="form-group">
-                                <label>Corporate </label>
-                                <select class="form-control corp" name="corporateId" id="trxType" style="width: 100%;" required="required">
-                                  <option></option>
-
-                                </select>
-                              </div><!-- /.form-group -->
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col-md-6">
-                              <div class="form-group">
-                                <label>Merchant Name </label>
-                                <input type="text" class="form-control" name="merchName" placeholder="Merchant" required="required">
-                              </div><!-- /.form-group -->
+                                <label>Group Name</label>
+                                <input type="text" name="name" id="name" class="form-control"  placeholder="Group" maxlength="50" required="required">
+                            </div><!-- /.form-group -->
                             </div>
 
                             <div class="col-md-6">
                               <div class="form-group">
-                                <label for="exampleInputEmail1">Merchant Logo</label>
-                                <strong class="" id="silang_text" style="color: #FF5656;display: none;"> must be filled</strong>
-                                <div class="input-group input-group-sm">
-                                  <input type="file" name="uploadedfile" id="logoBrowse" style="display:none;" onChange="setFileName()">
-                                  <input type="text" class="form-control" readonly="readonly" id="logoText">
-                                  <span class="input-group-btn">
-                                    <button class="btn btn-info btn-flat" id="browseFile" type="button" onclick="$('#logoBrowse').click();">Browse</button>
-                                  </span>
-                                </div><!-- /input-group -->
-                              </div>
+                                <label>Host </label>
+                                <input type="text" name="institute" id="institute" class="form-control" placeholder="Name" maxlength="50" required="required">
+                            </div><!-- /.form-group -->
                             </div>
 
-                            <script type="text/javascript">
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label>Merchant </label>
+                                <input type="text" name="merchant" id="merchant" class="form-control"  placeholder="Branch" maxlength="4" required="required">
+                            </div><!-- /.form-group -->
+                            </div>
 
-                              function setFileName() {
-                                var input = document.getElementById("logoBrowse");
-                                var logoText = document.getElementById("logoText");
-                                var browseFile = document.getElementById("browseFile");
-                                //alert(input.files[0].name);
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label>Note </label>
+                                <textarea class="form-control" rows="3" name="note" id="note" placeholder="Type your note here ..." maxlength="300"></textarea>
+                              </div><!-- /.form-group -->
+                            </div>
 
-                                logoText.value = input.files[0].name;
-                                if(logoText.value != '') {
-                                  logoText.style.borderColor = "";
-                                  browseFile.style.borderColor = "";
-                                  silang_text.style.display = "none";
-                                }
-
-                              }
-
-                            </script>
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label>Privileges</label>
+                                <input type="text" name="privileges" id="privileges" class="form-control" placeholder="Password" maxlength="50" required="required">
+                            </div><!-- /.form-group -->
 
                           </div>
                         </div>
+                      </div>
                       </div>
 
                       <div class="modal-footer">
@@ -294,75 +297,72 @@
                     <div class="modal-content">
                       <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel"><i class="fa fa-university" aria-hidden="true"></i> Edit Merchant </h4>
+                        <h4 class="modal-title" id="myModalLabel"><i class="fa fa-university" aria-hidden="true"></i> Update Group Form</h4>
                       </div>
-
                       <!-- form profile -->
-                      <form role="form" action="process/update_merchant.php" method="POST" autocomplete="off" enctype="multipart/form-data">
+                      <form role="form" action="" method="POST" autocomplete="off" enctype="multipart/form-data">
                       <div class="modal-body">
                         <div class="box-body">
                           <div class="row">
                             <div class="col-md-6">
                               <div class="form-group">
-                                <label>Corporate </label>
-                                <select class="form-control corp" name="corporateId" id="corporateIdSelect" style="width: 100%;" required="required">
-                                  <option value=""></option>
-
-                                </select>
-                              </div><!-- /.form-group -->
+                                <label>Group Name </label>
+                                <input type="text" name="name" id="name" class="form-control" placeholder="Name" maxlength="50" required="required">
+                            </div><!-- /.form-group -->
                             </div>
+
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label>Host </label>
+                                <input type="text" name="group" id="group" class="form-control"  placeholder="Group" maxlength="50" required="required">
+                            </div><!-- /.form-group -->
+                            </div>
+
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label>Merchant </label>
+                                <input type="text" name="branch" id="branch" class="form-control"  placeholder="Branch" maxlength="4" required="required">
+                            </div><!-- /.form-group -->
+                            </div>
+
+
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label>Note </label>
+                              <textarea class="form-control" rows="3" name="note" id="note" placeholder="Type your note here ..." maxlength="300"></textarea>
+                            </div><!-- /.form-group -->
                           </div>
+
+
                           <div class="row">
                             <div class="col-md-6">
                               <div class="form-group">
-                                <label>Merchant Name </label>
-                                <input type="text" class="form-control" name="editMerchName" id="merchName" placeholder="Merchant" required="required">
-                                <input type="text" class="form-control" name="editMerchId" id="merchId" placeholder="Merchant" required="required" style="display: none;">
-                              </div><!-- /.form-group -->
-                            </div>
-
-                            <div class="col-md-6">
-                              <div class="form-group">
-                                <label for="exampleInputEmail1">Merchant Logo</label>
-                                <strong class="" id="silang_text" style="color: #FF5656;display: none;"> must be filled</strong>
-                                <div class="input-group input-group-sm">
-                                  <input type="file" name="uploadedfile" id="editLogoBrowse" style="display:none;" onChange="setFileNameEdit()">
-                                  <input type="text" class="form-control" readonly="readonly" id="editLogoText">
-                                  <span class="input-group-btn">
-                                    <button class="btn btn-info btn-flat" id="browseFile" type="button" onclick="$('#editLogoBrowse').click();">Browse</button>
-                                  </span>
-                                </div><!-- /input-group -->
+                                <label>Status</label><br>
+                                <label for="st-active" id="lbl-active" class="tin">Active</label>
+                                <input type="radio" name="status" value="1" id="st-active" onclick="klik()">
+                                <input type="radio" name="status" value="0" id="st-inactive" onclick="klik()">
+                                <label for="st-inactive" id="lbl-inactive" class="bold">Not Active</label>
                               </div>
                             </div>
+                          </div> <!-- end of row -->
 
-                            <script type="text/javascript">
-
-                              function setFileNameEdit() {
-                                var input = document.getElementById("editLogoBrowse");
-                                var logoText = document.getElementById("editLogoText");
-                                var browseFile = document.getElementById("editLogoBrowse");
-                                //alert(input.files[0].name);
-
-                                logoText.value = input.files[0].name;
-                                if(logoText.value != '') {
-                                  logoText.style.borderColor = "";
-                                  browseFile.style.borderColor = "";
-                                  silang_text.style.display = "none";
-                                }
-
-                              }
-
-                            </script>
-
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label>Privileges</label>
+                              <input type="text" name="privileges" id="privileges" class="form-control"  placeholder="Branch" maxlength="4" required="required">
+                          </div><!-- /.form-group -->
+                          </div>
                           </div>
                         </div>
                       </div>
+                    </div>
 
                       <div class="modal-footer">
                         <button type="button" class="btn btn-warning" data-dismiss="modal" id="closeLimit">Close</button>
                         <button type="submit" class="btn btn-primary" id="submitModal">Submit</button>
                       </div>
                       </form> <!-- end of form profile -->
+
 
                     </div>
                   </div>
@@ -378,15 +378,15 @@
                     <div class="modal-content">
                       <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Delete Merchant</h4>
+                        <h4 class="modal-title">Delete Group</h4>
                       </div>
                       <div class="modal-body">
-                        <p>Merchant <span id="merchNameSpan"></span> will be deleted, are you sure ?</p>
-                        <form style="display: none;" action="process/delete_merchant.php" method="POST"><input type="text" name="merchIdDel" id="merchIdDel" /><input type="submit" id="submitDelMerch"/></form>
+                        <p>Group <span id="group"></span> will be deleted, are you sure ?</p>
+                        <form style="display: none;" action="process/delete_group.php" method="POST"><input type="text" name="group_id" id="group_id" /><input type="submit" id="submitGroup"/></form>
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
-                        <button type="button" class="btn btn-primary" onClick="submitDelMerch()">Submit</button>
+                        <button type="button" class="btn btn-primary" onClick="submitGroup()">Submit</button>
                       </div>
                     </div>
 
@@ -429,7 +429,7 @@
               '<td>'+ groupName +'</td>',
               '<td>'+ FNAME +'</td>',
               '<td>'+ status +'</td>',
-              '<td><a class="edit btn btn-sm btn-default" href="javascript:;" data-toggle="modal" data-target="#editUsersModal" style="cursor: pointer;" onClick="" ><i class="icon-note"></i></a><a class="delete btn btn-sm btn-danger" href="javascript:;" data-toggle="modal" data-target="#modal-delete" style="cursor: pointer;" onClick=""><i class="icons-office-52"></i></a></td>'
+              '<td><a class="edit btn btn-sm btn-default" href="javascript:;" data-toggle="modal" data-target="#editUsersModal" style="cursor: pointer;" onClick="" ><i class="icon-note"></i></a><a class="delete btn btn-sm btn-danger" href="javascript:;" data-toggle="modal" data-target="#delUsersModal" style="cursor: pointer;" onClick=""><i class="icons-office-52"></i></a></td>'
 
               );
 
@@ -457,7 +457,7 @@
                 '<td>'+ groupName +'</td>',
                 '<td>'+ host +'</td>',
                 '<td>'+ status +'</td>',
-                '<td><a class="edit btn btn-sm btn-default" href="javascript:;" data-toggle="modal" data-target="#editGroupsModal" style="cursor: pointer;" onClick="" ><i class="icon-note"></i></a><a class="delete btn btn-sm btn-danger" href="javascript:;" data-toggle="modal" data-target="#modal-delete" style="cursor: pointer;" onClick=""><i class="icons-office-52"></i></a></td>'
+                '<td><a class="edit btn btn-sm btn-default" href="javascript:;" data-toggle="modal" data-target="#editGroupsModal" style="cursor: pointer;" onClick="" ><i class="icon-note"></i></a><a class="delete btn btn-sm btn-danger" href="javascript:;" data-toggle="modal" data-target="#delGroupsModal" style="cursor: pointer;" onClick=""><i class="icons-office-52"></i></a></td>'
 
                 );
 
