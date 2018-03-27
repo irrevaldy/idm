@@ -23,7 +23,7 @@
               </div>
               <div class="form-group">
                 <div class="panel-content pagination2 force-table-responsive" style="overflow-x: hidden;">
-                  <table class="table" id="tableAuditTrail" >
+                  <table class="table table-bordered" id="tableAuditTrail" >
                     <thead>
                       <tr>
                         <th>#</th>

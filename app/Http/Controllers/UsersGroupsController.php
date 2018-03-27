@@ -57,14 +57,14 @@ class UsersGroupsController extends Controller
   public function getGroupsData(Request $request)
   {
     $FCODE = Session::get('FCODE');
-    $user_id = Session::get('user_id');
+    $group_id = Session::get('group_id');
 
     $client = new \GuzzleHttp\Client();
 
     $form_post = $client->request('POST', config('constants.api_server').'groups', [
 			'json' => [
         'FCODE' => $FCODE,
-				'user_id' => $user_id
+				'group_id' => $group_id
 			]
 		]);
     $var = json_decode($form_post->getBody()->getContents());
@@ -89,31 +89,25 @@ class UsersGroupsController extends Controller
     date_default_timezone_set('Asia/Jakarta');
     $now = date("Ymdhis");
 
-    $corporateName = $request->input('corporateName');
-    $name = $request->file('uploadedfile');
+    $name = $request->input('name');
+    $group = $request->input('group');
+    $branch = $request->input('branch');
+    $note = $request->input('note');
+    $username = $request->input('username');
+    $username = strtolower($username);
+    $password = $request->input('password');
+    $password = hash('sha256', $password);
 
-    $ext = end((explode(".", $name))); # extra () to prevent notice
-    if($name == ''){
-    	$name = "Default Logo";
-    }
-    if($name != "Default Logo")
-    {
-      $filename = $name->getClientOriginalName();
-          	// return $filename;
-      $path = Storage::putFileAs('/public/image', $name, $filename); // simpen di folder nya front end
-      $storage_path = $filename;
-    }
-    else
-    {
-          	// return $filename;
-      $storage_path = $name;
-    }
     $client = new \GuzzleHttp\Client();
 
     $form_post = $client->request('POST', config('constants.api_server').'add_users', [
       'json' => [
-        'corporateName' => $corporateName,
-        'file' => $storage_path
+        'name' => $name,
+        'group' => $group,
+        'branch' => $branch,
+        'note' => $note,
+        'username' => $username,
+        'password' => $password
       ]
     ]);
     $var = json_decode($form_post->getBody()->getContents());
@@ -122,7 +116,7 @@ class UsersGroupsController extends Controller
       // Session::put('id', $var->data->Id);
       $this->attrib = $var->result;
 
-      return view('corporate_merchant')->with(['main_menu' => $this->main_menu, 'sub_menu' => $this->sub_menu, 'attrib' => $this->attrib]);
+      return view('users_groups')->with(['main_menu' => $this->main_menu, 'sub_menu' => $this->sub_menu, 'attrib' => $this->attrib]);
 
     }
     else{

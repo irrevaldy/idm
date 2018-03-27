@@ -72,7 +72,7 @@
 
               <div class="form-group">
                 <div class="panel-content pagination2 force-table-responsive" style="overflow-x: hidden;">
-                  <table class="table" id="tableSearch">
+                  <table class="table table-bordered" id="tableSearch">
                     <thead>
                       <tr>
                         <th>Host</th>

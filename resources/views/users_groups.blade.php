@@ -5,13 +5,16 @@
     <div class="header">
         <h2><i class="fa fa-th" aria-hidden="true"></i><strong>Users & Groups</strong></h2>
     </div>
+    @if(isset($attrib))
+    {{ $attrib }}
+    @endif
     <div>Users</div>
     <div class="export-box">
               <a class="btn btn-primary export-btn deletes" data-toggle="modal" data-target="#addUsersModal"> Add New User</a>
             </div>
     <div class="form-group">
       <div class="panel-content pagination2 force-table-responsive" style="overflow-x: hidden;">
-        <table class="table" id="tableUsers" >
+        <table class="table table-bordered" id="tableUsers">
           <thead>
             <tr>
               <th>#</th>
@@ -33,7 +36,7 @@
               </div>
       <div class="form-group">
         <div class="panel-content pagination2 force-table-responsive" style="overflow-x: hidden;">
-          <table class="table" id="tableGroups" >
+          <table class="table table-bordered" id="tableGroups" bor>
             <thead>
               <tr>
                 <th>#</th>
@@ -60,7 +63,7 @@
                       </div>
 
                       <!-- form profile -->
-                      <form role="form" action="" method="POST" autocomplete="off" enctype="multipart/form-data">
+                      <form role="form" action="/administration/users_groups/addUsers" method="POST" autocomplete="off" enctype="multipart/form-data">
                       <div class="modal-body">
                         <div class="box-body">
                           <div class="row">
@@ -105,7 +108,7 @@
                                 <label>Password</label>
                                 <input type="password" name="password" id="password" class="form-control" placeholder="Password" maxlength="50" required="required">
                             </div><!-- /.form-group -->
-
+                          </div>
                             <div class="col-md-6">
                               <div class="form-group">
                                 <label>Note </label>
@@ -113,7 +116,7 @@
                               </div><!-- /.form-group -->
                             </div>
 
-                          </div>
+
                         </div>
                       </div>
                     </div>
@@ -183,7 +186,7 @@
                                 <label>Password</label>
                                 <input type="password" name="password" id="password" class="form-control" placeholder="Password" maxlength="50" required="required">
                             </div><!-- /.form-group -->
-
+                          </div>
                             <div class="col-md-6">
                               <div class="form-group">
                                 <label>Note </label>
@@ -191,7 +194,7 @@
                               </div><!-- /.form-group -->
                             </div>
 
-                          </div>
+
                         </div>
                       </div>
                     </div>
@@ -419,17 +422,25 @@
           var username = data[i].username;
           var name = data[i].name;
           var groupName = data[i].groupName;
-          var FNAME = data[i].FNAME;
+          var fname = data[i].FNAME;
           var status = data[i].status;
+
+          if(status == '1')
+          {
+            status2 = 'Active';
+          }
+          else {
+            status2 = 'Not Active';
+          }
 
           var jRow = $('<tr>').append(
             '<td>'+ (i + 1) +'</td>',
               '<td>'+ username +'</td>',
               '<td>'+ name +'</td>',
               '<td>'+ groupName +'</td>',
-              '<td>'+ FNAME +'</td>',
-              '<td>'+ status +'</td>',
-              '<td><a class="edit btn btn-sm btn-default" href="javascript:;" data-toggle="modal" data-target="#editUsersModal" style="cursor: pointer;" onClick="" ><i class="icon-note"></i></a><a class="delete btn btn-sm btn-danger" href="javascript:;" data-toggle="modal" data-target="#delUsersModal" style="cursor: pointer;" onClick=""><i class="icons-office-52"></i></a></td>'
+              '<td>'+ fname +'</td>',
+              '<td>'+ status2 +'</td>',
+              '<td><a class="edit btn btn-sm btn-default" href="javascript:;" data-toggle="modal" data-target="#editUsersModal" style="cursor: pointer;" onClick="editUsers('+ username +', \''+ name +'\')" ><i class="icon-note"></i></a><a class="delete btn btn-sm btn-danger" href="javascript:;" data-toggle="modal" data-target="#delUsersModal" style="cursor: pointer;" onClick=""><i class="icons-office-52"></i></a></td>'
 
               );
 
@@ -449,14 +460,24 @@
 
   				for (var i = 0; i < data.length; i++) {
             var groupName = data[i].groupName;
-            var host = data[i].host;
+            var host = data[i].FMERCHNAME;
             var status = data[i].status;
+
+
+
+            if(status = '1')
+            {
+              status2 = 'Active';
+            }
+            else {
+              status2 = 'Not Active';
+            }
 
             var jRow = $('<tr>').append(
               '<td>'+ (i + 1) +'</td>',
                 '<td>'+ groupName +'</td>',
                 '<td>'+ host +'</td>',
-                '<td>'+ status +'</td>',
+                '<td>'+ status2 +'</td>',
                 '<td><a class="edit btn btn-sm btn-default" href="javascript:;" data-toggle="modal" data-target="#editGroupsModal" style="cursor: pointer;" onClick="" ><i class="icon-note"></i></a><a class="delete btn btn-sm btn-danger" href="javascript:;" data-toggle="modal" data-target="#delGroupsModal" style="cursor: pointer;" onClick=""><i class="icons-office-52"></i></a></td>'
 
                 );
@@ -467,5 +488,17 @@
   			});
 
   });
+
+  function editUsers(un, n) {
+    $.ajax({
+          success: function(data){
+
+            $('input[name="username"]').val(un);
+            $('input[name="name"]').val(n);
+
+
+          }
+        });
+  }
 </script>
 @endsection

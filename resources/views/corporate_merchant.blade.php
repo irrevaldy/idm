@@ -14,7 +14,7 @@
             </div>
     <div class="form-group">
       <div class="panel-content pagination2 force-table-responsive" style="overflow-x: hidden;">
-        <table class="table" id="tableCorporate" >
+        <table class="table table-bordered" id="tableCorporate" >
           <thead>
             <tr>
               <th>#</th>
@@ -35,7 +35,7 @@
               </div>
       <div class="form-group">
         <div class="panel-content pagination2 force-table-responsive" style="overflow-x: hidden;">
-          <table class="table" id="tableMerchant" >
+          <table class="table table-bordered" id="tableMerchant" >
             <thead>
               <tr>
                 <th>#</th>
@@ -445,16 +445,16 @@
   			success: function (data) {
   				tableMerchant.clear().draw();
 
-  				for (var i = 0; i < data.length; i++) {
-            var FID = data[i].FID;
-            var FMERCHNAME = data[i].FMERCHNAME;
-            var CORP_NAME = data[i].CORP_NAME;
-            var FMERCHLOGO = data[i].FMERCHLOGO;
-            var FREG_DATE = data[i].FREG_DATE;
-            var ID = data[i].ID;
+  				for (var j = 0; j < data.length; j++) {
+            var FID = data[j].FID;
+            var FMERCHNAME = data[j].FMERCHNAME;
+            var CORP_NAME = data[j].CORP_NAME;
+            var FMERCHLOGO = data[j].FMERCHLOGO;
+            var FREG_DATE = data[j].FREG_DATE;
+            var ID = data[j].ID;
 
             var jRow = $('<tr>').append(
-              '<td>'+ (i + 1) +'</td>',
+              '<td>'+ (j + 1) +'</td>',
                 '<td>'+ FMERCHNAME +'</td>',
                 '<td>'+ CORP_NAME +'</td>',
                 '<td>'+ FMERCHLOGO +'</td>',
@@ -471,11 +471,14 @@
   });
 
   function editCorp(id, val) {
-    var corporateId = document.getElementById('corporateId');
-    var corporateName = document.getElementById('corporateName');
+    $.ajax({
+          async: false,
+          success: function(data){
 
-    corporateId.value = id;
-    corporateName.value = val;
+            $('input[name="corporateId"]').val(id);
+            $('input[name="corporateName"]').val(val);
+          }
+        });
   }
 
   function editMerch(id, merch, corpid) {
