@@ -141,37 +141,42 @@
                       </div>
 
                       <!-- form profile -->
-                      <form role="form" action="" method="POST" autocomplete="off" enctype="multipart/form-data">
+                      <form role="form" action="/administration/users_groups/updateUsers" method="POST" autocomplete="off" enctype="multipart/form-data">
                       <div class="modal-body">
                         <div class="box-body">
                           <div class="row">
                             <div class="col-md-6">
                               <div class="form-group">
                                 <label>Name </label>
-                                <input type="text" name="name" id="name" class="form-control" placeholder="Name" maxlength="50" required="required">
+                                <input type="text" class="form-control" id="edit_user_id" name="edit_user_id" required="required" style="display: none;">
+                                <input type="text" name="edit_name" id="edit_name" class="form-control" placeholder="Name" maxlength="50" required="required">
                             </div><!-- /.form-group -->
                             </div>
+                          </div>
 
+                          <div class="row">
                             <div class="col-md-6">
                               <div class="form-group">
                                 <label>Group </label>
-                                <input type="text" name="group" id="group" class="form-control"  placeholder="Group" maxlength="50" required="required">
+                                <input type="text" name="edit_group" id="edit_group" class="form-control"  placeholder="Group" maxlength="50" required="required">
                             </div><!-- /.form-group -->
                             </div>
 
                             <div class="col-md-6">
                               <div class="form-group">
                                 <label>Branch </label>
-                                <input type="text" name="branch" id="branch" class="form-control"  placeholder="Branch" maxlength="4" required="required">
+                                <input type="text" name="edit_branch" id="edit_branch" class="form-control"  placeholder="Branch" maxlength="4" required="required">
                             </div><!-- /.form-group -->
                             </div>
+                          </div>
 
+                          <div class="row">
                             <div class="col-md-6">
                               <div class="form-group">
                                 <label for="exampleInputEmail1">Username</label><strong class="" id="silang_text" style="color: #FF5656;display: none;"> is Already Exist</strong><strong id="centang_text" style="color: #2AE800;display: none;"> is Available</strong>
                                   <div class="input-group">
 
-                                    <input type="text" class="form-control" id="username" name="username" placeholder="Username" maxlength="30" required="required" onChange="checkUsername('username')" style="border-right: 0px;">
+                                    <input type="text" class="form-control" id="edit_username" name="edit_username" placeholder="Username" maxlength="30" required="required" onChange="checkUsername('username')" style="border-right: 0px;">
                                     <div class="input-group-addon" id="addonBox" style="display:">
                                       <i class="fa fa-spinner fa-pulse" id="spinner" style="color: #0055FF;display: none;"></i>
                                       <i class="fa fa-check" id="centang" aria-hidden="true" style="color: #2AE800;display: none;"></i>
@@ -184,20 +189,36 @@
                             <div class="col-md-6">
                               <div class="form-group">
                                 <label>Password</label>
-                                <input type="password" name="password" id="password" class="form-control" placeholder="Password" maxlength="50" required="required">
+                                <input type="password" name="edit_password" id="edit_password" class="form-control" placeholder="Password" maxlength="50" required="required">
                             </div><!-- /.form-group -->
                           </div>
+                        </div>
+
+                        <div class="row">
                             <div class="col-md-6">
                               <div class="form-group">
                                 <label>Note </label>
-                                <textarea class="form-control" rows="3" name="note" id="note" placeholder="Type your note here ..." maxlength="300"></textarea>
+                                <textarea class="form-control" rows="3" name="edit_note" id="edit_note" placeholder="Type your note here ..." maxlength="300"></textarea>
                               </div><!-- /.form-group -->
                             </div>
+                        </div>
 
+                        <div class="row">
+                            <div class="col-md-10 col-md-offset-1">
+                              <div class="form-group">
+                                  <label>Status</label><br>
+
+                                  <label for="st-active" id="lbl-active" class="tin">Active</label>
+                                  <input type="radio" name="status" value="1" id="st-active" onclick="klik()">
+                                  <input type="radio" name="status" value="0" id="st-inactive" onclick="klik()" >
+                                  <label for="st-inactive" id="lbl-inactive" class="bold">Not Active</label>
+                              </div>
+                            </div>
+                        </div>
 
                         </div>
                       </div>
-                    </div>
+
 
                       <div class="modal-footer">
                         <button type="button" class="btn btn-warning" data-dismiss="modal" id="closeLimit">Close</button>
@@ -221,8 +242,8 @@
                         <h4 class="modal-title">Delete User</h4>
                       </div>
                       <div class="modal-body">
-                        <p>User <span id="user"></span> will be deleted, are you sure ?</p>
-                        <form style="display: none;" action="process/delete_user.php" method="POST"><input type="text" name="user_id" id="user_ids" /><input type="submit" id="submitUser"/></form>
+                        <p>User <span id="delete_name"></span> will be deleted, are you sure ?</p>
+                        <form style="display: none;" action="/administration/users_groups/deleteUsers" method="POST"><input type="text" name="delete_user_id" id="delete_user_id" /><input type="submit" id="submitUser"/></form>
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
@@ -310,7 +331,7 @@
                             <div class="col-md-6">
                               <div class="form-group">
                                 <label>Group Name </label>
-                                <input type="text" name="name" id="name" class="form-control" placeholder="Name" maxlength="50" required="required">
+                                <input type="text" name="name" id="edit_name" class="form-control" placeholder="Name" maxlength="50" required="required">
                             </div><!-- /.form-group -->
                             </div>
 
@@ -419,11 +440,52 @@
 				tableUsers.clear().draw();
 
 				for (var i = 0; i < data.length; i++) {
-          var username = data[i].username;
+          var user_id = data[i].user_id;
           var name = data[i].name;
           var groupName = data[i].groupName;
+          var branch = data[i].branch_code;
+          var username = data[i].username;
+          var password = data[i].password;
+          var note = data[i].description;
+
           var fname = data[i].FNAME;
           var status = data[i].status;
+
+          $('input#st-active').iCheck({
+            checkboxClass: 'icheckbox_flat-green',
+            radioClass: 'iradio_flat-green'
+          }).on('ifChecked', function(event){
+            //alert('tes');
+            $("label#lbl-active").addClass("bold");
+            $("label#lbl-active").removeClass("tin");
+            $("label#lbl-inactive").removeClass("bold");
+            $("label#lbl-inactive").addClass("tin");
+          });
+
+          $('input#st-inactive').iCheck({
+            checkboxClass: 'icheckbox_flat-red',
+            radioClass: 'iradio_flat-red'
+          }).on('ifChecked', function(event){
+            //alert('tes');
+            $("label#lbl-inactive").addClass("bold");
+            $("label#lbl-inactive").removeClass("tin");
+            $("label#lbl-active").removeClass("bold");
+            $("label#lbl-active").addClass("tin");
+
+          });
+
+          if(status == '1') {
+            active();
+          }
+
+        function active(){
+          $('input#st-active').iCheck('check', function(){
+            $("label#lbl-active").addClass("bold");
+            $("label#lbl-active").removeClass("tin");
+            $("label#lbl-inactive").removeClass("bold");
+            $("label#lbl-inactive").addClass("tin");
+          });
+        }
 
           if(status == '1')
           {
@@ -432,17 +494,21 @@
           else {
             status2 = 'Not Active';
           }
+          if(note == null)
+          {
+            note = '';
+          }
 
           var jRow = $('<tr>').append(
-            '<td>'+ (i + 1) +'</td>',
-              '<td>'+ username +'</td>',
-              '<td>'+ name +'</td>',
-              '<td>'+ groupName +'</td>',
-              '<td>'+ fname +'</td>',
-              '<td>'+ status2 +'</td>',
-              '<td><a class="edit btn btn-sm btn-default" href="javascript:;" data-toggle="modal" data-target="#editUsersModal" style="cursor: pointer;" onClick="editUsers('+ username +', \''+ name +'\')" ><i class="icon-note"></i></a><a class="delete btn btn-sm btn-danger" href="javascript:;" data-toggle="modal" data-target="#delUsersModal" style="cursor: pointer;" onClick=""><i class="icons-office-52"></i></a></td>'
+              '<td>'+ (i + 1) +'</td>',
+                '<td>'+ username +'</td>',
+                '<td>'+ name +'</td>',
+                '<td>'+ groupName +'</td>',
+                '<td>'+ fname +'</td>',
+                '<td>'+ status2 +'</td>',
+                '<td><a class="edit btn btn-sm btn-default" href="javascript:;" style="cursor: pointer;" onClick="editUsers(\''+ user_id +'\',\''+ name +'\', \''+ groupName +'\',\''+ branch +'\',\''+ username +'\',\''+ password +'\',\''+ note +'\')" ><i class="icon-note"></i></a><a class="delete btn btn-sm btn-danger" href="javascript:;" style="cursor: pointer;" onClick="deleteUsers(\''+ user_id +'\',\''+ name +'\')"><i class="icons-office-52"></i></a></td>'
 
-              );
+                );
 
           tableUsers.row.add(jRow).draw();
 				}
@@ -489,16 +555,28 @@
 
   });
 
-  function editUsers(un, n) {
-    $.ajax({
-          success: function(data){
+  function editUsers(user_id, name, group, branch, username, password, note) {
+        $('#edit_user_id').val(user_id);
+        $('#edit_name').val(name);
+        $('#edit_group').val(group);
+        $('#edit_branch').val(branch);
+        $('#edit_username').val(username);
+        $('#edit_password').val(password);
+        $('#edit_note').val(note);
 
-            $('input[name="username"]').val(un);
-            $('input[name="name"]').val(n);
+      $('#editUsersModal').modal('show');
 
+    }
 
-          }
-        });
-  }
+    function deleteUsers(user_id, name) {
+          $('#delete_name').html(name);
+          $('#delete_user_id').val(user_id);
+
+        $('#delUsersModal').modal('show');
+
+      }
+      function submitUser(){
+        $("#submitUser").click();
+      }
 </script>
 @endsection

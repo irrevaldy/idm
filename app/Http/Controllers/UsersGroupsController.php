@@ -132,32 +132,32 @@ class UsersGroupsController extends Controller
     date_default_timezone_set('Asia/Jakarta');
     $now = date("Ymdhis");
 
-    $corporateId = $request->input('corporateId');
-    $corporateName = $request->input('corporateName');
-    $name = $request->file('uploadedfile');
+    $user_id = $request->input('edit_user_id');
+    $name = $request->input('edit_name');
+    $group = $request->input('edit_group');
+    $branch = $request->input('edit_branch');
+    $note = $request->input('edit_note');
+    $username = $request->input('edit_username');
+    $username = strtolower($username);
+    $password = $request->input('edit_password');
+    $password = hash('sha256', $password);
+    $status = $request->input('status');
 
-    $ext = end((explode(".", $name))); # extra () to prevent notice
-    if($name == ''){
-    	$name = "Default Logo";
-    }
-    if($name != "Default Logo")
-    {
-      $filename = $name->getClientOriginalName();
-          	// return $filename;
-      $path = Storage::putFileAs('/public/image', $name, $filename); // simpen di folder nya front end
-      $storage_path = $filename;
-    }
-    else
-    {
-      $storage_path = $name;
-    }
     $client = new \GuzzleHttp\Client();
 
     $form_post = $client->request('POST', config('constants.api_server').'update_users', [
       'json' => [
-        'corporateId' => $corporateId,
-        'corporateName' => $corporateName,
-        'file' => $storage_path
+        'user_id' => $user_id,
+        'name' => $name,
+        'group' => $group,
+        'branch' => $branch,
+        'note' => $note,
+        'username' => $username,
+        'password' => $password,
+        'status' => $status,
+        'session_username' => Session::get('username'),
+        'session_user_id' => Session::get('user_id'),
+        'session_name' => Session::get('name')
       ]
     ]);
     $var = json_decode($form_post->getBody()->getContents());
@@ -166,7 +166,7 @@ class UsersGroupsController extends Controller
       // Session::put('id', $var->data->Id);
       $this->attrib = $var->result;
 
-      return view('corporate_merchant')->with(['main_menu' => $this->main_menu, 'sub_menu' => $this->sub_menu, 'attrib' => $this->attrib]);
+      return view('users_groups')->with(['main_menu' => $this->main_menu, 'sub_menu' => $this->sub_menu, 'attrib' => $this->attrib]);
 
     }
     else{
@@ -182,13 +182,16 @@ class UsersGroupsController extends Controller
     date_default_timezone_set('Asia/Jakarta');
     $now = date("Ymdhis");
 
-    $corporateIdDel = $request->input('corporateIdDel');
+    $delete_user_id = $request->input('delete_user_id');
 
     $client = new \GuzzleHttp\Client();
 
     $form_post = $client->request('POST', config('constants.api_server').'delete_users', [
       'json' => [
-        'corporateIdDel' => $corporateIdDel
+        'delete_user_id' => $delete_user_id,
+        'session_username' => Session::get('username'),
+        'session_user_id' => Session::get('user_id'),
+        'session_name' => Session::get('name')
       ]
     ]);
     $var = json_decode($form_post->getBody()->getContents());
@@ -197,7 +200,7 @@ class UsersGroupsController extends Controller
       // Session::put('id', $var->data->Id);
       $this->attrib = $var->result;
 
-      return view('corporate_merchant')->with(['main_menu' => $this->main_menu, 'sub_menu' => $this->sub_menu, 'attrib' => $this->attrib]);
+      return view('users_groups')->with(['main_menu' => $this->main_menu, 'sub_menu' => $this->sub_menu, 'attrib' => $this->attrib]);
 
     }
     else{
