@@ -183,12 +183,14 @@ class UsersGroupsController extends Controller
     $now = date("Ymdhis");
 
     $delete_user_id = $request->input('delete_user_id');
+    $delete_name = $request->input('delete_name');
 
     $client = new \GuzzleHttp\Client();
 
     $form_post = $client->request('POST', config('constants.api_server').'delete_users', [
       'json' => [
         'delete_user_id' => $delete_user_id,
+        'delete_name' => $delete_name,
         'session_username' => Session::get('username'),
         'session_user_id' => Session::get('user_id'),
         'session_name' => Session::get('name')
@@ -216,33 +218,24 @@ class UsersGroupsController extends Controller
     date_default_timezone_set('Asia/Jakarta');
     $now = date("Ymdhis");
 
-    $corporateId = $request->input('corporateId');
-    $merchName = $request->input('merchName');
-    $name = $request->file('uploadedfile');
+    $name = $request->input('name');
+    $note = $request->input('note');
+    $institute = $request->input('institute');
+    $merchant = $request->input('merchant');
+    $priv = $request->input('privileges');
 
-    $ext = end((explode(".", $name))); # extra () to prevent notice
-    if($name == ''){
-    	$name = "Default Logo";
-    }
-    if($name != "Default Logo")
-    {
-      $filename = $name->getClientOriginalName();
-          	// return $filename;
-      $path = Storage::putFileAs('/public/image', $name, $filename); // simpen di folder nya front end
-      $storage_path = $filename;
-    }
-    else
-    {
-          	// return $filename;
-      $storage_path = $name;
-    }
     $client = new \GuzzleHttp\Client();
 
     $form_post = $client->request('POST', config('constants.api_server').'add_groups', [
       'json' => [
-        'corporateId' => $corporateId,
-        'merchName' => $merchName,
-        'file' => $storage_path
+        'name' => $name,
+        'note' => $note,
+        'institute' => $institute,
+        'merchant' => $merchant,
+        'priv' => $priv,
+        'session_username' => Session::get('username'),
+        'session_user_id' => Session::get('user_id'),
+        'session_name' => Session::get('name')
       ]
     ]);
     $var = json_decode($form_post->getBody()->getContents());
@@ -251,7 +244,7 @@ class UsersGroupsController extends Controller
       // Session::put('id', $var->data->Id);
       $this->attrib = $var->result;
 
-      return view('corporate_merchant')->with(['main_menu' => $this->main_menu, 'sub_menu' => $this->sub_menu, 'attrib' => $this->attrib]);
+      return view('users_groups')->with(['main_menu' => $this->main_menu, 'sub_menu' => $this->sub_menu, 'attrib' => $this->attrib]);
 
     }
     else{
@@ -267,34 +260,28 @@ class UsersGroupsController extends Controller
     date_default_timezone_set('Asia/Jakarta');
     $now = date("Ymdhis");
 
-    $merchId = $request->input('editMerchId');
-    $corporateId = $request->input('corporateId');
-    $merchName = $request->input('editMerchName');
-    $name = $request->file('uploadedfile');
+    $group_id = $request->input('edit_group_id2');
+    $name = $request->input('edit_group2');
+    $institute = $request->input('edit_host2');
+    $merchant = $request->input('edit_merchant2');
+    $note = $request->input('edit_merchant2');
+    $status = $request->input('group_status');
+    $priv = $request->input('edit_privileges2');
 
-    $ext = end((explode(".", $name))); # extra () to prevent notice
-    if($name == ''){
-    	$name = "Default Logo";
-    }
-    if($name != "Default Logo")
-    {
-      $filename = $name->getClientOriginalName();
-          	// return $filename;
-      $path = Storage::putFileAs('/public/image', $name, $filename); // simpen di folder nya front end
-      $storage_path = $filename;
-    }
-    else
-    {
-      $storage_path = $name;
-    }
     $client = new \GuzzleHttp\Client();
 
     $form_post = $client->request('POST', config('constants.api_server').'update_groups', [
       'json' => [
-        'merchId' => $merchId,
-        'corporateId' => $corporateId,
-        'merchName' => $merchName,
-        'file' => $storage_path
+        'group_id' => $group_id,
+        'name' => $name,
+        'institute' => $institute,
+        'merchant' => $merchant,
+        'note' => $note,
+        'status' => $status,
+        'priv' => $priv,
+        'session_username' => Session::get('username'),
+        'session_user_id' => Session::get('user_id'),
+        'session_name' => Session::get('name')
       ]
     ]);
     $var = json_decode($form_post->getBody()->getContents());
@@ -303,7 +290,7 @@ class UsersGroupsController extends Controller
       // Session::put('id', $var->data->Id);
       $this->attrib = $var->result;
 
-      return view('corporate_merchant')->with(['main_menu' => $this->main_menu, 'sub_menu' => $this->sub_menu, 'attrib' => $this->attrib]);
+      return view('users_groups')->with(['main_menu' => $this->main_menu, 'sub_menu' => $this->sub_menu, 'attrib' => $this->attrib]);
 
     }
     else{
@@ -319,13 +306,20 @@ class UsersGroupsController extends Controller
     date_default_timezone_set('Asia/Jakarta');
     $now = date("Ymdhis");
 
-    $merchIdDel = $request->input('merchIdDel');
+    $delete_group_id = $request->input('delete_group_id');
+    $delete_groupName = $request->input('delete_groupName2');
+    $delete_group_host = $request->input('delete_group_host');
 
     $client = new \GuzzleHttp\Client();
 
     $form_post = $client->request('POST', config('constants.api_server').'delete_groups', [
       'json' => [
-        'merchIdDel' => $merchIdDel
+        'delete_group_id' => $delete_group_id,
+        'delete_groupName' => $delete_groupName,
+        'delete_group_host' => $delete_group_host,
+        'session_username' => Session::get('username'),
+        'session_user_id' => Session::get('user_id'),
+        'session_name' => Session::get('name')
       ]
     ]);
     $var = json_decode($form_post->getBody()->getContents());
@@ -334,7 +328,7 @@ class UsersGroupsController extends Controller
       // Session::put('id', $var->data->Id);
       $this->attrib = $var->result;
 
-      return view('corporate_merchant')->with(['main_menu' => $this->main_menu, 'sub_menu' => $this->sub_menu, 'attrib' => $this->attrib]);
+      return view('users_groups')->with(['main_menu' => $this->main_menu, 'sub_menu' => $this->sub_menu, 'attrib' => $this->attrib]);
 
     }
     else{
