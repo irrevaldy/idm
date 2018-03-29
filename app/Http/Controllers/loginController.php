@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Routing\Route;
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
-use GuzzleHttp\Promise;
 use Session;
 
 class loginController extends Controller

@@ -12,7 +12,7 @@ class CustomAuthChecker
 {
     public function handle($request, Closure $next, $guard = null)
     {
-        if(empty(Session::get('username')) && empty(Session::get('token'))){
+        if(empty(Session::get('username')) && empty(Session::get('apitoken'))){
 			//abort(403);
 			return redirect('/');
 		}
