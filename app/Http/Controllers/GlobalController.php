@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Session;
 
 class GlobalController extends Controller
 {
@@ -28,4 +29,52 @@ class GlobalController extends Controller
 
     return $var->status;
   }
+
+  public function GetHostData(Request $request)
+  {
+    $client = new \GuzzleHttp\Client();
+    $form_post = $client->request('GET', config('constants.api_server').'host_data', [
+      'json' => [
+        'merch_id' => Session::get('merch_id')
+      ]
+    ]);
+
+		$var = json_decode($form_post->getBody()->getContents());
+
+    if($var->success == true)
+    {
+      $this->attrib = $var->result;
+
+      return $this->attrib;
+    }
+    else
+    {
+      return Redirect::back()->withInput()->withErrors($var->message);
+    }
+  }
+
+  public function GetBranchData(Request $request)
+  {
+    $client = new \GuzzleHttp\Client();
+    $form_post = $client->request('GET', config('constants.api_server').'branch_data', [
+      'json' => [
+        'merch_id' => Session::get('merch_id')
+      ]
+    ]);
+
+    $var = json_decode($form_post->getBody()->getContents());
+
+    if($var->success == true)
+    {
+      $this->attrib = $var->result;
+
+      return $this->attrib;
+    }
+    else
+    {
+      return Redirect::back()->withInput()->withErrors($var->message);
+    }
+  }
+
+
 }

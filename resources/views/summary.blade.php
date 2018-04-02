@@ -30,8 +30,12 @@
             <div class="form-group">
               <label class="col-sm-3 control-label">Transaction Type</label>
               <div class="col-sm-9">
-                <input class="form-control form-white" name="transaction_type" id="transaction_type" type="text" placeholder="Select Transaction Type" required>
-            </div>
+                <select class="form-control selectTrx selectStore" name="transaction_type" id="transaction_type" style="width: 100%;" required="required">
+                  <option></option>
+                  <option value="sale"> Sale </option>
+                  <option value="prepaidTopUp"> Prepaid Top UP </option>
+                  <option value="prepaidSale"> Prepaid Sale </option>
+                </select>    </div>
           </div>
             <div class="form-group">
               <label class="col-sm-3 control-label">Corporate</label>
@@ -42,8 +46,11 @@
             <div class="form-group">
               <label class="col-sm-3 control-label">Status</label>
               <div class="col-sm-9">
-                <input class="form-control form-white" name="statusa" id="statusa" type="text" placeholder="Select Status" required>
-            </div>
+                <select class="form-control selectStatus selectStore" name="statusa" id="statusa" style="width: 100%;" required="required">
+                  <option></option>
+                  <option value="s">Settled</option>
+                  <option value="d">Declined</option>
+                </select>  </div>
             </div>
             <div class="form-group">
               <label class="col-sm-3 control-label">Specified RC (Declined)</label>
