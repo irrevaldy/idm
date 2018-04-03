@@ -75,3 +75,7 @@ Route::post('/audit_trail/result','AuditTrailController@getAuditTrail')->name('s
 Route::post('/update_password','GlobalController@UpdatePassword');
 Route::get('/host_data','GlobalController@GetHostData');
 Route::get('/branch_data','GlobalController@GetBranchData');
+Route::get('/bank_data','GlobalController@GetBankData');
+Route::get('/card_data','GlobalController@GetCardData');
+Route::get('/corporate_data','GlobalController@GetCorporateData');
+Route::post('/merchant_data','GlobalController@GetMerchantData');

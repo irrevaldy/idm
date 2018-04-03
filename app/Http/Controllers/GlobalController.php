@@ -76,5 +76,87 @@ class GlobalController extends Controller
     }
   }
 
+  public function GetBankData(Request $request)
+  {
+    $client = new \GuzzleHttp\Client();
+    $form_post = $client->request('GET', config('constants.api_server').'bank_data');
+
+    $var = json_decode($form_post->getBody()->getContents());
+
+    if($var->success == true)
+    {
+      $this->attrib = $var->result;
+
+      return $this->attrib;
+    }
+    else
+    {
+      return Redirect::back()->withInput()->withErrors($var->message);
+    }
+  }
+
+  public function GetCardData(Request $request)
+  {
+    $client = new \GuzzleHttp\Client();
+    $form_post = $client->request('GET', config('constants.api_server').'card_data');
+
+    $var = json_decode($form_post->getBody()->getContents());
+
+    if($var->success == true)
+    {
+      $this->attrib = $var->result;
+
+      return $this->attrib;
+    }
+    else
+    {
+      return Redirect::back()->withInput()->withErrors($var->message);
+    }
+  }
+
+  public function GetCorporateData(Request $request)
+  {
+    $client = new \GuzzleHttp\Client();
+    $form_post = $client->request('GET', config('constants.api_server').'corporate_data');
+
+    $var = json_decode($form_post->getBody()->getContents());
+
+    if($var->success == true)
+    {
+      $this->attrib = $var->result;
+
+      return $this->attrib;
+    }
+    else
+    {
+      return Redirect::back()->withInput()->withErrors($var->message);
+    }
+  }
+
+  public function GetMerchantData(Request $request)
+  {
+    $client = new \GuzzleHttp\Client();
+
+    $corporate = $request->input('corporate');
+    $form_post = $client->request('POST', config('constants.api_server').'merchant_data', [
+      'json' => [
+        'corporate' => $corporate
+      ]
+    ]);
+
+    $var = json_decode($form_post->getBody()->getContents());
+
+    if($var->success == true)
+    {
+      $this->attrib = $var->result;
+
+      return $this->attrib;
+    }
+    else
+    {
+      return Redirect::back()->withInput()->withErrors($var->message);
+    }
+  }
+
 
 }

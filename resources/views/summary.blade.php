@@ -18,13 +18,17 @@
             <div class="form-group">
               <label class="col-sm-3 control-label">Bank</label>
               <div class="col-sm-9">
-                  <input class="form-control form-white" name="bank_code" id="bank_code" type="text" placeholder="Select Bank">
+                <select class="form-control selectBank selectStore" name="bank_code" id="bank_code" style="width: 100%;" required="required">
+                  <option></option>
+                </select>
               </div>
             </div>
             <div class="form-group">
               <label class="col-sm-3 control-label">Card Type</label>
               <div class="col-sm-9">
-                <input class="form-control form-white" name="card_type" id="card_type" type="text" placeholder="Select Card Type">
+                <select class="form-control selectCard selectStore" name="card_type" id="card_type" style="width: 100%;" required="required">
+                  <option></option>
+                </select>
               </div>
             </div>
             <div class="form-group">
@@ -40,7 +44,10 @@
             <div class="form-group">
               <label class="col-sm-3 control-label">Corporate</label>
               <div class="col-sm-9">
-                <input class="form-control form-white" name="corporate" id="corporate" type="text" placeholder="Select Corporate" required>
+                <select class="form-control selectCorp selectStore" name="corporate" id="corporate" style="width: 100%;" required="required">
+                  <option></option>
+
+                </select>
             </div>
             </div>
             <div class="form-group">
@@ -111,20 +118,28 @@
             <div class="form-group">
               <label class="col-sm-3 control-label">Bank</label>
               <div class="col-sm-9">
-                  <input class="form-control form-white" name="bank_code" id="bank_code" type="text" placeholder="Select Bank">
+                <select class="form-control selectBank selectStore" name="bank_code_rc" id="bank_code_rc" style="width: 100%;" required="required">
+                  <option></option>
+                </select>
               </div>
             </div>
             <div class="form-group">
               <label class="col-sm-3 control-label">Transaction Type</label>
               <div class="col-sm-9">
-                <input class="form-control form-white" name="transaction_type" id="transaction_type" type="text" placeholder="Select Transaction Type">
+                <select class="form-control selectTrx selectStore" name="trx_type_rc" id="trx_type_rc" style="width: 100%;" required="required">
+                  <option></option>
+                  <option value="sale"> Sale </option>
+                  <option value="prepaidTopUp"> Prepaid Top UP </option>
+                  <option value="prepaidSale"> Prepaid Sale </option>
+                </select>
               </div>
             </div>
             <div class="form-group">
               <label class="col-sm-3 control-label">Corporate</label>
               <div class="col-sm-9">
-                <input class="form-control form-white" name="corporate" id="corporate" type="text" placeholder="Select Corporate" required>
-            </div>
+                <select class="form-control selectCorp selectStore" name="corp_id_rc" id="corp_id_rc" style="width: 100%;" required="required">
+                  <option></option>
+                </select></div>
           </div>
             <div class="form-group">
               <label class="col-sm-3 control-label">Month</label>
@@ -206,5 +221,94 @@ function callResponseCodeSummary() {
         x.style.display = "none";
     }
 }
+
+$(function ()
+{
+      $(".selectBank").select2({
+          placeholder: "Select Bank",
+          allowClear: true
+      });
+      $(".selectCard").select2({
+          placeholder: "Select Card",
+          allowClear: true
+      });
+      $(".selectTrx").select2({
+          placeholder: "Select Transaction Type",
+          allowClear: true
+      });
+      $(".selectStatus").select2({
+          placeholder: "Select Status",
+          allowClear: true
+      });
+      $(".selectCorp").select2({
+          placeholder: "Select Corporate",
+          allowClear: true
+      });
+});
+
+$(function(){
+    $.ajax({
+      dataType: 'JSON',
+      type: 'GET',
+      url: '/bank_data',
+      success: function (data) {
+        for(var i = 0; i < data.length; i++)
+        {
+          $("#bank_code").append('<option value="' + data[i]['FCODE'] + '">' + data[i]['FNAME'] + '</option>');
+        }
+      }
+    });
+
+    $.ajax({
+      dataType: 'JSON',
+      type: 'GET',
+      url: '/card_data',
+      success: function (data) {
+        for(var i = 0; i < data.length; i++)
+        {
+          $("#card_type").append('<option value="' + data[i]['FCARDTYPE'] + '">' + data[i]['FCARDTYPEDESC'] + '</option>');
+        }
+      }
+    });
+
+    $.ajax({
+      dataType: 'JSON',
+      type: 'GET',
+      url: '/corporate_data',
+      success: function (data) {
+        for(var i = 0; i < data.length; i++)
+        {
+          $("#corporate").append('<option value="' + data[i]['ID'] + '">' + data[i]['CORP_NAME'] + '</option>');
+        }
+      }
+    });
+
+    $.ajax({
+      dataType: 'JSON',
+      type: 'GET',
+      url: '/bank_data',
+      success: function (data) {
+        for(var i = 0; i < data.length; i++)
+        {
+          $("#bank_code_rc").append('<option value="' + data[i]['FCODE'] + '">' + data[i]['FNAME'] + '</option>');
+        }
+      }
+    });
+
+    $.ajax({
+      dataType: 'JSON',
+      type: 'GET',
+      url: '/corporate_data',
+      success: function (data) {
+        for(var i = 0; i < data.length; i++)
+        {
+          $("#corp_id_rc").append('<option value="' + data[i]['ID'] + '">' + data[i]['CORP_NAME'] + '</option>');
+        }
+      }
+    });
+
+
+  });
+
 </script>
 @endsection

@@ -15,19 +15,19 @@
               <div class="form-group">
                 <label class="col-sm-3 control-label">Store Code</label>
                 <div class="col-sm-9">
-                    <input class="form-control form-white" name="storeCode" id="store" type="text" placeholder="Select Bank">
+                    <input class="form-control form-white" name="storeCode" id="store" type="text" placeholder="Store Code">
                 </div>
               </div>
               <div class="form-group">
                 <label class="col-sm-3 control-label">Current Limit</label>
                 <div class="col-sm-9">
-                  <input class="form-control form-white" name="currLimit" id="card_type" type="text" placeholder="Select Card Type">
+                  <input class="form-control form-white" name="currLimit" id="card_type" type="text" placeholder="0">
                 </div>
               </div>
               <div class="form-group">
                 <label class="col-sm-3 control-label">New Limit</label>
                 <div class="col-sm-9">
-                  <input class="form-control form-white" name="newLimit" id="transaction_type" type="text" placeholder="Select Transaction Type" required>
+                  <input class="form-control form-white" name="newLimit" id="transaction_type" type="text" placeholder="New Limit" required>
               </div>
             </div>
             <div class="modal-footer">

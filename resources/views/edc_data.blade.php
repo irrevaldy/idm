@@ -171,15 +171,18 @@
                 <div class="col-md-4">
                   <div class="form-group">
                     <label>Corporate </label>
-                    <input type="text" class="form-control" id="corporate" name="corporate">
+                    <select class="form-control corp selectStore" name="corporate" id="corporate" style="width: 100%;" required="required">
+                      <option></option>
+                    </select>
                   </div><!-- /.form-group -->
                 </div>
 
                 <div class="col-md-4">
                   <div class="form-group">
                     <label>Merchant </label>
-                    <input type="text" class="form-control" id="merchant" name="merchant">
-
+                    <select class="form-control merch selectStore" name="merchant" id="merchant" style="width: 100%;" required="required">
+                  
+                    </select>
                   </div><!-- /.form-group -->
                 </div>
                 <div class="col-md-4">
@@ -474,5 +477,54 @@ function deleteDataSn() {
 });
 
 }
+
+$(function ()
+{
+      $(".corp").select2({
+          placeholder: "Select Corporate",
+          allowClear: true
+      });
+      $(".merch").select2({
+          placeholder: "Select Merchant",
+          allowClear: true
+      });
+});
+
+$(function(){
+    $.ajax({
+      dataType: 'JSON',
+      type: 'GET',
+      url: '/corporate_data',
+      success: function (data) {
+        for(var i = 0; i < data.length; i++)
+        {
+          $("#corporate").append('<option value="' + data[i]['ID'] + '">' + data[i]['CORP_NAME'] + '</option>');
+        }
+      }
+    });
+  });
+
+$(document).ready(function(){
+  $("#corporate").change(function()
+  {
+    $.ajax({
+      type: 'POST',
+      data: {
+        corporate   : $('#corporate').find(":selected").val()
+      },
+      url: '/merchant_data',
+      success: function (data)
+      {
+        $("#merchant option").remove();
+        for (var i = 0; i < data.length; i++)
+        {
+          $("#merchant").append('<option value=""></option>');
+          $("#merchant").append('<option value="' + data[i]['FID'] + '">' + data[i]['FMERCHNAME'] + '</option>');
+        }
+      }
+      });
+  });
+});
+
 </script>
 @endsection
