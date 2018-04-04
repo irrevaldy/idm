@@ -158,5 +158,72 @@ class GlobalController extends Controller
     }
   }
 
+  public function GetGroupData(Request $request)
+  {
+    $client = new \GuzzleHttp\Client();
+    $form_post = $client->request('POST', config('constants.api_server').'group_data', [
+      'json' => [
+        'fcode' => Session::get('FCODE'),
+        'fid' => Session::get('FID')
+      ]
+    ]);
+
+		$var = json_decode($form_post->getBody()->getContents());
+
+    if($var->success == true)
+    {
+      $this->attrib = $var->result;
+
+      return $this->attrib;
+    }
+    else
+    {
+      return Redirect::back()->withInput()->withErrors($var->message);
+    }
+  }
+
+  public function GetMerchantDataAll(Request $request)
+  {
+    $client = new \GuzzleHttp\Client();
+
+    $form_post = $client->request('POST', config('constants.api_server').'merchant');
+
+    $var = json_decode($form_post->getBody()->getContents());
+
+    if($var->success == true)
+    {
+      $this->attrib = $var->result;
+
+      return $this->attrib;
+    }
+    else
+    {
+      return Redirect::back()->withInput()->withErrors($var->message);
+    }
+  }
+
+  public function GetInstituteData(Request $request)
+  {
+    $client = new \GuzzleHttp\Client();
+    $form_post = $client->request('POST', config('constants.api_server').'institute_data', [
+      'json' => [
+        'fcode' => Session::get('FCODE')
+      ]
+    ]);
+
+    $var = json_decode($form_post->getBody()->getContents());
+
+    if($var->success == true)
+    {
+      $this->attrib = $var->result;
+
+      return $this->attrib;
+    }
+    else
+    {
+      return Redirect::back()->withInput()->withErrors($var->message);
+    }
+  }
+
 
 }

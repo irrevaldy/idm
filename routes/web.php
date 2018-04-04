@@ -79,3 +79,6 @@ Route::get('/bank_data','GlobalController@GetBankData');
 Route::get('/card_data','GlobalController@GetCardData');
 Route::get('/corporate_data','GlobalController@GetCorporateData');
 Route::post('/merchant_data','GlobalController@GetMerchantData');
+Route::post('/group_data','GlobalController@GetGroupData');
+Route::get('/merchant_data_all','GlobalController@GetMerchantDataAll');
+Route::get('/institute_data','GlobalController@GetInstituteData');

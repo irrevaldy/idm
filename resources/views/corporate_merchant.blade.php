@@ -229,12 +229,11 @@
                     <div class="col-md-6">
                       <div class="form-group">
                         <label>Corporate </label>
-                        <input type="text" class="form-control" name="corporateId" id="corporateId" required="required" placeholder="corporate">
 
-                        <!--<select class="form-control corp" name="corporateId" id="trxType" style="width: 100%;" required="required">
+                        <select class="form-control corp" name="corporateId" id="corporateId-merch" style="width: 100%;" required="required">
                           <option></option>
 
-                        </select>-->
+                        </select>
                       </div><!-- /.form-group -->
                     </div>
                   </div>
@@ -309,8 +308,10 @@
                     <div class="col-md-6">
                       <div class="form-group">
                         <label>Corporate </label>
-                        <input type="text" class="form-control" name="corporateId" id="editCorporateId2" required="required">
-                    </div><!-- /.form-group -->
+                        <select class="form-control corp" name="corporateId" id="editCorporateId2" style="width: 100%;" required="required">
+                          <option value=""></option>
+                        </select>
+                      </div><!-- /.form-group -->
                     </div>
                   </div>
                   <div class="row">
@@ -423,12 +424,17 @@
           var CORP_LOGO = data[i].CORP_LOGO;
           var REG_DATE = data[i].REG_DATE;
 
+          if(REG_DATE == null)
+          {
+            REG_DATE = '';
+          }
+
           var jRow = $('<tr>').append(
             '<td>'+ (i + 1) +'</td>',
               '<td>'+ CORP_NAME +'</td>',
               '<td>'+ CORP_LOGO +'</td>',
               '<td>'+ REG_DATE +'</td>',
-              '<td><a class="edit btn btn-sm btn-default" href="javascript:;" data-toggle="modal" data-target="#editCorpModal" style="cursor: pointer;" onClick="editCorp('+ ID +', \''+ CORP_NAME +'\')" ><i class="icon-note"></i></a><a class="delete btn btn-sm btn-danger" href="javascript:;" data-toggle="modal" data-target="#delCorpModal" style="cursor: pointer;" onClick="deleteCorp('+ ID +', \''+ CORP_NAME +'\')"><i class="icons-office-52"></i></a></td>'
+              '<td><a class="edit btn btn-sm btn-default" href="javascript:;" style="cursor: pointer;" onClick="editCorp('+ ID +', \''+ CORP_NAME +'\')" ><i class="icon-note"></i></a><a class="delete btn btn-sm btn-danger" href="javascript:;" style="cursor: pointer;" onClick="deleteCorp('+ ID +', \''+ CORP_NAME +'\')"><i class="icons-office-52"></i></a></td>'
               );
 
           tableCorporate.row.add(jRow).draw();
@@ -453,13 +459,18 @@
             var FREG_DATE = data[j].FREG_DATE;
             var ID = data[j].ID;
 
+            if(FREG_DATE == null)
+            {
+              FREG_DATE = '';
+            }
+
             var jRow = $('<tr>').append(
               '<td>'+ (j + 1) +'</td>',
                 '<td>'+ FMERCHNAME +'</td>',
                 '<td>'+ CORP_NAME +'</td>',
                 '<td>'+ FMERCHLOGO +'</td>',
                 '<td>'+ FREG_DATE +'</td>',
-                '<td><a class="edit btn btn-sm btn-default" href="javascript:;" data-toggle="modal" data-target="#editMerchModal" style="cursor: pointer;" onClick="editMerch('+ FID +', \''+ FMERCHNAME +', \''+ ID +'\')" ><i class="icon-note"></i></a><a class="delete btn btn-sm btn-danger" href="javascript:;" data-toggle="modal" data-target="#delMerchModal" style="cursor: pointer;" onClick="deleteMerch('+ FID +', \''+ FMERCHNAME +'\')"><i class="icons-office-52"></i></a></td>'
+                '<td><a class="edit btn btn-sm btn-default" href="javascript:;" style="cursor: pointer;" onClick="editMerch(\''+ FID +'\', \''+ FMERCHNAME +'\',\''+ ID +'\')" ><i class="icon-note"></i></a><a class="delete btn btn-sm btn-danger" href="javascript:;" style="cursor: pointer;" onClick="deleteMerch('+ FID +', \''+ FMERCHNAME +'\')"><i class="icons-office-52"></i></a></td>'
 
                 );
 
@@ -479,20 +490,21 @@
             $('input[name="corporateName"]').val(val);
           }
         });
+
+    $('#editCorpModal').modal('show');
   }
 
   function editMerch(id, merch, corpid) {
-    var corporateId2 = document.getElementById('editCorporateId2');
-    var merchId = document.getElementById('editMerchId');
-    var merchName = document.getElementById('editMerchName');
-    //var corporateIdSelect = document.getElementById('corporateIdSelect').value = corpid;
+    $.ajax({
+          async: false,
+          success: function(data){
+            $("#editCorporateId2").val(corpid).trigger("change");
+            $('input[name="editMerchId"]').val(id);
+            $('input[name="editMerchName"]').val(merch);
+          }
+        });
 
-  //  $("#corporateIdSelect").val(corpid).trigger("change");
-
-    //alert(corpid);
-    corporateId2.value = corpid;
-    merchId.value = id;
-    merchName.value = merch;
+      $('#editMerchModal').modal('show');
   }
 
   function deleteCorp(id, val) {
@@ -503,6 +515,8 @@
 
     corporateIdDel.value = id;
     //alert(user_id.value);
+
+    $('#delCorpModal').modal('show');
   }
 
   function submitDelCorp(){
@@ -517,10 +531,45 @@
 
     merchIdDel.value = id;
     //alert(user_id.value);
+
+      $('#delMerchModal').modal('show');
   }
 
   function submitDelMerch(){
     $("#submitDelMerch").click();
   }
+
+  $(function ()
+  {
+        $(".corp").select2({
+            placeholder: "Select Corporate",
+            allowClear: true
+        });
+  });
+
+  $.ajax({
+    dataType: 'JSON',
+    type: 'GET',
+    url: '/corporate_data',
+    success: function (data) {
+      for(var i = 0; i < data.length; i++)
+      {
+        $("#corporateId-merch").append('<option value="' + data[i]['ID'] + '">' + data[i]['CORP_NAME'] + '</option>');
+      }
+    }
+  });
+
+  $.ajax({
+    dataType: 'JSON',
+    type: 'GET',
+    url: '/corporate_data',
+    success: function (data) {
+      for(var i = 0; i < data.length; i++)
+      {
+        $("#editCorporateId2").append('<option value="' + data[i]['ID'] + '">' + data[i]['CORP_NAME'] + '</option>');
+      }
+    }
+  });
+
 </script>
 @endsection

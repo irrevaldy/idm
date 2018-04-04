@@ -77,8 +77,10 @@
                     <div class="col-md-6">
                       <div class="form-group">
                         <label>Group </label>
-                        <input type="text" name="group" id="group" class="form-control"  placeholder="Group" maxlength="50" required="required">
-                    </div><!-- /.form-group -->
+                        <select class="form-control select2" name="group" id="group2" style="width: 100%;" required="required">
+                          <option></option>
+                        </select>
+                      </div><!-- /.form-group -->
                     </div>
 
                     <div class="col-md-6">
@@ -158,8 +160,9 @@
                     <div class="col-md-6">
                       <div class="form-group">
                         <label>Group </label>
-                        <input type="text" name="edit_group" id="edit_group" class="form-control"  placeholder="Group" maxlength="50" required="required">
-                    </div><!-- /.form-group -->
+                        <select class="form-control select2" name="edit_group" id="edit_group" style="width: 100%;" required="required">
+                          <option></option>
+                        </select>    </div><!-- /.form-group -->
                     </div>
 
                     <div class="col-md-6">
@@ -282,15 +285,19 @@
                     <div class="col-md-6">
                       <div class="form-group">
                         <label>Host </label>
-                        <input type="text" name="institute" id="institute" class="form-control" placeholder="Host" maxlength="50" required="required">
-                    </div><!-- /.form-group -->
+                        <select class="form-control institute" name="institute" id="institute" style="width: 100%;" onChange="checkHost(this)" required="required">
+                          <option></option>
+                        </select>
+                      </div><!-- /.form-group -->
                     </div>
 
                     <div class="col-md-6">
                       <div class="form-group">
                         <label>Merchant </label>
-                        <input type="text" name="merchant" id="merchant" class="form-control"  placeholder="Merchant" maxlength="4" required="required">
-                    </div><!-- /.form-group -->
+                        <select class="form-control merchant" name="merchant" id="merchant" style="width: 100%;">
+                          <option></option>
+                        </select>
+                      </div><!-- /.form-group -->
                     </div>
                   </div>
 
@@ -348,14 +355,16 @@
                     <div class="col-md-6">
                       <div class="form-group">
                         <label>Host </label>
-                        <input type="text" name="edit_host2" id="edit_host2" class="form-control"  placeholder="Group" maxlength="50">
+                        <select class="form-control edit_host2" name="edit_host2" id="edit_host2" style="width: 100%;" required="required">
+                        </select>
                       </div><!-- /.form-group -->
                     </div>
 
                     <div class="col-md-6">
                       <div class="form-group">
                         <label>Merchant </label>
-                        <input type="text" name="edit_merchant2" id="edit_merchant2" class="form-control"  placeholder="Branch" maxlength="4" required="required">
+                        <select class="form-control edit_merchant2" name="edit_merchant2" id="edit_merchant2" style="width: 100%;" required="required">
+                        </select>
                       </div><!-- /.form-group -->
                     </div>
                   </div>
@@ -459,6 +468,7 @@
 				for (var i = 0; i < data.length; i++) {
           var user_id = data[i].user_id;
           var name = data[i].name;
+          var group_id = data[i].group_id;
           var groupName = data[i].groupName;
           var branch = data[i].branch_code;
           var username = data[i].username;
@@ -531,7 +541,7 @@
                 '<td>'+ groupName +'</td>',
                 '<td>'+ fname +'</td>',
                 '<td>'+ status2 +'</td>',
-                '<td><a class="edit btn btn-sm btn-default" href="javascript:;" style="cursor: pointer;" onClick="editUsers(\''+ user_id +'\',\''+ name +'\', \''+ groupName +'\',\''+ branch +'\',\''+ username +'\',\''+ password +'\',\''+ note +'\')" ><i class="icon-note"></i></a><a class="delete btn btn-sm btn-danger" href="javascript:;" style="cursor: pointer;" onClick="deleteUsers(\''+ user_id +'\',\''+ name +'\')"><i class="icons-office-52"></i></a></td>'
+                '<td><a class="edit btn btn-sm btn-default" href="javascript:;" style="cursor: pointer;" onClick="editUsers(\''+ user_id +'\',\''+ name +'\', \''+ group_id +'\',\''+ branch +'\',\''+ username +'\',\''+ password +'\',\''+ note +'\')" ><i class="icon-note"></i></a><a class="delete btn btn-sm btn-danger" href="javascript:;" style="cursor: pointer;" onClick="deleteUsers(\''+ user_id +'\',\''+ name +'\')"><i class="icons-office-52"></i></a></td>'
 
                 );
 
@@ -555,6 +565,7 @@
             var group_host = data[i].FMERCHNAME;
             var group_fid = data[i].FID;
             var group_fname = data[i].FNAME;
+            var merch_id = data[i].merch_id;
             if(group_fid == '99')
             {
               group_host = 'Merchant';
@@ -620,7 +631,7 @@
                 '<td>'+ groupName +'</td>',
                 '<td>'+ group_merchant +'</td>',
                 '<td>'+ group_status2 +'</td>',
-                '<td><a class="edit btn btn-sm btn-default" href="javascript:;" style="cursor: pointer;" onClick="editGroups(\''+ group_id +'\', \''+ groupName +'\',\''+ group_host +'\',\''+ group_merchant +'\')" ><i class="icon-note"></i></a><a class="delete btn btn-sm btn-danger" href="javascript:;" style="cursor: pointer;" onClick="deleteGroups(\''+ group_id +'\',\''+ groupName +'\',\''+ group_host +'\')"><i class="icons-office-52"></i></a></td>'
+                '<td><a class="edit btn btn-sm btn-default" href="javascript:;" style="cursor: pointer;" onClick="editGroups(\''+ group_id +'\', \''+ groupName +'\',\''+ merch_id +'\',\''+ merch_id +'\')" ><i class="icon-note"></i></a><a class="delete btn btn-sm btn-danger" href="javascript:;" style="cursor: pointer;" onClick="deleteGroups(\''+ group_id +'\',\''+ groupName +'\',\''+ group_host +'\')"><i class="icons-office-52"></i></a></td>'
 
                 );
 
@@ -634,7 +645,7 @@
   function editUsers(user_id, name, group, branch, username, password, note) {
         $('#edit_user_id').val(user_id);
         $('#edit_name').val(name);
-        $('#edit_group').val(group);
+        $('#edit_group').val(group).trigger("change");
         $('#edit_branch').val(branch);
         $('#edit_username').val(username);
         $('#edit_password').val(password);
@@ -659,8 +670,8 @@
       function editGroups(group_id, groupName, group_host, group_merchant) {
             $('#edit_group_id2').val(group_id);
             $('#edit_group2').val(groupName);
-            $('#edit_host2').val(group_host);
-            $('#edit_merchant2').val(group_merchant);
+            $('#edit_host2').val(group_host).trigger("change");
+            $('#edit_merchant2').val(group_merchant).trigger("change");
 
           $('#editGroupsModal').modal('show');
 
@@ -678,5 +689,115 @@
         function submitGroup(){
           $("#submitGroup").click();
         }
+
+        $(function ()
+        {
+              $(".select2").select2({
+                  placeholder: "Select Group",
+                  allowClear: true
+              });
+              $(".institute").select2({
+                  placeholder: "Select Host",
+                  allowClear: true
+              });
+              $(".merchant").select2({
+                  placeholder: "Select Merchant",
+                  allowClear: true
+              });
+              $(".edit_host2").select2({
+                  placeholder: "Select Host",
+                  allowClear: true
+              });
+              $(".edit_merchant2").select2({
+                  placeholder: "Select Merchant",
+                  allowClear: true
+              });
+        });
+
+        $.ajax({
+          dataType: 'JSON',
+          type: 'POST',
+          url: '/group_data',
+          success: function (data) {
+
+            for(var i = 0; i < data.length; i++)
+            {
+
+              $("#group2").append('<option value="' + data[i]['group_id'] + '">' + data[i]['groupName'] + '</option>');
+            }
+          }
+        });
+
+        $.ajax({
+          dataType: 'JSON',
+          type: 'POST',
+          url: '/group_data',
+          success: function (data) {
+
+            for(var i = 0; i < data.length; i++)
+            {
+
+              $("#edit_group").append('<option value="' + data[i]['group_id'] + '">' + data[i]['groupName'] + '</option>');
+            }
+          }
+        });
+
+        $.ajax({
+          dataType: 'JSON',
+          type: 'GET',
+          url: '/institute_data',
+          success: function (data) {
+
+            for(var i = 0; i < data.length; i++)
+            {
+
+              $("#institute").append('<option value="' + data[i]['FID'] + '">' + data[i]['FNAME'] + '</option>');
+            }
+          }
+        });
+
+        $.ajax({
+          dataType: 'JSON',
+          type: 'GET',
+          url: '/merchant_data_all',
+          success: function (data) {
+
+            for(var i = 0; i < data.length; i++)
+            {
+
+              $("#merchant").append('<option value="' + data[i]['FID'] + '">' + data[i]['FMERCHNAME'] + '</option>');
+            }
+          }
+        });
+
+        $.ajax({
+          dataType: 'JSON',
+          type: 'GET',
+          url: '/institute_data',
+          success: function (data) {
+
+
+            for(var i = 0; i < data.length; i++)
+            {
+              $("#edit_host2").append('<option value="' + data[i]['FID'] + '">' + data[i]['FNAME'] + '</option>');
+            }
+          }
+        });
+
+        $.ajax({
+          dataType: 'JSON',
+          type: 'GET',
+          url: '/merchant_data_all',
+          success: function (data) {
+
+            for(var i = 0; i < data.length; i++)
+            {
+
+              $("#edit_merchant2").append('<option value="' + data[i]['FID'] + '">' + data[i]['FMERCHNAME'] + '</option>');
+            }
+          }
+        });
+
+
 </script>
 @endsection
