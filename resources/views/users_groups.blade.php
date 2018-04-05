@@ -95,6 +95,12 @@
   color: #aaa;
   cursor: text;
 }
+
+.modal-dialog {
+    width: 900px;
+    margin: 30px auto;
+}
+
 </style>
     <div class="header">
         <h2><i class="fa fa-th" aria-hidden="true"></i><strong>Users & Groups</strong></h2>
@@ -552,7 +558,8 @@
 
 <script type="text/javascript">
   $(document).ready(function(){
-
+  $('#my-select').multiSelect();
+    $('#my-select2').multiSelect();
 
     var tableUsers = $('#tableUsers').DataTable();
 
@@ -775,7 +782,9 @@
 
             var get_group_policy = group_policy // it has the multiple values to set, separated by comma
             var array_group_policy = get_group_policy.split(',');
-            $('#my-select2').val(array_group_policy);
+            //$('#my-select2').val(array_group_policy);
+            $('#my-select2').multiSelect("select", array_group_policy);
+
 
           $('#editGroupsModal').modal('show');
 
@@ -907,6 +916,22 @@
           }
         });
 
+        // $.ajax({
+        //   dataType: 'JSON',
+        //   type: 'POST',
+        //   url: '/policy_data',
+        //   success: function (data) {
+        //
+        //     for(var i = 0; i < data.length; i++)
+        //     {
+        //
+        //       $("#my-select").append('<option value="' + data[i]['policy_id'] + '">' + data[i]['policyName'] + '</option>');
+        //     }
+        //   }
+        // });
+
+
+
         $.ajax({
           dataType: 'JSON',
           type: 'POST',
@@ -915,24 +940,9 @@
 
             for(var i = 0; i < data.length; i++)
             {
-
-              $("#my-select").append('<option value="' + data[i]['policy_id'] + '">' + data[i]['policyName'] + '</option>');
-            }
-          }
-        });
-
-
-
-        $.ajax({
-          dataType: 'JSON',
-          type: 'POST',
-          url: '/policy_data',
-          success: function (data) {
-
-            for(var i = 0; i < data.length; i++)
-            {
-
-              $("#my-select2").append('<option value="' + data[i]['policy_id'] + '">' + data[i]['policyName'] + '</option>');
+$('#my-select').multiSelect('addOption', { value: data[i]['policy_id'], text: data[i]['policyName'] });
+              //$("#my-select2").append('<option value="' + data[i]['policy_id'] + '">' + data[i]['policyName'] + '</option>');
+$('#my-select2').multiSelect('addOption', { value: data[i]['policy_id'], text: data[i]['policyName'] });
             }
           }
         });
