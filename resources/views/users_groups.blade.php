@@ -509,18 +509,18 @@
 
           });
 
+          function active(){
+            $('input#st-active').iCheck('check', function(){
+              $("label#lbl-active").addClass("bold");
+              $("label#lbl-active").removeClass("tin");
+              $("label#lbl-inactive").removeClass("bold");
+              $("label#lbl-inactive").addClass("tin");
+            });
+          }
+
           if(status == '1') {
             active();
           }
-
-        function active(){
-          $('input#st-active').iCheck('check', function(){
-            $("label#lbl-active").addClass("bold");
-            $("label#lbl-active").removeClass("tin");
-            $("label#lbl-inactive").removeClass("bold");
-            $("label#lbl-inactive").addClass("tin");
-          });
-        }
 
           if(status == '1')
           {
@@ -605,9 +605,6 @@
 
             });
 
-            if(group_status == '1') {
-              active2();
-            }
 
           function active2(){
             $('input#st-active2').iCheck('check', function(){
@@ -616,6 +613,10 @@
               $("label#lbl-inactive2").removeClass("bold");
               $("label#lbl-inactive2").addClass("tin");
             });
+          }
+
+          if(group_status == '1') {
+            active2();
           }
 
             if(group_status == '1')
@@ -631,7 +632,7 @@
                 '<td>'+ groupName +'</td>',
                 '<td>'+ group_merchant +'</td>',
                 '<td>'+ group_status2 +'</td>',
-                '<td><a class="edit btn btn-sm btn-default" href="javascript:;" style="cursor: pointer;" onClick="editGroups(\''+ group_id +'\', \''+ groupName +'\',\''+ merch_id +'\',\''+ merch_id +'\')" ><i class="icon-note"></i></a><a class="delete btn btn-sm btn-danger" href="javascript:;" style="cursor: pointer;" onClick="deleteGroups(\''+ group_id +'\',\''+ groupName +'\',\''+ group_host +'\')"><i class="icons-office-52"></i></a></td>'
+                '<td><a class="edit btn btn-sm btn-default" href="javascript:;" style="cursor: pointer;" onClick="editGroups(\''+ group_id +'\', \''+ groupName +'\',\''+ group_fid +'\',\''+ merch_id +'\')" ><i class="icon-note"></i></a><a class="delete btn btn-sm btn-danger" href="javascript:;" style="cursor: pointer;" onClick="deleteGroups(\''+ group_id +'\',\''+ groupName +'\',\''+ group_host +'\')"><i class="icons-office-52"></i></a></td>'
 
                 );
 
@@ -725,6 +726,8 @@
 
               $("#group2").append('<option value="' + data[i]['group_id'] + '">' + data[i]['groupName'] + '</option>');
             }
+            $("#group2").append('<option value="' + data[i]['group_id'] + '">' + data[i]['groupName'] + '</option>');
+
           }
         });
 
@@ -753,6 +756,8 @@
 
               $("#institute").append('<option value="' + data[i]['FID'] + '">' + data[i]['FNAME'] + '</option>');
             }
+          ;
+
           }
         });
 
@@ -781,6 +786,8 @@
             {
               $("#edit_host2").append('<option value="' + data[i]['FID'] + '">' + data[i]['FNAME'] + '</option>');
             }
+              $("#edit_host2").append('<option value="99">Merchant</option>');
+              $("#edit_host2").append('<option value="1909">Wirecard</option>');
           }
         });
 
