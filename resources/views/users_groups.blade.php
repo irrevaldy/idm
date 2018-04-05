@@ -1,7 +1,101 @@
 @extends('layout')
 
 @section('content')
+<style type="text/css">
+.ms-container{
+  background: transparent url('../img/switch.png') no-repeat 50% 50%;
+  width: 370px;
+}
 
+.ms-container:after{
+  content: ".";
+  display: block;
+  height: 0;
+  line-height: 0;
+  font-size: 0;
+  clear: both;
+  min-height: 0;
+  visibility: hidden;
+}
+
+.ms-container .ms-selectable, .ms-container .ms-selection{
+  background: #fff;
+  color: #555555;
+  float: left;
+  width: 45%;
+}
+.ms-container .ms-selection{
+  float: right;
+}
+
+.ms-container .ms-list{
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -webkit-transition: border linear 0.2s, box-shadow linear 0.2s;
+  -moz-transition: border linear 0.2s, box-shadow linear 0.2s;
+  -ms-transition: border linear 0.2s, box-shadow linear 0.2s;
+  -o-transition: border linear 0.2s, box-shadow linear 0.2s;
+  transition: border linear 0.2s, box-shadow linear 0.2s;
+  border: 1px solid #ccc;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  position: relative;
+  height: 200px;
+  padding: 0;
+  overflow-y: auto;
+}
+
+.ms-container .ms-list.ms-focus{
+  border-color: rgba(82, 168, 236, 0.8);
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
+  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
+  outline: 0;
+  outline: thin dotted \9;
+}
+
+.ms-container ul{
+  margin: 0;
+  list-style-type: none;
+  padding: 0;
+}
+
+.ms-container .ms-optgroup-container{
+  width: 100%;
+}
+
+.ms-container .ms-optgroup-label{
+  margin: 0;
+  padding: 5px 0px 0px 5px;
+  cursor: pointer;
+  color: #999;
+}
+
+.ms-container .ms-selectable li.ms-elem-selectable,
+.ms-container .ms-selection li.ms-elem-selection{
+  border-bottom: 1px #eee solid;
+  padding: 2px 10px;
+  color: #555;
+  font-size: 14px;
+}
+
+.ms-container .ms-selectable li.ms-hover,
+.ms-container .ms-selection li.ms-hover{
+  cursor: pointer;
+  color: #fff;
+  text-decoration: none;
+  background-color: #08c;
+}
+
+.ms-container .ms-selectable li.disabled,
+.ms-container .ms-selection li.disabled{
+  background-color: #eee;
+  color: #aaa;
+  cursor: text;
+}
+</style>
     <div class="header">
         <h2><i class="fa fa-th" aria-hidden="true"></i><strong>Users & Groups</strong></h2>
     </div>
@@ -310,11 +404,12 @@
                     </div>
 
                     <div class="col-md-6">
-                      <div class="form-group">
-                        <label>Privileges</label>
-                        <input type="text" name="privileges" id="privileges" class="form-control" placeholder="privilege" maxlength="50" required="required">
-                    </div><!-- /.form-group -->
-                    </div>
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Privileges</label>
+                    <select multiple="multiple" id="my-select" name="privileges[]" required="required">
+                    </select>
+                  </div>
+                </div>
                   </div>
                 </div>
               </div>
@@ -349,9 +444,8 @@
                         <input type="text" name="edit_group2" id="edit_group2" class="form-control" placeholder="Name" maxlength="50" required="required">
                       </div><!-- /.form-group -->
                     </div>
-                  </div>
 
-                  <div class="row">
+
                     <div class="col-md-6">
                       <div class="form-group">
                         <label>Host </label>
@@ -360,6 +454,7 @@
                       </div><!-- /.form-group -->
                     </div>
 
+                    <div class="row">
                     <div class="col-md-6">
                       <div class="form-group">
                         <label>Merchant </label>
@@ -367,9 +462,7 @@
                         </select>
                       </div><!-- /.form-group -->
                     </div>
-                  </div>
 
-                  <div class="row">
                     <div class="col-md-6">
                       <div class="form-group">
                         <label>Note </label>
@@ -378,8 +471,7 @@
                     </div>
                   </div>
 
-
-                  <div class="row">
+                  <div>
                     <div class="col-md-6">
                       <div class="form-group">
                       <label>Status</label><br>
@@ -389,15 +481,16 @@
                         <label for="st-inactive2" id="lbl-inactive2" class="bold">Not Active</label>
                       </div>
                     </div>
-                  </div> <!-- end of row -->
 
-                <div class="row">
-                  <div class="col-md-6">
+                  <div class="col-md-5">
                     <div class="form-group">
-                      <label>Privileges</label>
-                      <input type="text" name="edit_privileges2" id="edit_privileges2" class="form-control"  placeholder="Privilege" maxlength="4" required="required">
-                    </div><!-- /.form-group -->
+                      <label for="exampleInputEmail1">Privileges</label>
+                      <select multiple="multiple" id="my-select2" name="privileges[]" required="required">
+
+                      </select>
+                    </div>
                   </div>
+                </div> <!-- end of row -->
                 </div>
 
                 </div>
@@ -452,10 +545,15 @@
 <script src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script> <!-- Tables Filtering, Sorting & Editing -->
 <script src="{{ asset('assets/js/pages/table_dynamic.js') }}"></script>
 <script src="{{ asset('assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js') }}"></script> <!-- >Bootstrap Date Picker -->
+<script src="{{ asset('assets/plugins/lou-multi-select/js/jquery.multi-select.js') }}"></script>
+
 <!-- END PAGE SCRIPTS -->
+
 
 <script type="text/javascript">
   $(document).ready(function(){
+
+
     var tableUsers = $('#tableUsers').DataTable();
 
     $.ajax({
@@ -566,6 +664,7 @@
             var group_fid = data[i].FID;
             var group_fname = data[i].FNAME;
             var merch_id = data[i].merch_id;
+            var group_policy = data[i].GROUP_POLICY;
             if(group_fid == '99')
             {
               group_host = 'Merchant';
@@ -632,7 +731,7 @@
                 '<td>'+ groupName +'</td>',
                 '<td>'+ group_merchant +'</td>',
                 '<td>'+ group_status2 +'</td>',
-                '<td><a class="edit btn btn-sm btn-default" href="javascript:;" style="cursor: pointer;" onClick="editGroups(\''+ group_id +'\', \''+ groupName +'\',\''+ group_fid +'\',\''+ merch_id +'\')" ><i class="icon-note"></i></a><a class="delete btn btn-sm btn-danger" href="javascript:;" style="cursor: pointer;" onClick="deleteGroups(\''+ group_id +'\',\''+ groupName +'\',\''+ group_host +'\')"><i class="icons-office-52"></i></a></td>'
+                '<td><a class="edit btn btn-sm btn-default" href="javascript:;" style="cursor: pointer;" onClick="editGroups(\''+ group_id +'\', \''+ groupName +'\',\''+ group_fid +'\',\''+ merch_id +'\',\''+ group_policy +'\')" ><i class="icon-note"></i></a><a class="delete btn btn-sm btn-danger" href="javascript:;" style="cursor: pointer;" onClick="deleteGroups(\''+ group_id +'\',\''+ groupName +'\',\''+ group_host +'\')"><i class="icons-office-52"></i></a></td>'
 
                 );
 
@@ -668,11 +767,15 @@
         $("#submitUser").click();
       }
 
-      function editGroups(group_id, groupName, group_host, group_merchant) {
+      function editGroups(group_id, groupName, group_host, group_merchant, group_policy) {
             $('#edit_group_id2').val(group_id);
             $('#edit_group2').val(groupName);
             $('#edit_host2').val(group_host).trigger("change");
             $('#edit_merchant2').val(group_merchant).trigger("change");
+
+            var get_group_policy = group_policy // it has the multiple values to set, separated by comma
+            var array_group_policy = get_group_policy.split(',');
+            $('#my-select2').val(array_group_policy);
 
           $('#editGroupsModal').modal('show');
 
@@ -726,7 +829,6 @@
 
               $("#group2").append('<option value="' + data[i]['group_id'] + '">' + data[i]['groupName'] + '</option>');
             }
-            $("#group2").append('<option value="' + data[i]['group_id'] + '">' + data[i]['groupName'] + '</option>');
 
           }
         });
@@ -804,6 +906,38 @@
             }
           }
         });
+
+        $.ajax({
+          dataType: 'JSON',
+          type: 'POST',
+          url: '/policy_data',
+          success: function (data) {
+
+            for(var i = 0; i < data.length; i++)
+            {
+
+              $("#my-select").append('<option value="' + data[i]['policy_id'] + '">' + data[i]['policyName'] + '</option>');
+            }
+          }
+        });
+
+
+
+        $.ajax({
+          dataType: 'JSON',
+          type: 'POST',
+          url: '/policy_data',
+          success: function (data) {
+
+            for(var i = 0; i < data.length; i++)
+            {
+
+              $("#my-select2").append('<option value="' + data[i]['policy_id'] + '">' + data[i]['policyName'] + '</option>');
+            }
+          }
+        });
+
+
 
 
 </script>

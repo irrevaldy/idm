@@ -225,5 +225,28 @@ class GlobalController extends Controller
     }
   }
 
+  public function GetPolicyData(Request $request)
+  {
+    $client = new \GuzzleHttp\Client();
+    $form_post = $client->request('POST', config('constants.api_server').'policy_data', [
+      'json' => [
+        'fcode' => Session::get('FCODE')
+      ]
+    ]);
+
+    $var = json_decode($form_post->getBody()->getContents());
+
+    if($var->success == true)
+    {
+      $this->attrib = $var->result;
+
+      return $this->attrib;
+    }
+    else
+    {
+      return Redirect::back()->withInput()->withErrors($var->message);
+    }
+  }
+
 
 }

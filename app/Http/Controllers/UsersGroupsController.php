@@ -97,6 +97,7 @@ class UsersGroupsController extends Controller
     $username = strtolower($username);
     $password = $request->input('password');
     $password = hash('sha256', $password);
+    $priv = $request->input('privileges');
 
     $client = new \GuzzleHttp\Client();
 
@@ -107,7 +108,8 @@ class UsersGroupsController extends Controller
         'branch' => $branch,
         'note' => $note,
         'username' => $username,
-        'password' => $password
+        'password' => $password,
+        'priv' => $priv
       ]
     ]);
     $var = json_decode($form_post->getBody()->getContents());
