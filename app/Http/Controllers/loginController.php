@@ -39,6 +39,8 @@ class loginController extends Controller
     //return $a;
 
 		if($var->success == TRUE){
+
+      $sidebar = 'sidebar-collapse';
 			// Session::put('id', $var->data->Id);
       Session::put('user_id', $var->data->user_id);
 			Session::put('username', $var->data->username);
@@ -58,6 +60,8 @@ class loginController extends Controller
       Session::put('total_active', $var->data->total_active);
       Session::put('total_not_active', $var->data->total_not_active);
       Session::put('total_active_transaction', $var->data->total_active_transaction);
+      Session::put('sidebar', $sidebar);
+
 
 			return redirect('/home');
 

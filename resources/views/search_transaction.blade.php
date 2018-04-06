@@ -279,7 +279,20 @@
 
 
 <script type="text/javascript">
+$(function ()
+{
+       $(".selectHost").select2({
+           placeholder: "Select Host",
+           allowClear: true
+       });
 
+       $(".selectTransaction_Type").select2({
+           placeholder: "Select Transaction",
+           allowClear: true
+       });
+
+       
+});
 
 
 $("#btnSubmit").click(function(e)
@@ -302,7 +315,7 @@ $("#btnSubmit").click(function(e)
           approval_code       : $('input[name="approval_code"]').val(),
           mid                 : $('input[name="mid"]').val(),
           tid                 : $('input[name="tid"]').val(),
-          transaction_date    : $('input[name="transaction_date"]').val()
+          transaction_date    : $('#transaction_date').val()
           // ,ModifiedBy        : "ADMIN"
         },
         //headers: {'X-CSRF-TOKEN': "{{ csrf_token() }}"},
@@ -359,18 +372,7 @@ $("#btnSubmit").click(function(e)
     $('.btn-primary').prop('disabled', false);
   });
 
-  $(function ()
-  {
-         $(".selectHost").select2({
-             placeholder: "Select Host",
-             allowClear: true
-         });
 
-         $(".selectTransaction_Type").select2({
-             placeholder: "Select Transaction",
-             allowClear: true
-         });
-  });
 //select host
 $(function(){
     $.ajax({

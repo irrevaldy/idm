@@ -248,5 +248,22 @@ class GlobalController extends Controller
     }
   }
 
+  public function GetSidebar(Request $request)
+  {
+    $sidebar = Session::get('sidebar');
+    if($sidebar == '')
+    {
+        $sidebar = 'sidebar-collapse';
+    }
+    else if($sidebar == 'sidebar-collapse')
+    {
+        $sidebar = '';
+
+    }
+    Session::put('sidebar', $sidebar);
+
+    return $sidebar;
+  }
+
 
 }

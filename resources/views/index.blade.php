@@ -75,8 +75,7 @@
           collapseButton2.click();
         }
       </script>
-
-
+      
       <div class="row">
         <div class="col-md-12">
           <div class="box box-primary">
@@ -179,6 +178,8 @@
       </section><!-- /.content -->
 
     </div><!-- /.content-wrapper -->
+
+
 
 
 @endsection

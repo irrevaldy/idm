@@ -83,3 +83,4 @@ Route::post('/group_data','GlobalController@GetGroupData');
 Route::get('/merchant_data_all','GlobalController@GetMerchantDataAll');
 Route::get('/institute_data','GlobalController@GetInstituteData');
 Route::post('/policy_data','GlobalController@GetPolicyData');
+Route::get('/sidebar','GlobalController@GetSidebar');

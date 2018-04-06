@@ -6,6 +6,8 @@
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
       <link rel="stylesheet" href="{{ asset('bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/plugins/select2-4.0.3/dist/css/select2.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker.css') }}">
+
     <script src="{{ asset('assets/plugins/modernizr/modernizr-2.6.2-respond-1.1.0.min.js') }}"></script>
     </head>
       <body class="fixed-topbar fixed-sidebar theme-sdtl color-default">
@@ -366,8 +368,7 @@
     <script src="{{ asset('assets/js/pages/search.js') }}"></script> <!-- Search Script -->
     <script src="{{ asset('assets/js/plugins.js') }}"></script> <!-- Main Plugin Initialization Script -->
     <script src="{{ asset('assets/js/application.js') }}"></script> <!-- Main Application Script -->
-
-    <script type="text/javascript">
+	   <script type="text/javascript">
       $(".numeric").numeric();
 
       $(function () {
