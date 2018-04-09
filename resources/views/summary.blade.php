@@ -64,7 +64,7 @@
               <div class="box-body">
                 <div class="row">
                   <div class="col-md-12">
-                  <form id="summaryTransaction_form" method="POST" action="{{ route('summary_transaction') }}">
+                  <form id="summaryTransaction_form" method="POST">
 
                     <div class="row">
 
@@ -126,7 +126,7 @@
                       <div class="col-md-3">
                         <div class="form-group">
                           <label for="exampleInputEmail1">Specified RC (Declined)</label>
-                          <input class="form-control form-white" name="specifiedrc" id="specifiedrc" type="text" placeholder="Select Specified RC">
+                          <input class="form-control" name="specifiedrc" id="specifiedrc" type="text" placeholder="Response Code..." type="text" disabled>
 
                         </div><!-- /.input group -->
                       </div>
@@ -152,31 +152,6 @@
                       </div>
 
                     </div> <!-- end of <div class="row"> -->
-                      @if(isset($attrib))
-                      <div class="form-group">
-                        <div class="panel-content pagination2 force-table-responsive" style="overflow-x: hidden;">
-                          <table class="table" id="tableSearch" >
-                            <thead>
-                              <tr>
-                                <th>Bank</th>
-                                <th>Total Transaction</th>
-                                <th>Total Amount</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-
-                              @foreach($attrib as $key => $value)
-                              <tr>
-                                <td>{{ $value->FNAME }}</td>
-                                <td>{{ $value->totalTrx }}</td>
-                                <td>{{ $value->totalAmount }}</td>
-                                <tr>
-                                  @endforeach
-                            </tbody>
-                          </table>
-                        </div>
-                        </div>
-                        @endif
                   </form>
                   </div>
 
@@ -184,10 +159,22 @@
 
               </div><!-- end of box body -->
 
-              <div class="box-body" id="summaryTrx_div">
-
+              <div class="box-body" id="summaryTrx_div" style="border-top: 3px solid #3c8dbc; display:none">
+                <div class="row">
+                  <div class='col-md-12'>
+                    <h4><i class='fa fa-align-left' aria-hidden='true'></i> Transaction Summary Detail</h4>
+                    </div>
+                </div>
+                <table class="table table-bordered" id="tableSummary">
+                  <thead>
+                    <tr>
+                      <th style='width: 20%'>Bank</th>
+                      <th style='width: 40%'>Total Transaction</th>
+                      <th style='width: 40%'>Total Amount</th>
+                    </tr>
+                  </thead>
+                </table>
               </div>
-
 
               <div class="box-footer">
 
@@ -215,7 +202,7 @@
               <div class="box-body">
                 <div class="row">
                   <div class="col-md-12">
-                  <form id="summaryResponseCode_form" method="POST" action="{{ route('summary_response_code') }}">
+                  <form id="summaryResponseCode_form" method="POST">
                     <div class="row">
                       <div class="col-md-3">
                         <div class="form-group">
@@ -252,7 +239,7 @@
                         <div class="form-group">
                           <label for="exampleInputEmail1" id='detailHost'>Month</label>
                           <div class="input-group date">
-                            <input type="text" name="month" id="month" class="form-control readonly" placeholder="Select Month" required="required" />
+                            <input type="text" name="month_rc" id="month_rc" class="form-control readonly" placeholder="Select Month" required="required" />
                             <div class="input-group-addon">
                               <i class="fa fa-calendar"></i>
                             </div>
@@ -276,9 +263,23 @@
 
               </div><!-- end of box body -->
 
-              <div class="box-body" id="summaryRc_div">
-
+              <div class="box-body" id="summaryRc_div" style="border-top: 3px solid #3c8dbc; display:none">
+                <div class="row">
+                  <div class='col-md-12'>
+                    <h4><i class='fa fa-align-left' aria-hidden='true'></i> Top 5 RC Declined</h4>
+                    </div>
+                </div>
+                <table class="table table-bordered" id="tableRc">
+                  <thead>
+                    <tr>
+                      <th style='width: 20%'>Response Code</th>
+                      <th style='width: 40%'>Total Transaction</th>
+                      <th style='width: 40%'>Total Amount</th>
+                    </tr>
+                  </thead>
+                </table>
               </div>
+
 
 
               <div class="box-footer">
@@ -352,6 +353,13 @@ $(function ()
           placeholder: "Select Corporate",
           allowClear: true
       });
+      $('.input-group.date').datepicker({
+          autoclose: true,
+          todayHighlight: true,
+          format: "mm/yyyy",
+          orientation: 'auto',
+          minViewMode: 1
+        });
 });
 
 $(function(){
@@ -415,6 +423,105 @@ $(function(){
       }
     });
 
+    // trxSummary_form
+  });
+
+  $("#summaryTransaction_form").submit(function(e) {
+
+    var x = document.getElementById("summaryTrx_div");
+    x.style.display = "block";
+
+      e.preventDefault();
+
+      var tableSummary = $('#tableSummary').DataTable();
+
+      $.ajax({
+        type: 'POST',
+        data: { bank_code : $('#bank_code option:selected').val(),
+                card_type : $('#card_type option:selected').val(),
+                transaction_type : $('#transaction_type option:selected').val(),
+                corporate : $('#corporate option:selected').val(),
+                statusa : $('#statusa option:selected').val(),
+                specifiedrc : $('#specifiedrc').val(),
+                month : $('#month').val()
+              },
+        url: '/report/summary/transaction',
+          success: function(data){
+
+          // var data = JSON.parse(msg);
+
+          //$('#summaryTrx_div').html(msg);
+
+          //$('#summaryTrx_div').html(data.FNAME + '-' + data.totalTrx + '-' + data.totalAmount);
+          tableSummary.clear().draw();
+
+          for (var i = 0; i < data.length; i++)
+          {
+
+            var fname = data[i]['FNAME'];
+            var totaltrx = data[i]['totalTrx'];
+            var totalamount = data[i]['totalAmount'];
+
+
+              var jRow = $('<tr>').append(
+                  '<td>'+ fname +'</td>',
+                  '<td>'+ totaltrx +'</td>',
+                  '<td>'+ totalamount +'</td>',
+
+                  );
+              tableSummary.row.add(jRow).draw();
+            }
+        }
+
+      });
+
+  });
+
+  $("#summaryResponseCode_form").submit(function(e) {
+
+    var x = document.getElementById("summaryRc_div");
+    x.style.display = "block";
+
+      e.preventDefault();
+
+      var tableRc = $('#tableRc').DataTable();
+
+      $.ajax({
+        type: 'POST',
+        data: { bank_code_rc : $('#bank_code_rc option:selected').val(),
+                trx_type_rc : $('#trx_type_rc option:selected').val(),
+                corp_id_rc : $('#corp_id_rc option:selected').val(),
+                month_rc : $('#month_rc').val()
+              },
+        url: '/report/summary/responsecode',
+          success: function(data){
+
+          // var data = JSON.parse(msg);
+
+          //$('#summaryTrx_div').html(msg);
+
+          //$('#summaryTrx_div').html(data.FNAME + '-' + data.totalTrx + '-' + data.totalAmount);
+          tableRc.clear().draw();
+
+          for (var i = 0; i < data.length; i++)
+          {
+
+            var frespcode = data[i]['FRESPCODE'];
+            var totaltrx = data[i]['totalTrx'];
+            var totalamount = data[i]['totalAmount'];
+
+
+              var jRow = $('<tr>').append(
+                  '<td>'+ frespcode +'</td>',
+                  '<td>'+ totaltrx +'</td>',
+                  '<td>'+ totalamount +'</td>',
+
+                  );
+              tableRc.row.add(jRow).draw();
+            }
+        }
+
+      });
 
   });
 

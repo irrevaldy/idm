@@ -39,14 +39,20 @@ class TransactionReportController extends Controller
     $username = $request->session()->get('username');
     $merchId = $request->session()->get('merch_id');
 
+
+    if($branch == 'All Branch')
+    {
+      $branch = '';
+    }
+
     $now = date("YmdHis");
 
     $rootReport = "C://generate/";
     $extFile = ".csv";
 
-    $serverName = "192.168.202.102"; //serverName\instanceName
-    $connectionInfo = array( "Database"=>"DbWDGatewayIDM", "UID"=>"sa", "PWD"=>"pvs1909~");
-    $conn = sqlsrv_connect( $serverName, $connectionInfo);
+    // $serverName = "192.168.202.102"; //serverName\instanceName
+    // $connectionInfo = array( "Database"=>"DbWDGatewayIDM", "UID"=>"sa", "PWD"=>"pvs1909~");
+    // $conn = sqlsrv_connect( $serverName, $connectionInfo);
     //$file = "zzz.csv";
     //$files = array('20170301.csv', '20170302.csv', '20170303.csv', '20170304.csv', '20170305.csv');
 
@@ -76,44 +82,51 @@ class TransactionReportController extends Controller
     {
       switch ($range)
       {
-        case 'd':
-          $expDate = explode('/', $date);
-          //$dateFormat = date('Ymd', strtotime($date));
-          $dateFile = $expDate[2].$expDate[1].$expDate[0];
-          $filename = 'DetailReportByHost_'.$dateFile."_".$username;
-          break;
-        case 'm':
-          $expDate = explode('/', $date);
-          //$dateFormat = date('Ymd', strtotime($date));
-          $dateFile = $expDate[2].$expDate[1];
-          $filename = 'DetailReportByHost_'.$dateFile."_".$username;
-          break;
-        case 'w':
-          $dateN = date('d/m/Y', strtotime('-7 days '.$dateFormat));
-          $sDate = explode('/', $date);
-          $sDate = $sDate[2].$sDate[1].$sDate[0];
-          $eDate = explode('/', $dateN);
-          $eDate = $eDate[2].$eDate[1].$eDate[0];
-          $filename = 'DetailReportByHost_'.$eDate.'_'.$sDate."_".$username;
-        break;
-      default:
-        # code...
-        break;
+          case 'd':
+
+              $expDate = explode('/', $date);
+              //$dateFormat = date('Ymd', strtotime($date));
+              $dateFile = $expDate[2].$expDate[1].$expDate[0];
+              $filename = 'DetailReportByHost_'.$dateFile."_".$username;
+              break;
+           case 'm':
+
+              $expDate = explode('/', $date);
+              //$dateFormat = date('Ymd', strtotime($date));
+              $dateFile = $expDate[2].$expDate[1];
+              $filename = 'DetailReportByHost_'.$dateFile."_".$username;
+              break;
+          case 'w':
+              $dateN = date('d/m/Y', strtotime('-7 days '.$dateFormat));
+
+              $sDate = explode('/', $date);
+              $sDate = $sDate[2].$sDate[1].$sDate[0];
+
+              $eDate = explode('/', $dateN);
+              $eDate = $eDate[2].$eDate[1].$eDate[0];
+              $filename = 'DetailReportByHost_'.$eDate.'_'.$sDate."_".$username;
+              break;
+
+          default:
+              # code...
+              break;
       }
 
-      $sp = "[spPortal_GenerateReportByBank_CMD] '$code', '$branch', '$dateFormat', '$range', '$endPoint', '$merchId', '$filename'";
-
-	    //$sp = DB::statement("[spPortal_GenerateReportByBank_CMD] '$code', '$branch', '$dateFormat', '$range', '$endPoint', '$merchId', '$filename' ");
+      //$sp = "[spPortal_GenerateReportByBank_CMD] '$code', '$branch', '$dateFormat', '$range', '$endPoint', '$merchId', '$filename'";
 
       $fullFileName = $filename.$extFile;
       $fullPath = $rootReport.$filename.$extFile;
 
-      if(sqlsrv_query($conn, $sp))
-      {
-        ob_get_clean();
+      $client = new \GuzzleHttp\Client();
+      $audit_trail_post = $client->request('POST', config('constants.api_server').'transaction_report', [
+  			'json' => [
+          'username' => Session::get('username'),
+          'user_id' => Session::get('user_id'),
+          'name' => Session::get('name')
+  			]
+  		]);
 
-        if (file_exists($fullPath))
-        {
+      if (file_exists($fullPath)) {
           header('Content-Description: File Transfer');
           header('Content-Type: application/octet-stream');
           header('Content-Disposition: attachment; filename='. basename($fullPath));
@@ -122,9 +135,6 @@ class TransactionReportController extends Controller
           header('Pragma: public');
           header('Content-Length: ' . filesize($fullPath));
           readfile($fullPath);
-
-          //return view('transaction_report');
-        }
       }
     }
     else if ($branch != '')

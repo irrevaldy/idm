@@ -58,7 +58,7 @@
                           <select class="form-control select2 selectBranch" name="branch_code" id="branch_code" style="width: 100%;" required>
                             <option value=""></option>
                               @if(Session::get('branch_code') == '')
-                              <option value='AllBranch'> All Branch </option>
+                              <option value='All Branch'> All Branch </option>
                               @endif
                           </select>
                           @else
@@ -160,7 +160,69 @@ $(function ()
            placeholder: "Select Range",
            allowClear: true
        });
+       $('.input-group.date').datepicker({
+             autoclose: true,
+             todayHighlight: true,
+             format: "dd/mm/yyyy",
+             orientation: 'auto'
+         });
 });
+
+function switchtoMonth(id, state, idLabel){
+  if(id.value == 'm' && state == 'bank') {
+    $('.bankdate').datepicker('remove');
+    $('.bankdate').datepicker({
+      format: "mm/yyyy",
+      autoclose: true,
+      todayHighlight: true,
+      orientation: 'bottom',
+      minViewMode: 1
+    });
+
+    document.getElementById(idLabel).innerHTML = 'Month';
+  } else if(id.value != 'm' && state == 'bank'){
+    $('.bankdate').datepicker('remove');
+    $('.bankdate').datepicker({
+      format: "dd/mm/yyyy",
+      autoclose: true,
+      todayHighlight: true,
+      orientation: 'bottom'
+    });
+
+    document.getElementById(idLabel).innerHTML = 'Month';
+  }else if(id.value == 'm') {
+    $('.input-group.date').datepicker('remove');
+    $('.input-group.date').datepicker({
+        autoclose: true,
+        todayHighlight: true,
+        format: "mm/yyyy",
+        minViewMode: 1,
+      orientation: 'auto'
+    });
+
+    document.getElementById(idLabel).innerHTML = 'Month';
+   } else if(id.value == 'w') {
+    $('.input-group.date').datepicker('remove');
+    $('.input-group.date').datepicker({
+        autoclose: true,
+        todayHighlight: true,
+        format: "dd/mm/yyyy",
+      orientation: 'auto'
+    });
+
+    document.getElementById(idLabel).innerHTML = 'End Date';
+   } else {
+    $('.input-group.date').datepicker('remove');
+    $('.input-group.date').datepicker({
+        autoclose: true,
+        todayHighlight: true,
+        format: "dd/mm/yyyy",
+      orientation: 'auto'
+    });
+
+    document.getElementById(idLabel).innerHTML = 'From Date';
+   }
+}
 
 //select host
 $(function(){

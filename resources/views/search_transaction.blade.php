@@ -184,35 +184,39 @@
       <div class="box-footer">
         <button type="button" class="btn btn-primary btn-embossed" id="btnSubmit">Submit</button>
       </div>
+
+    </div>
+
+    <div class="box box-primary" id="box-result" style="display:none">
       <div class="box-footer">
-        <div class="form-group">
-          <div class="panel-content pagination2 force-table-responsive" style="overflow-x: hidden;">
-            <table class="table table-bordered" id="tableSearch">
-              <thead>
-                <tr>
-                  <th>Host</th>
-                  <th>MID</th>
-                  <th>TID</th>
-                  <th>Branch</th>
-                  <th>Store</th>
-                  <th>Transaction</th>
-                  <th>Card Num</th>
-                  <th>Prepaid Card Num</th>
-                  <th>Inv Num</th>
-                  <th>Date</th>
-                  <th>Time</th>
-                  <th>RC</th>
-                  <th>Status</th>
-                  <th>APPR Code</th>
-                  <th>Amount</th>
-                  <th>Redeem</th>
-                  <th>Net</th>
-                </tr>
-              </thead>
-            </table>
-          </div>
-          </div>
-        </div>
+            <div class="form-group">
+              <div class="panel-content pagination2 force-table-responsive" style="overflow-x: hidden;">
+                <table class="table table-bordered" id="tableSearch">
+                  <thead>
+                    <tr>
+                      <th>Host</th>
+                      <th>MID</th>
+                      <th>TID</th>
+                      <th>Branch</th>
+                      <th>Store</th>
+                      <th>Transaction</th>
+                      <th>Card Num</th>
+                      <th>Prepaid Card Num</th>
+                      <th>Inv Num</th>
+                      <th>Date</th>
+                      <th>Time</th>
+                      <th>RC</th>
+                      <th>Status</th>
+                      <th>APPR Code</th>
+                      <th>Amount</th>
+                      <th>Redeem</th>
+                      <th>Net</th>
+                    </tr>
+                  </thead>
+                </table>
+              </div>
+              </div>
+            </div>
     </div>
 
   </section>
@@ -247,12 +251,19 @@ $(function ()
            allowClear: true
        });
 
-
+       $('.input-group.date').datepicker({
+             autoclose: true,
+             todayHighlight: true,
+             format: "dd/mm/yyyy",
+             orientation: 'auto'
+         });
 });
 
 
 $("#btnSubmit").click(function(e)
 {
+  var x = document.getElementById("box-result");
+  x.style.display = "block";
 
   e.preventDefault();
 

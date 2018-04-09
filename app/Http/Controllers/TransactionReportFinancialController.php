@@ -38,14 +38,19 @@ class TransactionReportFinancialController extends Controller
     $username = $request->session()->get('username');
     $merchant = $request->session()->get('merch_id');
 
+    if($branch_code == 'All Branch')
+    {
+      $branch_code = '';
+    }
+
     $now = date("YmdHis");
 
     $rootReport = "C://generate/";
     $extFile = ".csv";
 
-    $serverName = "192.168.202.102"; //serverName\instanceName
-    $connectionInfo = array( "Database"=>"DbWDGatewayIDM", "UID"=>"sa", "PWD"=>"pvs1909~");
-    $conn = sqlsrv_connect( $serverName, $connectionInfo);
+    // $serverName = "192.168.202.102"; //serverName\instanceName
+    // $connectionInfo = array( "Database"=>"DbWDGatewayIDM", "UID"=>"sa", "PWD"=>"pvs1909~");
+    // $conn = sqlsrv_connect( $serverName, $connectionInfo);
     //$file = "zzz.csv";
     //$files = array('20170301.csv', '20170302.csv', '20170303.csv', '20170304.csv', '20170305.csv');
 
@@ -57,36 +62,80 @@ class TransactionReportFinancialController extends Controller
     //$dateFormat = date('Ymd', strtotime($date));
     $dateFormat = $expDate[2].$expDate[1].$expDate[0];
 
-    error_reporting(E_ALL);
+    if($range == 'w' )
+    {
+        $endPoint = date('Ymd', strtotime('-7 days '.$dateFormat));
+    }
+    else
+    {
+        $endPoint = $dateFormat;
+    }
+
+    $expDate = explode('/', $date);
+    //$dateFormat = date('Ymd', strtotime($date));
+    $dateFormat = $expDate[2].$expDate[1].$expDate[0];
+
+    //error_reporting(E_ALL);
 
     //echo $dateFormat;break;
     if($branch_code == '')
     {
-      $zipname = $username.'.zip';
-      $zip = new ZipArchive;
-      //$zip->open($zipname, ZipArchive::OVERWRITE );
+      switch ($range)
+      {
+          case 'd':
 
+              $expDate = explode('/', $date);
+              //$dateFormat = date('Ymd', strtotime($date));
+              $dateFile = $expDate[2].$expDate[1].$expDate[0];
+              $filename = 'ReconsiliationReport_'.$dateFile."_".$username;
+              break;
+           case 'm':
 
-      if (file_exists($zipname)) {
-          $zip->open($zipname, ZipArchive::OVERWRITE );
-      } else {
-          $zip->open($zipname, ZIPARCHIVE::CREATE );
+              $expDate = explode('/', $date);
+              //$dateFormat = date('Ymd', strtotime($date));
+              $dateFile = $expDate[2].$expDate[1];
+              $filename = 'ReconsiliationReport_'.$dateFile."_".$username;
+              break;
+          case 'w':
+              $dateN = date('d/m/Y', strtotime('-7 days '.$dateFormat));
+
+              $sDate = explode('/', $date);
+              $sDate = $sDate[2].$sDate[1].$sDate[0];
+
+              $eDate = explode('/', $dateN);
+              $eDate = $eDate[2].$eDate[1].$eDate[0];
+              $filename = 'ReconsiliationReport_'.$eDate.'_'.$sDate."_".$username;
+              break;
+
+          default:
+              # code...
+              break;
       }
 
-      foreach ($files as $file) {
-        $zip->addFile($rootReport.$file, $file);
+      //$sp = "[spPortal_GenerateReportByBank_CMD] '$code', '$branch', '$dateFormat', '$range', '$endPoint', '$merchId', '$filename'";
 
+      $fullFileName = $filename.$extFile;
+      $fullPath = $rootReport.$filename.$extFile;
+
+      $client = new \GuzzleHttp\Client();
+      $audit_trail_post = $client->request('POST', config('constants.api_server').'transaction_report_financial', [
+  			'json' => [
+          'username' => Session::get('username'),
+          'user_id' => Session::get('user_id'),
+          'name' => Session::get('name')
+  			]
+  		]);
+
+      if (file_exists($fullPath)) {
+          header('Content-Description: File Transfer');
+          header('Content-Type: application/octet-stream');
+          header('Content-Disposition: attachment; filename='. basename($fullPath));
+          header('Expires: 0');
+          header('Cache-Control: must-revalidate');
+          header('Pragma: public');
+          header('Content-Length: ' . filesize($fullPath));
+          readfile($fullPath);
       }
-
-      $zip->close();
-
-      header('Content-Type: application/zip');
-      header('Content-disposition: attachment; filename='.$zipname);
-      header('Content-Length: ' . filesize($zipname));
-      header("Pragma: no-cache");
-      header("Expires: 0");
-      readfile($zipname);
-
     }
     else if ($branch_code != '')
     {
@@ -202,6 +251,6 @@ class TransactionReportFinancialController extends Controller
       //return view('report/transaction_report');
     }
     //sqlsrv_close($conn);
-  return view('transaction_report')->with(['main_menu' => $this->main_menu, 'sub_menu' => $this->sub_menu]);
+    return view('transaction_report_financial')->with(['main_menu' => $this->main_menu, 'sub_menu' => $this->sub_menu]);
   }
 }

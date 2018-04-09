@@ -59,7 +59,7 @@ class SummaryController extends Controller
       // Session::put('id', $var->data->Id);
       $this->attrib = $var->result;
 
-      return view('summary')->with(['main_menu' => $this->main_menu, 'sub_menu' => $this->sub_menu, 'attrib' => $this->attrib]);
+      return $this->attrib;
 
       //return redirect()->action('HomeController@index');
       //return $username;
@@ -75,20 +75,20 @@ class SummaryController extends Controller
     $this->sub_menu = $request->get('sub_menu');
 
     $client = new \GuzzleHttp\Client();
-    $bank_code = $request->input('bank_code');
-    $transaction_type = $request->input('transaction_type');
-    $corporate = $request->input('corporate');
-    $month = $request->input('month');
+    $bank_code_rc = $request->input('bank_code_rc');
+    $trx_type_rc = $request->input('trx_type_rc');
+    $corp_id_rc = $request->input('corp_id_rc');
+    $month_rc = $request->input('month_rc');
 
-    $month = explode("/", $month);
-    $month = $month[1].$month[0];
+    $month_rc = explode("/", $month_rc);
+    $month_rc = $month_rc[1].$month_rc[0];
 
     $form_post = $client->request('POST', config('constants.api_server').'summary_response_code', [
       'json' => [
-        'bank_code' => $bank_code,
-        'transaction_type' => $transaction_type,
-        'corporate' => $corporate,
-        'month' => $month,
+        'bank_code_rc' => $bank_code_rc,
+        'trx_type_rc' => $trx_type_rc,
+        'corp_id_rc' => $corp_id_rc,
+        'month_rc' => $month_rc,
       ]
     ]);
     $var = json_decode($form_post->getBody()->getContents());
@@ -98,8 +98,8 @@ class SummaryController extends Controller
     if($var->success == true){
       // Session::put('id', $var->data->Id);
       $this->attrib2 = $var->result;
-
-      return view('summary')->with(['main_menu' => $this->main_menu, 'sub_menu' => $this->sub_menu, 'attrib2' => $this->attrib2]);
+      return $this->attrib2;
+      //return view('summary')->with(['main_menu' => $this->main_menu, 'sub_menu' => $this->sub_menu, 'attrib2' => $this->attrib2]);
 
       //return redirect()->action('HomeController@index');
       //return $username;

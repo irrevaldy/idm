@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/animate.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/plugins/icheck-1.x/skins/flat/red.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/plugins/icheck-1.x/skins/flat/green.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker.css') }}">
     <link href="" rel="stylesheet">
   </head>
   <body class="hold-transition skin-blue fixed sidebar-mini {{ Session::get('sidebar')}} ">
@@ -94,7 +95,7 @@
                 @if($value->LINK != "#")
                 <li>  <a href="{{ URL::to($value->LINK) }}"><i class="fa {{ $value->LOGO }}" aria-hidden="true"></i><span data-translate="{{ $value->NAME }}">{{ $value->NAME }}</span><!--<span class="fa arrow"></span>--></a></li>
                 @else
-                <li class="treeview">  <a href="{{ URL::to($value->LINK) }}"><i class="fa {{ $value->LOGO }}" aria-hidden="true"></i><span data-translate="{{ $value->NAME }}">{{ $value->NAME }}</span><!--<span class="fa arrow"></span>--></a>
+                <li class="treeview">  <a href="{{ URL::to($value->LINK) }}"><i class="fa {{ $value->LOGO }}" aria-hidden="true"></i><span data-translate="{{ $value->NAME }}">{{ $value->NAME }}</span><!--<span class="fa arrow"></span>--><i class="fa fa-angle-left pull-right"></i></a>
                   <ul class="treeview-menu">
                     @foreach($sub_menu as $key2 => $value2)
                     @if($value->ID == $value2->PARENTID)
@@ -234,6 +235,7 @@
       <script src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
       <script src="{{ asset('assets/plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
       <script src="{{ asset('assets/plugins/icheck/icheck.min.js') }}"></script> <!-- Checkbox & Radio Inputs -->
+      <script src="{{ asset('assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js') }}"></script> <!-- Checkbox & Radio Inputs -->
 
 
   <script type="text/javascript">
