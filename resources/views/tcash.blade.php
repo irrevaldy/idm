@@ -98,7 +98,7 @@
       <div class="modal-footer">
 
         <button type="button" class="btn btn-warning" data-dismiss="modal" id="closeLimit">Close</button>
-        <button type="submit" class="btn btn-primary" id="submitBtnLimit">Save changes</button>
+        <button type="submit" class="btn btn-primary" id="submitModalNew">Save changes</button>
 
         </div>
 
@@ -134,6 +134,49 @@ function exp(){
   var collapseButton = document.getElementById('collapseButton');
   collapseButton.click();
 }
+
+$("input[name='storeCode']").change(function() {
+
+  var storeCode = $("input[name='storeCode']").val();
+
+  if(storeCode != '') {
+
+    $.ajax({
+      type: 'POST',
+      data: {
+        code: storeCode
+        // ,ModifiedBy        : "ADMIN"
+      },
+      //headers: {'X-CSRF-TOKEN': "{{ csrf_token() }}"},
+      url: '/tcash/checklimit',
+      success: function (data)
+      {
+        var limit = data[0]['limit'];
+
+        if(data['success'] == true) {
+          $("input[name='currLimit']").val( limit );
+
+          $("input[name='storeCode']").css({"border": "1px solid #d2d6de", "background-color": "#fff"});
+          $("#notFound").css({"display": "none"});
+          $('#submitModalNew').prop('disabled', false);
+        } else {
+          $("input[name='currLimit']").val( limit );
+
+          $("input[name='storeCode']").css({"border": "1px solid #FF5656", "background-color": "#FFDBDB"});
+          $("#notFound").css({"display": "inline"});
+          $('#submitModalNew').prop('disabled', true);
+        }
+      }
+    });
+
+  } else {
+
+    $("input[name='currLimit']").val('0');
+
+  }
+
+});
+
 </script>
 
 @endsection

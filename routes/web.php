@@ -39,6 +39,7 @@ Route::post('/report/summary/responsecode','SummaryController@generateSummaryRes
 
 Route::get('/tcash','TcashController@index');
 Route::post('/tcash/setlimit','TcashController@setLimit')->name('tcash_setup');
+Route::post('/tcash/checklimit','TcashController@checkLimit');
 
 Route::get('/edc_data','EdcDataController@index');
 Route::post('/edc_data/checkSN','EdcDataController@CheckSN');
