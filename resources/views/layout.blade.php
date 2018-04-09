@@ -18,6 +18,8 @@
     <link rel="stylesheet" href="{{ asset('assets/dist/css/AdminLTE.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/dist/css/skins/_all-skins.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/tile-stats.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/animate.min.css') }}">
   </head>
   <body class="hold-transition skin-blue fixed sidebar-mini {{ Session::get('sidebar')}} ">
   <a href="#0" class="cd-top">Top</a>
@@ -215,7 +217,7 @@
     <!-- END MAIN CONTENT -->
     </div>
 
-  
+
   <!-- javascript -->
   <script src="{{ asset('assets/plugins/jquery/jquery-2.1.4.min.js') }}"></script>
   <script src="{{ asset('assets/bootstrap/js/bootstrap.min.js') }}"></script>

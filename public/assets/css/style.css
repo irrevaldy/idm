@@ -379,3 +379,54 @@ table.dataTable thead > tr > th {
 .skin-blue .export-box {
   width: 105px;
 }
+
+#body{
+  width:800px;
+  margin:0 auto;
+}
+#body{
+  margin:20px auto;
+}
+
+#map,
+#panorama {
+  height:300px;
+  background:#6699cc;
+}
+
+#sponsors {
+  font-size: 12px;
+  text-align: center;
+  padding: 4px 6px;
+}
+
+#sponsors img {
+  height: 40px;
+  margin: 4px;
+}
+
+#map img {
+    max-width: none;
+    vertical-align: baseline;
+}
+
+code {
+  font-family: 'Ubuntu Mono', 'Monaco', 'Andale Mono', 'Courier New', monospace;
+  font-weight: bold;
+}
+
+.readonly {
+  background: #eee;
+}
+
+.tile-stats h4 {
+  font-size: 14px;
+}
+
+.hideRow {
+  display: none;
+}
+
+.generate {
+  margin-top: 25px;
+}
