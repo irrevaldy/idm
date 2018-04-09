@@ -2,45 +2,83 @@
 
 @section('content')
 
-    <div class="header">
-        <h2><i class="fa fa-th" aria-hidden="true"></i><strong>Audit Trail</strong></h2>
-    </div>
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="panel">
-          <div class="panel-content">
-            <form role="form" method="POST" class=" form-horizontal form-validation" id="searchTransaction_form" autocomplete="off" action="{{ route('search_audit_trail') }}">
-                  {{ csrf_field() }}
-              <div class="form-group">
-                <label class="col-sm-3 control-label">Date</label>
-                <div class="col-sm-9">
-                  <input class="form-control form-white" name="date" id="date" type="text" placeholder="">
+<div class="content-wrapper"><!-- Content Wrapper. Contains page content -->
+
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <h1>
+      <i class="fa fa-check-square-o" aria-hidden="true"></i> Audit Trail
+    </h1>
+    <!-- <ol class="breadcrumb">
+      <li><a href="index.php"><i class="fa fa-dashboard"></i> Home</a></li>
+      <li class="active">Audit Trail</li>
+    </ol> -->
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+
+  <div class="row">
+    <div class="col-md-5">
+      <div class="box box-primary box-table">
+        <div class="box-body">
+          <form action="audit-trail-filter.php" method="POST">
+          <div class="col-md-8">
+
+            <!-- Date range -->
+            <div class="form-group">
+              <label>Date</label>
+              <div class="input-group">
+                <div class="input-group-addon">
+                  <i class="fa fa-calendar"></i>
                 </div>
-              </div>
-              <div class="modal-footer">
-                <button type="submit" id="true-button-insert" style="visibility: hidden;">Submit</button>
-                <button type="button" class="btn btn-primary btn-embossed" id="btnSubmit"  >Submit</button>
-              </div>
-              <div class="form-group">
-                <div class="panel-content pagination2 force-table-responsive" style="overflow-x: hidden;">
-                  <table class="table table-bordered" id="tableAuditTrail" >
-                    <thead>
-                      <tr>
-                        <th>#</th>
-                        <th>Username</th>
-                        <th>Date</th>
-                        <th>Activity</th>
-                        <th>Description</th>
-                      </tr>
-                    </thead>
-                  </table>
-                </div>
-                </div>
-            </form>
+                <input type="text" class="form-control pull-right readonly" id="date" name="date" placeholder="Date" value="" required="required">
+              </div><!-- /.input group -->
+            </div><!-- /.form group -->
           </div>
+          <div class="col-md-4">
+            <button type="button" class="btn btn-primary btnSubmit" id="btnSubmit"  >Submit</button>
+            <button type="submit" id="true-button-insert" style="visibility: hidden;">Submit</button>
+
+          </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+
+      <!-- table user -->
+      <div class="col-md-12">
+
+        <div class="box box-primary box-table">
+          <!-- <div class="export-box">
+            <a class="btn btn-primary export-btn" href="form-add-user.php"> Add New User </a>
+          </div> -->
+          <div class="box-body">
+            <table id="tableAuditTrail" class="table table-bordered table-striped">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Username</th>
+                  <th>Date</th>
+                  <th>Activity</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+            </table>
           </div>
         </div>
       </div>
+      <!-- end of table user -->
+
+  </div> <!-- end of row -->
+
+  </section><!-- /.content -->
+
+</div><!-- /.content-wrapper -->
+
 @endsection
 
 @section('javascript')

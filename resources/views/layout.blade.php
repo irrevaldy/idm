@@ -20,6 +20,9 @@
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/tile-stats.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/animate.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/plugins/icheck-1.x/skins/flat/red.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/plugins/icheck-1.x/skins/flat/green.css') }}">
+    <link href="" rel="stylesheet">
   </head>
   <body class="hold-transition skin-blue fixed sidebar-mini {{ Session::get('sidebar')}} ">
   <a href="#0" class="cd-top">Top</a>
@@ -228,8 +231,13 @@
   <script src="{{ asset('assets/plugins/daterangepicker/moment.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/daterangepicker/daterangepicker.js') }}"></script>
       <script src="{{ asset('assets/plugins/select2/select2.full.min.js') }}"></script>
+      <script src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+      <script src="{{ asset('assets/plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
+      <script src="{{ asset('assets/plugins/icheck/icheck.min.js') }}"></script> <!-- Checkbox & Radio Inputs -->
+
 
   <script type="text/javascript">
+
     function setSidebar()
     {
       $.ajax({

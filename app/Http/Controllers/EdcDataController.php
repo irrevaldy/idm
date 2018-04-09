@@ -190,7 +190,6 @@ class EdcDataController extends Controller
       // Session::put('id', $var->data->Id);
 
         $this->attrib4 = $var->result;
-
         //return $this->attrib4;
       return view('edc_data')->with(['main_menu' => $this->main_menu, 'sub_menu' => $this->sub_menu, 'attrib4' => $this->attrib4]);
 

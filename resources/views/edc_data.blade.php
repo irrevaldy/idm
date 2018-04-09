@@ -2,44 +2,83 @@
 
 @section('content')
 
-    <div class="header">
-        <h2><i class="fa fa-th" aria-hidden="true"></i><strong>EDC Data</strong></h2>
-    </div>
+
     @if(!isset($attrib))
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="panel">
-          <div class="panel-content">
-            @if(isset($attrib4))
-            <div>
-              Add corporate Success
+
+    <div class="content-wrapper"><!-- Content Wrapper. Contains page content -->
+      @if(isset($attrib4))
+      <div>
+        Add corporate Success
+        </div>
+        @endif
+      <!-- Content Header (Page header) -->
+      <section class="content-header">
+        <h1>
+          <i class="fa fa-fax" aria-hidden="true"></i> EDC Data
+        </h1>
+        <ol class="breadcrumb">
+          <li><a href="/home"><i class="fa fa-home"></i> Home</a></li>
+          <li class="active">EDC Data</li>
+        </ol>
+      </section>
+      <section class="content">
+        <script type="text/javascript">
+          function exp(){
+            var collapseButton = document.getElementById('collapseButton');
+            collapseButton.click();
+          }
+        </script>
+          <div class="box box-primary">
+            <div class="export-box">
+                  <a class="btn btn-primary export-btn deletes" onclick="addEdc()"> Register New SN </a>
+                </div>
+            <div class="box-header with-border" onClick="exp()" style="cursor: pointer;">
+              <h3 class="box-title">Search SN</h3>
+              <div class="box-tools pull-right">
+                <button class="btn btn-box-tool" data-widget="collapse" id="collapseButton"><i class="fa fa-plus"></i></button>
+                <!-- <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button> -->
               </div>
-              @endif
-            <form role="form" method="POST" class=" form-horizontal form-validation" id="searchTransaction_form" autocomplete="off" action="{{ route('search_transaction_main') }}">
-                  {{ csrf_field() }}
-              <h4>Search SN</h4>
-              <div class="export-box">
-                        <a class="btn btn-primary export-btn deletes" data-toggle="modal" data-target="#addEdcModal"> Register New SN </a>
+            </div><!-- /.box-header -->
+
+            <div class="box-body formDel">
+              <form>
+              <div class="row">  <!-- first row -->
+                <div class="col-md-12">
+
+                  <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                          <label for="exampleInputEmail1">SN</label><strong class="" id="silang_text" style="color: #FF5656;display: none;"> is Not Found</strong><strong id="centang_text" style="color: #2AE800;display: none;"> is Exist</strong>
+                          <div class="input-group">
+
+                            <input type="text" class="form-control" id="username" name="username" placeholder="SN" maxlength="30" required="required" onChange="checkUsername('username')" style="border-right: 0px;">
+                            <div class="input-group-addon" id="addonBox" style="display:">
+                              <i class="fa fa-spinner fa-pulse" id="spinner" style="color: #0055FF;display: none;"></i>
+                              <i class="fa fa-check" id="centang" aria-hidden="true" style="color: #2AE800;display: none;"></i>
+                              <i class="fa fa-times-circle" id="silang" aria-hidden="true" style="color: #FF0000;display: none;"></i>
+                            </div>
+                          </div><!-- /.input group -->
+                        </div>
                       </div>
-              <div class="form-group">
-                <label class="col-sm-3 control-label" for="exampleInputEmail1">SN</label><strong class="" id="silang_text" style="color: #FF5656;display: none;">SN is not found</strong><strong id="centang_text" style="color: #2AE800;display: none;"> is Exist</strong>
-                <div class="input-group">
 
-                  <input type="text" class="form-control" id="sn" name="sn" placeholder="SN" maxlength="30" required="required" onChange="checkUsername('sn')" style="border-right: 0px;">
-                  <div class="input-group-addon" id="addonBox" style="display:">
-                    <i class="fa fa-spinner fa-pulse" id="spinner" style="color: #0055FF;display: none;"></i>
-                    <i class="fa fa-check" id="centang" aria-hidden="true" style="color: #2AE800;display: none;"></i>
-                    <i class="fa fa-times-circle" id="silang" aria-hidden="true" style="color: #FF0000;display: none;"></i>
+                    <div class="col-md-1">
+                      <input type="button" id="delSn" class="btn btn-danger" value="Delete" onclick="deleteSnConfirm()" disabled>
+                      <a class="btn btn-primary export-btn deletes" id="confirmDelete" data-toggle="modal" data-target="#delEdcModal" style="display: none;"> Delete </a>
+                    </div>
+
+                    <div class="col-md-1" style="mArgin-left: -30px;">
+                      <input type="button" id="getSn" class="btn btn-primary" value="Search" onclick="getDataSn()" disabled>
+                    </div>
                   </div>
-                </div><!-- /.input group -->
-              </div>
-              <div class="modal-footer">
+                </div>
+              </div> <!-- end of first row -->
 
-                <button type="button" class="btn btn-danger" id="delSn" onclick="deleteSnConfirm()" >Delete</button>
-                <a class="btn btn-primary export-btn deletes" id="confirmDelete" data-toggle="modal" data-target="#delEdcModal" style="display: none;"> Delete </a>
-                <button type="button" class="btn btn-primary btn-embossed" id="getSn"  onclick="getDataSn()">Search</button>
-              </div>
-            </form>
+              </form>
+
+
+
+            </div><!-- end of box body -->
+
             <div class="box-footer" style="display: none;" id="footer">
               <ul>
                 <li>
@@ -54,57 +93,89 @@
               	</li>
               </ul>
           </div>
-        </div>
-  			</div>
-      </div>
+
+          </div>
+      </section>
     </div>
+
     @elseif(isset($attrib))
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="panel">
-          <div class="panel-content">
-            <p>
-              <i class="fa fa-circle-o" aria-hidden="true"></i>
-              <b>Corporate Name :</b> {{ $attrib->corporate }}
-            </p><p>
-              <i class="fa fa-circle-o" aria-hidden="true"></i>
-              <b>Merchant Name :</b> {{ $attrib->merchant }}
-            </p>
-            <p>
-              <i class="fa fa-circle-o" aria-hidden="true"></i>
-              <b>Total EDC Existing :</b>
-            </p>
-            <p>
-              <i class="fa fa-circle-o" aria-hidden="true"></i>
-              <b>Total Data will be imported :</b> {{ $attrib->highestRow_count }}
-            </p>
-            <p>
-              <i class="fa fa-circle-o" aria-hidden="true"></i>
-              <b>Total error data :</b>
-            </p>
+    <div class="content-wrapper"><!-- Content Wrapper. Contains page content -->
+
+    <section class="content-header">
+      <h1>
+        <i class="fa fa-fax" aria-hidden="true"></i> Register New Edc
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="/home"><i class="fa fa-home"></i> Home</a></li>
+        <li class="active">Register New Edc</li>
+      </ol>
+    </section>
+    <section class="content">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="box box-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title">Merchant data</h3>
+              <div class="box-tools pull-right">
+                <!-- <button class="btn btn-box-tool" data-widget="collapse" id="collapseButton2"><i class="fa fa-minus"></i></button>
+                <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button> -->
+              </div>
+            </div><!-- /.box-header -->
+            <div class="box-body">
+              <div class="col-md-12" style="padding-left: 0px;">
+                <div class='box-body'>
+                  <p>
+                    <i class="fa fa-circle-o" aria-hidden="true"></i>
+                    <b>Corporate Name :</b> {{ $attrib->corporate }}
+                  </p><p>
+                    <i class="fa fa-circle-o" aria-hidden="true"></i>
+                    <b>Merchant Name :</b> {{ $attrib->merchant }}
+                  </p>
+                  <p>
+                    <i class="fa fa-circle-o" aria-hidden="true"></i>
+                    <b>Total EDC Existing :</b>
+                  </p>
+                  <p>
+                    <i class="fa fa-circle-o" aria-hidden="true"></i>
+                    <b>Total Data will be imported :</b> {{ $attrib->highestRow_count }}
+                  </p>
+                  <p>
+                    <i class="fa fa-circle-o" aria-hidden="true"></i>
+                    <b>Total error data :</b>
+                  </p>
+                </div>
+              </div>
+            </div>
+
             <div class="box-footer with-border" id="footerForm">
             <form role="form" action="/edc_data/activate_edc" method="POST" autocomplete="off" enctype="multipart/form-data">
-              <input type="text" name="merchant" value="<?php echo $attrib->merchant; ?>" style="display:none">
-              <input type="text" name="storage_path" value="<?php echo $attrib->storage_path; ?>" style="display:none">
+              <input type="text" name="merchant" value="{{ $attrib->merchant }}" style="display:none">
+              <input type="text" name="storage_path" value="{{ $attrib->storage_path }}" style="display:none">
 
               <button type="submit" class="btn btn-primary" style="float:right;">Submit</button>
               <a href="/edc_data"><button type="button" class="btn btn-warning" style="float:right; margin-right: 5px;">Cancel</button></a>
-
               </form>
-              <br>
-              <br>
             </div><!-- /.box-header -->
+
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-lg-12">
-      <div class="panel">
-        <div class="panel-content">
-          <div class="form-group">
-            <div class="panel-content pagination2 force-table-responsive" style="overflow-x: scroll;">
+
+      <div class="row">
+        <div class="col-md-12">
+
+          <div class="box box-primary box-table">
+            <div class="box-header with-border">
               <h3 class="box-title">List data from file</h3>
+              <div class="box-tools pull-right">
+                <!-- <button class="btn btn-box-tool" data-widget="collapse" id="collapseButton2"><i class="fa fa-minus"></i></button>
+                <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button> -->
+              </div>
+          </div><!-- /.box-header -->
+            <!-- <div class="export-box">
+              <a class="btn btn-primary export-btn" href="form-add-merchant.php"> Add New Merchant </a>
+            </div> -->
+            <div class="box-body">
               <table class="table table-bordered" id="tableEdcData">
                 <thead>
                   <tr>
@@ -126,12 +197,17 @@
                 </tbody>-->
               </table>
             </div>
-            </div>
-      </div>
-    </div>
+          </div>
+        </div>
+        <!-- end of table user -->
+
+      </div> <!-- end of row -->
+
+    </section>
   </div>
-</div>
     @endif
+
+
 <!--modal -->
     <div id="delEdcModal" class="modal fade" role="dialog">
       <div class="modal-dialog">
@@ -181,7 +257,7 @@
                   <div class="form-group">
                     <label>Merchant </label>
                     <select class="form-control merch selectStore" name="merchant" id="merchant" style="width: 100%;" required="required">
-                  
+
                     </select>
                   </div><!-- /.form-group -->
                 </div>
@@ -244,8 +320,13 @@
 
 <script type = "text/javascript">
 
+
+
+
 $(document).ready(function(){
   var tableEdcData = $('#tableEdcData').DataTable();
+
+  jQuery('#tableEdcData').wrap('<div class="dataTables_scroll" />');
 
   $.ajax({
     dataType: 'JSON',
@@ -303,6 +384,8 @@ $(document).ready(function(){
     });
 
 });
+
+
 
 var dataSnText = document.getElementById("dataSnText");
 
@@ -478,53 +561,60 @@ function deleteDataSn() {
 
 }
 
-$(function ()
-{
-      $(".corp").select2({
-          placeholder: "Select Corporate",
-          allowClear: true
-      });
-      $(".merch").select2({
-          placeholder: "Select Merchant",
-          allowClear: true
-      });
-});
 
-$(function(){
-    $.ajax({
-      dataType: 'JSON',
-      type: 'GET',
-      url: '/corporate_data',
-      success: function (data) {
-        for(var i = 0; i < data.length; i++)
-        {
-          $("#corporate").append('<option value="' + data[i]['ID'] + '">' + data[i]['CORP_NAME'] + '</option>');
+
+function addEdc() {
+
+  $(".corp").select2({
+      placeholder: "Select Corporate",
+      allowClear: true
+  });
+  $(".merch").select2({
+      placeholder: "Select Merchant",
+      allowClear: true
+  });
+
+  $(function(){
+      $.ajax({
+        dataType: 'JSON',
+        type: 'GET',
+        url: '/corporate_data',
+        success: function (data) {
+          for(var i = 0; i < data.length; i++)
+          {
+            $("#corporate").append('<option value="' + data[i]['ID'] + '">' + data[i]['CORP_NAME'] + '</option>');
+          }
         }
-      }
+      });
     });
-  });
 
-$(document).ready(function(){
-  $("#corporate").change(function()
-  {
-    $.ajax({
-      type: 'POST',
-      data: {
-        corporate   : $('#corporate').find(":selected").val()
-      },
-      url: '/merchant_data',
-      success: function (data)
+
+
+    $('#addEdcModal').modal('show');
+
+    $(document).ready(function(){
+      $("#corporate").change(function()
       {
-        $("#merchant option").remove();
-        for (var i = 0; i < data.length; i++)
-        {
-          $("#merchant").append('<option value=""></option>');
-          $("#merchant").append('<option value="' + data[i]['FID'] + '">' + data[i]['FMERCHNAME'] + '</option>');
-        }
-      }
+        $.ajax({
+          type: 'POST',
+          data: {
+            corporate   : $('#corporate').find(":selected").val()
+          },
+          url: '/merchant_data',
+          success: function (data)
+          {
+            $("#merchant option").remove();
+            for (var i = 0; i < data.length; i++)
+            {
+              $("#merchant").append('<option value=""></option>');
+              $("#merchant").append('<option value="' + data[i]['FID'] + '">' + data[i]['FMERCHNAME'] + '</option>');
+            }
+          }
+          });
       });
-  });
-});
+    });
+
+  }
 
 </script>
 @endsection

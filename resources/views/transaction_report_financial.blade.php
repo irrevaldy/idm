@@ -2,67 +2,105 @@
 
 @section('content')
 
-    <div class="header">
-        <h2><i class="fa fa-th" aria-hidden="true"></i><strong>Transaction Report (Financial)</strong></h2>
-    </div>
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="panel">
-          <div class="panel-content">
-            <form role="form" method="POST" class=" form-horizontal form-validation" id="transactionReportFinancial_form" autocomplete="off" action="{{ route('transaction_report_financial') }}">
-                  {{ csrf_field() }}
-              <div class="col-md-3">
-                <div class="form-group">
-                  <label >Branch</label>
-                  @if(Session::get('branch_code') == '')
-                  <select class="form-control select2 selectBranch" name="branch_code" id="branch_code" style="width: 100%;" required>
-                    <option value=""></option>
-                      @if(Session::get('branch_code') == '')
-                      <option value='AllBranch'> All Branch </option>
-                      @endif
-                  </select>
-                  @else
-                  <input type="text" class="form-control readonly" value="{{ Session::get('branch_code') }}" />
-                  <input type="hidden" name="branch_code" value="{{ Session::get('branch_code') }}">
-                  @endif
-                </div>
-              </div>
+<div class="content-wrapper"><!-- Content Wrapper. Contains page content -->
 
-              <div class="col-md-3">
-                <div class="form-group">
-                  <label>Range</label>
-                  <select class="form-control select2 selectRange" name="range" id="range"  required="required" onChange="switchtoMonth(this, '', 'detailHost')">
-                    <option></option>
-                    <option value="d"> 1 Day </option>
-                    <option value="w"> 1 Week </option>
-                    <option value="m"> 1 Month </option>
-                  </select>
-                </div><!-- /.form-group -->
-              </div>
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <h1>
+      <i class="fa fa-archive" aria-hidden="true"></i> Transaction Report (Financial)</h1>
+    <!-- <ol class="breadcrumb">
+      <li><a href="index.php"><i class="fa fa-home"></i> Home</a></li>
+      <li class="active">Generate Report</li>
+    </ol> -->
+  </section>
 
-              <div class="col-md-3">
-                <div class="form-group">
-                  <label for="exampleInputEmail1" id='detailHost'>From Date</label>
-                  <div class="input-group date">
-                    <input type="text" name="date" id="date" class="form-control readonly" placeholder="Select Date" required="required" />
-                    <div class="input-group-addon">
-                      <i class="fa fa-calendar"></i>
+  <section class="content">
+    <div class="row ">
+
+      <!-- check if privilege (detail report by bank) is exist -->
+      <div class="col-md-12 detailBankRow">
+        <!-- first row -->
+        <div class="row">
+          <div class="col-md-8">
+            <div class="box box-primary">
+              <div class="box-body">
+                  <form id="transactionReportFinancial_form" action="{{ route('transaction_report_financial') }}" method="POST">
+                    <div class="row">
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <label for="exampleInputEmail1">Branch</label>
+                          @if(Session::get('branch_code') == '')
+                          <select class="form-control select2 selectBranch" name="branch_code" id="branch_code" style="width: 100%;" required>
+                            <option value=""></option>
+                              @if(Session::get('branch_code') == '')
+                              <option value='AllBranch'> All Branch </option>
+                              @endif
+                          </select>
+                          @else
+                          <input type="text" class="form-control readonly" value="{{ Session::get('branch_code') }}" />
+                          <input type="hidden" name="branch_code" value="{{ Session::get('branch_code') }}">
+                          @endif
+                        </div><!-- /.input group -->
+                      </div>
+
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <label>Range</label>
+                          <select class="form-control select2 selectRange" name="range" id="range"  required="required" onChange="switchtoMonth(this, '', 'detailHost')">
+                            <option></option>
+                            <option value="d"> 1 Day </option>
+                            <option value="w"> 1 Week </option>
+                            <option value="m"> 1 Month </option>
+                          </select>
+                        </div><!-- /.form-group -->
+                      </div>
+
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <label for="exampleInputEmail1" id='reconDate'>From Date</label>
+                          <div class="input-group date">
+                            <input type="text" name="date" id="date" class="form-control readonly" placeholder="Select Date" required="required" />
+                            <div class="input-group-addon">
+                              <i class="fa fa-calendar"></i>
+                            </div>
+                          </div>
+                        </div><!-- /.input group -->
+                      </div>
+
+                      <div class="col-md-2">
+                        <div class="form-group">
+                          <input type="Submit" class="generate btn btn-primary" id="exampleInputEmail1" value="Generate Report">
+                        </div>
+                      </div>
+
                     </div>
-                  </div>
-                </div><!-- /.input group -->
-              </div>
+                  </form>
 
-              <div class="modal-footer">
-                <button type="submit" class="btn btn-primary btn-embossed" id="true-button-insert" >Generate Report</button>
-                <button type="button" class="btn btn-primary btn-embossed" id="btnSubmit" style="visibility: hidden;">Generate Report</button>
-                <a href="{{ route('transaction_report_financial') }}" class="btn btn-primary btn-embossed" style="visibility: hidden;">Download ZIP</a>
-              </div>
 
-            </form>
+              </div><!-- end of box body -->
+
+              <style type="text/css">
+              .generate {
+                margin-top: 25px;
+              }
+              </style>
+
+              <div class="box-footer">
+
+              </div>
+            </div>
           </div>
         </div>
-        </div>
-      </div>
+      </div> <!-- end of detailBankRow -->
+
+
+
+
+    </div> <!-- end of row -->
+  </section>
+
+</div><!-- /.content-wrapper -->
+
 @endsection
 
 @section('javascript')
@@ -85,7 +123,7 @@ $("transactionReportFinancial_form").submit(function(e) {
 $(function ()
 {
       $(".selectBranch").select2({
-          placeholder: "Select Branch",
+          placeholder: "Select Branch Code",
           allowClear: true
       });
 
@@ -111,6 +149,6 @@ $(function(){
 
 
   });
-  
+
 </script>
 @endsection
