@@ -442,6 +442,82 @@
 <script src="{{ asset('assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js') }}"></script> <!-- >Bootstrap Date Picker -->
 <!-- END PAGE SCRIPTS -->
 
+@if(isset($attrib))
+@if($attrib == "Add Corporate Success")
+<script type="text/javascript">
+
+    messg.success('<i class="fa fa-check"></i> Add Corporate Success', 3500);
+
+  </script>
+@elseif($attrib == "Add Corporate Failed")
+<script type="text/javascript">
+
+    messg.success('<i class="fa fa-check"></i> Add Corporate Failed', 3500);
+
+  </script>
+@elseif($attrib == "Update Corporate Success")
+<script type="text/javascript">
+
+    messg.success('<i class="fa fa-check"></i> Update Corporate Success', 3500);
+
+  </script>
+@elseif($attrib == "Update Corporate Failed")
+<script type="text/javascript">
+
+    messg.success('<i class="fa fa-check"></i> Update Corporate Failed', 3500);
+
+  </script>
+@elseif($attrib == "Delete Corporate Success")
+<script type="text/javascript">
+
+    messg.success('<i class="fa fa-check"></i> Delete Corporate Success', 3500);
+
+  </script>
+@elseif($attrib == "Delete Corporate Failed")
+<script type="text/javascript">
+
+    messg.success('<i class="fa fa-check"></i> Delete Corporate Failed', 3500);
+
+  </script>
+@elseif($attrib == "Add Merchant Success")
+<script type="text/javascript">
+
+    messg.success('<i class="fa fa-check"></i> Add Merchant Success', 3500);
+
+  </script>
+@elseif($attrib == "Add Merchant Failed")
+<script type="text/javascript">
+
+    messg.success('<i class="fa fa-check"></i> Add Merchant Failed', 3500);
+
+  </script>
+@elseif($attrib == "Update Merchant Success")
+<script type="text/javascript">
+
+    messg.success('<i class="fa fa-check"></i> Update Merchant Success', 3500);
+
+  </script>
+@elseif($attrib == "Update Merchant Failed")
+<script type="text/javascript">
+
+    messg.success('<i class="fa fa-check"></i> Update Merchant Failed', 3500);
+
+  </script>
+@elseif($attrib == "Delete Merchant Success")
+<script type="text/javascript">
+
+    messg.success('<i class="fa fa-check"></i> Delete Merchant Success', 3500);
+
+  </script>
+@elseif($attrib == "Delete Merchant Failed")
+<script type="text/javascript">
+
+    messg.success('<i class="fa fa-check"></i> Delete Merchant Failed', 3500);
+
+  </script>
+  @endif
+  @endif
+
 <script type="text/javascript">
 $(function () {
   $('#tableCorporate').DataTable();
@@ -515,7 +591,7 @@ $(function () {
                 '<td>'+ CORP_NAME +'</td>',
                 '<td>'+ FMERCHLOGO +'</td>',
                 '<td>'+ FREG_DATE +'</td>',
-                '<td><a class="edit btn btn-sm btn-default" href="javascript:;" style="cursor: pointer;" onClick="editMerch(\''+ FID +'\', \''+ FMERCHNAME +'\',\''+ ID +'\')" ><i class="fa fa-pencil-square-o"></i> Edit </a> <a class="delete btn btn-sm btn-danger" href="javascript:;" style="cursor: pointer;" onClick="deleteMerch('+ FID +', \''+ FMERCHNAME +'\')"><i class="fa fa-times"></i> Delete</a></td>'
+                '<td><a class="edit btn btn-sm btn-default" href="javascript:;" style="cursor: pointer;" onClick="editMerch(\''+ FID +'\', \''+ FMERCHNAME +'\',\''+ ID +'\')" ><i class="fa fa-pencil-square-o"></i> Edit </a> <a class="delete btn btn-sm btn-danger" href="javascript:;" style="cursor: pointer;" onClick="deleteMerch(\''+ FID +'\', \''+ FMERCHNAME +'\')"><i class="fa fa-times"></i> Delete</a></td>'
 
                 );
 
@@ -527,27 +603,16 @@ $(function () {
   });
 
   function editCorp(id, val) {
-    $.ajax({
-          async: false,
-          success: function(data){
-
-            $('input[name="corporateId"]').val(id);
-            $('input[name="corporateName"]').val(val);
-          }
-        });
+    $('input[name="corporateId"]').val(id);
+    $('input[name="corporateName"]').val(val);
 
     $('#editCorpModal').modal('show');
   }
 
   function editMerch(id, merch, corpid) {
-    $.ajax({
-          async: false,
-          success: function(data){
-            $("#editCorporateId2").val(corpid).trigger("change");
-            $('input[name="editMerchId"]').val(id);
-            $('input[name="editMerchName"]').val(merch);
-          }
-        });
+    $("#editCorporateId2").val(corpid).trigger("change");
+    $('input[name="editMerchId"]').val(id);
+    $('input[name="editMerchName"]').val(merch);
 
       $('#editMerchModal').modal('show');
   }

@@ -39,13 +39,16 @@ Route::post('/report/summary/responsecode','SummaryController@generateSummaryRes
 
 Route::get('/tcash','TcashController@index');
 Route::post('/tcash/setlimit','TcashController@setLimit')->name('tcash_setup');
+Route::post('/tcash/checkLimit','TcashController@CheckLimit');
+
 
 Route::get('/edc_data','EdcDataController@index');
 Route::post('/edc_data/checkSN','EdcDataController@CheckSN');
 Route::post('/edc_data/getSN','EdcDataController@GetSN');
 Route::post('/edc_data/deleteSN','EdcDataController@DeleteSN');
 Route::post('/edc_data/upload_edc','EdcDataController@UploadEdc');
-Route::get('/edc_data/get_edc_data','EdcDataController@GetUploadEdcData');
+Route::post('/edc_data/get_edc_data','EdcDataController@GetUploadEdcData');
+Route::post('/edc_data/get_upload_edc','EdcDataController@GetUploadEdcNew');
 Route::post('edc_data/activate_edc','EdcDataController@ActivateEdc');
 
 Route::get('/administration/corporate_merchant','CorporateMerchantController@index');

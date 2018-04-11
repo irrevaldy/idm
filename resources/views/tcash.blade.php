@@ -95,10 +95,11 @@
           </div>
         </div>
       </div>
+      <button type="submit" class="btn btn-primary" style="display: none;" id="submitBtnLimit">Save changes</button>
       <div class="modal-footer">
 
         <button type="button" class="btn btn-warning" data-dismiss="modal" id="closeLimit">Close</button>
-        <button type="submit" class="btn btn-primary" id="submitBtnLimit">Save changes</button>
+        <button type="button" class="btn btn-primary" id="submitModalNew">Save changes</button>
 
         </div>
 
@@ -134,6 +135,90 @@ function exp(){
   var collapseButton = document.getElementById('collapseButton');
   collapseButton.click();
 }
+
+$("input[name='storeCode']").change(function() {
+
+  var storeCode = $("input[name='storeCode']").val();
+
+  if(storeCode != '') {
+
+
+
+      $.ajax({
+        type: 'POST',
+        data: {
+          code: storeCode,
+        },
+        url: '/tcash/checkLimit',
+        success: function (data) {
+
+          //var json = JSON.parse(data);
+          console.log(data['status']);
+
+          if(data['status'] == 'found') {
+            $("input[name='currLimit']").val( data['limit'] );
+
+            $("input[name='storeCode']").css({"border": "1px solid #d2d6de", "background-color": "#fff"});
+            $("#notFound").css({"display": "none"});
+            $('#submitModalNew').prop('disabled', false);
+          } else {
+            $("input[name='currLimit']").val( data['limit'] );
+
+            $("input[name='storeCode']").css({"border": "1px solid #FF5656", "background-color": "#FFDBDB"});
+            $("#notFound").css({"display": "inline"});
+            $('#submitModalNew').prop('disabled', true);
+          }
+
+        }
+      });
+
+  } else {
+
+    $("input[name='currLimit']").val('0');
+
+  }
+
+});
+
+$('#submitModalNew').click(function() {
+
+  var storeCode = $("input[name='storeCode']").val()
+  var newLimit = $("input[name='newLimit']").val();
+
+  if(storeCode == '' || newLimit == '') {
+
+    $('#submitBtnLimit').click();
+
+  } else {
+
+    $.ajax({
+      type: "POST",
+      url: "/tcash/setlimit",
+      data: {
+        code: storeCode,
+        limit: newLimit
+        }
+      }).done(function( msg ) {
+
+        //alert( msg );
+
+      if(msg == 'sukses')
+      {
+        messg.info('<i class="fa fa-check"></i> Update Tcash Limit Success', 3500);
+        $('#tcashLimitModalNew').modal('hide');
+        $('#nums').click();
+
+      } else {
+        messg.error('<i class="fa fa-times"></i> Update Tcash Limit Failed', 3500);
+      }
+
+    });
+  }
+
+
+});
+
+
 </script>
 
 @endsection

@@ -87,8 +87,8 @@ class EdcDataController extends Controller
 
     if($var->success == true){
       // Session::put('id', $var->data->Id);
-
-      return $var->status;
+      $this->attrib5 = $var->status;
+      return $this->attrib5;
 
       //return redirect()->action('HomeController@index');
       //return $username;
@@ -97,9 +97,6 @@ class EdcDataController extends Controller
 
   public function UploadEdc(Request $request)
   {
-    $this->main_menu = $request->get('main_menu');
-    $this->sub_menu = $request->get('sub_menu');
-
     $corporate = $request->input('corporate');
     $merchant = $request->input('merchant');
     $file = $request->file('uploadedfile');
@@ -127,13 +124,61 @@ class EdcDataController extends Controller
       // Session::put('id', $var->data->Id);
 
       $this->attrib = $var->result;
-      $this->attrib2 = $var->header2;
 
-      return view('edc_data')->with(['main_menu' => $this->main_menu, 'sub_menu' => $this->sub_menu, 'attrib' => $this->attrib, 'attrib2' => $this->attrib2]);
-      //return $this->attrib;
-      //return redirect()->action('HomeController@index');
-      //return $username;
-    //  return $storage_path2;
+      return response()->json($this->attrib);
+
+    }
+  }
+
+  public function GetUploadEdcNew(Request $request)
+  {
+
+    $corporate = $request->input('corporate');
+    $merchant = $request->input('merchant');
+    $file = $request->file('uploadedfile');
+
+    $filename = $file->getClientOriginalName();
+        	// return $filename;
+    $path = Storage::putFileAs('/public/upload', $file, $filename); // simpen di folder nya front end
+    $storage_path = storage_path('app/public/upload/'.$filename);
+    Session::put('storage_path', $storage_path);
+    $storage_path2 = Session::get('storage_path');
+    //return $storage_path;
+
+    	$client = new \GuzzleHttp\Client();
+		$response = $client->request('POST', config('constants.api_server').'edc_data/upload_edc', [
+      'json' => [
+        'corporate' => $corporate,
+        'merchant' => $merchant,
+        'storage_path' => $storage_path
+      ]
+    ]);
+
+		$var = json_decode($response->getBody()->getContents());
+
+    if($var->success == true)
+    {
+      // Session::put('id', $var->data->Id);
+      $attrib2 = $var->header2;
+
+      $element = "
+                <thead>
+                 <tr>
+                   <th>No</th>";
+
+        for ($i = 0; $i < count($attrib2); $i++)
+        {
+          $element .= "<th> $attrib2[$i] </th>";
+        }
+
+          $element .="
+                   <th>Status</th>
+                 </tr>
+               </thead>
+      ";
+
+      return $element;
+
     }
   }
 
@@ -170,7 +215,7 @@ class EdcDataController extends Controller
     $this->main_menu = $request->get('main_menu');
     $this->sub_menu = $request->get('sub_menu');
 
-    $merchant = $request->input('merchant');
+    $merchant = $request->input('merchant_activate');
     $storage_path = $request->input('storage_path');
 
     $client = new \GuzzleHttp\Client();

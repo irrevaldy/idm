@@ -65,7 +65,7 @@ class CorporateMerchantController extends Controller
     date_default_timezone_set('Asia/Jakarta');
     $now = date("Ymdhis");
 
-    $corporateName = $request->input('corporateId');
+    $corporateName = $request->input('corporateName');
     $name = $request->file('uploadedfile');
 
     $ext = end((explode(".", $name))); # extra () to prevent notice

@@ -1,7 +1,6 @@
 @extends('layout')
 
 @section('content')
-
 <div class="content-wrapper"><!-- Content Wrapper. Contains page content -->
 
   <!-- Content Header (Page header) -->
@@ -22,9 +21,8 @@
     <div class="col-md-5">
       <div class="box box-primary box-table">
         <div class="box-body">
-          <form action="audit-trail-filter.php" method="POST">
+          <form method="POST" id="auditTrail_Form">
           <div class="col-md-8">
-
             <!-- Date range -->
             <div class="form-group">
               <label>Date</label>
@@ -32,7 +30,7 @@
                 <div class="input-group-addon">
                   <i class="fa fa-calendar"></i>
                 </div>
-                <input type="text" class="form-control pull-right readonly" id="date" name="date" placeholder="Date" value="" required="required">
+                <input type="text" class="form-control pull-right readonly" id="date" name="date" placeholder="Date" value="{{ $currDate = date("d/m/Y") }} - {{ $currDate }}" required="required">
               </div><!-- /.input group -->
             </div><!-- /.form group -->
           </div>
@@ -88,6 +86,14 @@
 <script src="{{ asset('assets/js/pages/table_dynamic.js') }}"></script>
 <script src="{{ asset('assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js') }}"></script> <!-- >Bootstrap Date Picker -->
 <script type="text/javascript">
+$(function () {
+  $('#date').daterangepicker({
+      format: 'DD/MM/YYYY'
+  });
+  $('#settleDate').daterangepicker();
+});
+
+
   $(document).ready(function(){
     var tableAuditTrail = $('#tableAuditTrail').DataTable();
 
@@ -116,6 +122,43 @@
 				}
 			}
 			});
+  });
+
+  $("#btnSubmit").click(function(e)
+  {
+    e.preventDefault();
+
+    var tableAuditTrail = $('#tableAuditTrail').DataTable();
+
+    $.ajax({
+      dataType: 'JSON',
+      type: 'POST',
+      url: '/audit_trail/result',
+      data: {
+        date         : $('#date').val(),
+      },
+      success: function (data) {
+        tableAuditTrail.clear().draw();
+
+        for (var i = 0; i < data.length; i++) {
+          var username = data[i].username;
+          var date = data[i].DATE;
+          var name = data[i].name;
+          var description = data[i].description;
+
+          var jRow = $('<tr>').append(
+            '<td>'+ (i + 1) +'</td>',
+              '<td>'+ username +'</td>',
+              '<td>'+ date +'</td>',
+              '<td>'+ name +'</td>',
+              '<td>'+ description +'</td>'
+              );
+
+          tableAuditTrail.row.add(jRow).draw();
+        }
+      }
+      });
+
   });
 </script>
 <!-- END PAGE SCRIPTS -->

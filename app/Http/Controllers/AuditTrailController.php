@@ -88,7 +88,8 @@ class AuditTrailController extends Controller
       // Session::put('id', $var->data->Id);
       $this->attrib = $var->result;
 
-      return view('audit_trail')->with(['main_menu' => $this->main_menu, 'sub_menu' => $this->sub_menu, 'attrib' => $this->attrib]);
+      return $this->attrib;
+      //return view('audit_trail')->with(['main_menu' => $this->main_menu, 'sub_menu' => $this->sub_menu, 'attrib' => $this->attrib]);
 
       //return redirect()->action('HomeController@index');
       //return $username;

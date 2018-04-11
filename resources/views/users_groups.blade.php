@@ -2,10 +2,6 @@
 
 @section('content')
 
-  @if(isset($attrib))
-  {{ $attrib }}
-  @endif
-
   <div class="content-wrapper"><!-- Content Wrapper. Contains page content -->
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -418,7 +414,7 @@
                           <div class="col-md-5">
                             <div class="form-group">
                               <label for="exampleInputEmail1">Privileges</label>
-                              <select multiple="multiple" id="my-select2" name="privileges[]" required="required">
+                              <select multiple="multiple" id="my-select2" name="edit_privileges2[]" required="required">
 
                               </select>
                             </div>
@@ -483,7 +479,81 @@
 <script src="{{ asset('assets/plugins/lou-multi-select/js/jquery.multi-select.js') }}"></script>
 
 <!-- END PAGE SCRIPTS -->
+@if(isset($attrib))
+@if($attrib == "Add User Success")
+<script type="text/javascript">
 
+    messg.success('<i class="fa fa-check"></i> Add User Success', 3500);
+
+  </script>
+@elseif($attrib == "Add User Failed")
+<script type="text/javascript">
+
+    messg.success('<i class="fa fa-check"></i> Add User Failed', 3500);
+
+  </script>
+@elseif($attrib == "Update User Success")
+<script type="text/javascript">
+
+    messg.success('<i class="fa fa-check"></i> Update User Success', 3500);
+
+  </script>
+@elseif($attrib == "Update User Failed")
+<script type="text/javascript">
+
+    messg.success('<i class="fa fa-check"></i> Update User Failed', 3500);
+
+  </script>
+@elseif($attrib == "Delete User Success")
+<script type="text/javascript">
+
+    messg.success('<i class="fa fa-check"></i> Delete User Success', 3500);
+
+  </script>
+@elseif($attrib == "Delete User Failed")
+<script type="text/javascript">
+
+    messg.success('<i class="fa fa-check"></i> Delete User Failed', 3500);
+
+  </script>
+@elseif($attrib == "Add Group Success")
+<script type="text/javascript">
+
+    messg.success('<i class="fa fa-check"></i> Add Group Success', 3500);
+
+  </script>
+@elseif($attrib == "Add Group Failed")
+<script type="text/javascript">
+
+    messg.success('<i class="fa fa-check"></i> Add Group Failed', 3500);
+
+  </script>
+@elseif($attrib == "Update Group Success")
+<script type="text/javascript">
+
+    messg.success('<i class="fa fa-check"></i> Update Group Success', 3500);
+
+  </script>
+@elseif($attrib == "Update Group Failed")
+<script type="text/javascript">
+
+    messg.success('<i class="fa fa-check"></i> Update Group Failed', 3500);
+
+  </script>
+@elseif($attrib == "Delete Group Success")
+<script type="text/javascript">
+
+    messg.success('<i class="fa fa-check"></i> Delete Group Success', 3500);
+
+  </script>
+@elseif($attrib == "Delete Group Failed")
+<script type="text/javascript">
+
+    messg.success('<i class="fa fa-check"></i> Delete Group Failed', 3500);
+
+  </script>
+  @endif
+  @endif
 
 <script type="text/javascript">
   $(document).ready(function(){
@@ -558,10 +628,10 @@
 
           if(status == '1')
           {
-            status2 = 'Active';
+            status2 = '<span class="label label-success">Active</span>';
           }
           else {
-            status2 = 'Not Active';
+            status2 = '<span class="label label-danger">Not Active</span>';
           }
           if(note == null)
           {
@@ -575,9 +645,11 @@
                 '<td>'+ groupName +'</td>',
                 '<td>'+ fname +'</td>',
                 '<td>'+ status2 +'</td>',
-                '<td><a class="edit btn btn-sm btn-default" href="javascript:;" style="cursor: pointer;" onClick="editUsers(\''+ user_id +'\',\''+ name +'\', \''+ group_id +'\',\''+ branch +'\',\''+ username +'\',\''+ password +'\',\''+ note +'\')" ><i class="fa fa-pencil-square-o"></i> Edit </a> <a class="delete btn btn-sm btn-danger" href="javascript:;" style="cursor: pointer;" onClick="deleteUsers(\''+ user_id +'\',\''+ name +'\')"><i class="fa fa-times"></i> Delete</a></td>'
+                '<td><a class="edit btn btn-sm btn-default" href="javascript:;" style="cursor: pointer;" onClick="editUsers(\''+ user_id +'\',\''+ name +'\', \''+ group_id +'\',\''+ branch +'\',\''+ username +'\',\''+ password +'\',\''+ note +'\',\''+ status +'\')" ><i class="fa fa-pencil-square-o"></i> Edit </a> <a class="delete btn btn-sm btn-danger" href="javascript:;" style="cursor: pointer;" onClick="deleteUsers(\''+ user_id +'\',\''+ name +'\')"><i class="fa fa-times"></i> Delete</a></td>'
 
                 );
+
+
 
           tableUsers.row.add(jRow).draw();
 				}
@@ -654,20 +726,20 @@
             active2();
           }
 
-            if(group_status == '1')
-            {
-              group_status2 = 'Active';
-            }
-            else {
-              group_status2 = 'Not Active';
-            }
+          if(group_status == '1')
+          {
+            group_status2 = '<span class="label label-success">Active</span>';
+          }
+          else {
+            group_status2 = '<span class="label label-danger">Not Active</span>';
+          }
 
             var jRow = $('<tr>').append(
               '<td>'+ (i + 1) +'</td>',
                 '<td>'+ groupName +'</td>',
                 '<td>'+ group_merchant +'</td>',
                 '<td>'+ group_status2 +'</td>',
-                '<td><a class="edit btn btn-sm btn-default" href="javascript:;" style="cursor: pointer;" onClick="editGroups(\''+ group_id +'\', \''+ groupName +'\',\''+ group_fid +'\',\''+ merch_id +'\',\''+ group_policy +'\')" ><i class="fa fa-pencil-square-o"></i> Edit </a> <a class="delete btn btn-sm btn-danger" href="javascript:;" style="cursor: pointer;" onClick="deleteGroups(\''+ group_id +'\',\''+ groupName +'\',\''+ group_host +'\')"><i class="fa fa-times"></i> Delete</a></td>'
+                '<td><a class="edit btn btn-sm btn-default" href="javascript:;" style="cursor: pointer;" onClick="editGroups(\''+ group_id +'\', \''+ groupName +'\',\''+ group_fid +'\',\''+ merch_id +'\',\''+ group_policy +'\',\''+ group_status +'\')" ><i class="fa fa-pencil-square-o"></i> Edit </a> <a class="delete btn btn-sm btn-danger" href="javascript:;" style="cursor: pointer;" onClick="deleteGroups(\''+ group_id +'\',\''+ groupName +'\',\''+ group_host +'\')"><i class="fa fa-times"></i> Delete</a></td>'
 
                 );
 
@@ -678,7 +750,8 @@
 
   });
 
-  function editUsers(user_id, name, group, branch, username, password, note) {
+  function editUsers(user_id, name, group, branch, username, password, note, status) {
+
         $('#edit_user_id').val(user_id);
         $('#edit_name').val(name);
         $('#edit_group').val(group).trigger("change");
@@ -686,6 +759,16 @@
         $('#edit_username').val(username);
         $('#edit_password').val(password);
         $('#edit_note').val(note);
+      //  $('input[name="status"][value=' + nowstatus + ']').attr('checked',true);
+
+        if(status == '1')
+        {
+          $('input#st-active').iCheck('check');
+        }
+        else {
+          $('input#st-inactive').iCheck('check');
+        }
+
 
       $('#editUsersModal').modal('show');
 
@@ -703,7 +786,7 @@
         $("#submitUser").click();
       }
 
-      function editGroups(group_id, groupName, group_host, group_merchant, group_policy) {
+      function editGroups(group_id, groupName, group_host, group_merchant, group_policy, group_status) {
             $('#edit_group_id2').val(group_id);
             $('#edit_group2').val(groupName);
             $('#edit_host2').val(group_host).trigger("change");
@@ -713,6 +796,14 @@
             var array_group_policy = get_group_policy.split(',');
             //$('#my-select2').val(array_group_policy);
             $('#my-select2').multiSelect("select", array_group_policy);
+
+            if(group_status == '1')
+            {
+              $('input#st-active2').iCheck('check');
+            }
+            else {
+              $('input#st-inactive2').iCheck('check');
+            }
 
 
           $('#editGroupsModal').modal('show');
@@ -876,6 +967,10 @@ $('#my-select2').multiSelect('addOption', { value: data[i]['policy_id'], text: d
           }
         });
 
+
+        function checkHost(id) {
+          silang_text.style.display = 'none';
+        }
 
 
 

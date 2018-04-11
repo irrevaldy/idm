@@ -266,7 +266,7 @@ class UsersGroupsController extends Controller
     $name = $request->input('edit_group2');
     $institute = $request->input('edit_host2');
     $merchant = $request->input('edit_merchant2');
-    $note = $request->input('edit_merchant2');
+    $note = $request->input('edit_note2');
     $status = $request->input('group_status');
     $priv = $request->input('edit_privileges2');
 

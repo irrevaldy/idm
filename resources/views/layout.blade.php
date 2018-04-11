@@ -236,6 +236,8 @@
       <script src="{{ asset('assets/plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
       <script src="{{ asset('assets/plugins/icheck/icheck.min.js') }}"></script> <!-- Checkbox & Radio Inputs -->
       <script src="{{ asset('assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js') }}"></script> <!-- Checkbox & Radio Inputs -->
+      <script src="{{ asset('assets/plugins/messg/index.js') }}"></script> <!-- Checkbox & Radio Inputs -->
+      <script src="{{ asset('assets/plugins/daterangepicker/daterangepicker-mod.js') }}"></script> <!-- Checkbox & Radio Inputs -->
 
 
   <script type="text/javascript">
@@ -326,6 +328,7 @@
       });
     }
     $('.btn-primary').prop('disabled', false);
+  
   });
   </script>
   @yield('javascript')
