@@ -24,28 +24,6 @@ class TcashController extends Controller
     return view('tcash')->with(['main_menu' => $this->main_menu, 'sub_menu' => $this->sub_menu]);
   }
 
-  public function checkLimit(Request $request)
-  {
-    $storeCode = $request->input('code');
-    $client = new \GuzzleHttp\Client();
-    $form_post = $client->request('POST', config('constants.api_server').'tcash/check_limit', [
-      'json' => [
-        'storeCode' => $storeCode,
-        'branchCode' => Session::get('branch_code'),
-        'merch_id' => Session::get('merch_id')
-      ]
-    ]);
-    $var = json_decode($form_post->getBody()->getContents());
-
-    if($var->success == true)
-    {
-      // Session::put('id', $var->data->Id);
-      $this->attrib = $var->limit;
-
-      return $this->attrib;
-    }
-  }
-
   public function setLimit(Request $request)
   {
     $client = new \GuzzleHttp\Client();

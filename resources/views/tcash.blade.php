@@ -99,11 +99,7 @@
       <div class="modal-footer">
 
         <button type="button" class="btn btn-warning" data-dismiss="modal" id="closeLimit">Close</button>
-<<<<<<< HEAD
         <button type="button" class="btn btn-primary" id="submitModalNew">Save changes</button>
-=======
-        <button type="submit" class="btn btn-primary" id="submitModalNew">Save changes</button>
->>>>>>> 53713b0ecfec0fb38482eaa60f55317dcbf2786e
 
         </div>
 
@@ -146,7 +142,6 @@ $("input[name='storeCode']").change(function() {
 
   if(storeCode != '') {
 
-<<<<<<< HEAD
 
 
       $.ajax({
@@ -176,35 +171,6 @@ $("input[name='storeCode']").change(function() {
 
         }
       });
-=======
-    $.ajax({
-      type: 'POST',
-      data: {
-        code: storeCode
-        // ,ModifiedBy        : "ADMIN"
-      },
-      //headers: {'X-CSRF-TOKEN': "{{ csrf_token() }}"},
-      url: '/tcash/checklimit',
-      success: function (data)
-      {
-        var limit = data[0]['limit'];
-
-        if(data['success'] == true) {
-          $("input[name='currLimit']").val( limit );
-
-          $("input[name='storeCode']").css({"border": "1px solid #d2d6de", "background-color": "#fff"});
-          $("#notFound").css({"display": "none"});
-          $('#submitModalNew').prop('disabled', false);
-        } else {
-          $("input[name='currLimit']").val( limit );
-
-          $("input[name='storeCode']").css({"border": "1px solid #FF5656", "background-color": "#FFDBDB"});
-          $("#notFound").css({"display": "inline"});
-          $('#submitModalNew').prop('disabled', true);
-        }
-      }
-    });
->>>>>>> 53713b0ecfec0fb38482eaa60f55317dcbf2786e
 
   } else {
 
@@ -214,7 +180,6 @@ $("input[name='storeCode']").change(function() {
 
 });
 
-<<<<<<< HEAD
 $('#submitModalNew').click(function() {
 
   var storeCode = $("input[name='storeCode']").val()
@@ -254,8 +219,6 @@ $('#submitModalNew').click(function() {
 });
 
 
-=======
->>>>>>> 53713b0ecfec0fb38482eaa60f55317dcbf2786e
 </script>
 
 @endsection
