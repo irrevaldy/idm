@@ -283,6 +283,10 @@
   <script type="text/javascript">
   $("#submitModal").click(function(e)
   {
+    var closeBtn = document.getElementById('closeProfile');
+    var submitBtn = document.getElementById('submitBtn');
+    var sukses = "";
+
     e.preventDefault();
 
     $('.btn-primary').prop('disabled', true);
@@ -308,28 +312,35 @@
 
         success: function (data)
         {
-          console.log(data['status']);
-          var result = data['status'];
+          console.log(data);
 
-          if(result == '#SUCCESS')
+          if(data == '#SUCCESS')
           {
             $('#oldPassword').val('').trigger('change');
             $('#newPassword').val('').trigger('change');
-
+            messg.info('<i class="fa fa-check"></i> Update Profile Success', 3500);
             //$('#updatePassword_form')[0].reset();
 
-            setTimeout(function(){ $('#profileModal').modal('hide'); }, 1500);
-          }
-          else if(result == '#ERROR')
-          {
+            sukses = "ya";
 
+            closeBtn.click();
+          }
+          else if(data == '#ERROR')
+          {
+            sukses = "tidak";
+
+            messg.error('<i class="fa fa-times"></i> Update Profile Failed', 3500);
           }
         }
       });
+
     }
     $('.btn-primary').prop('disabled', false);
-  
+
+
+
   });
+
   </script>
   @yield('javascript')
 </body>

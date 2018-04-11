@@ -27,6 +27,8 @@ class GlobalController extends Controller
     ]);
     $var = json_decode($form_post->getBody()->getContents());
 
+    Session::put('name', $var->data->name);
+
     return $var->status;
   }
 
