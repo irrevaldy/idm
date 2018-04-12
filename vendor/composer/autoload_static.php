@@ -329,6 +329,7 @@ class ComposerStaticIniteed7e4ae9a44d35b0278a4aadb229d55
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\CorporateMerchantController' => __DIR__ . '/../..' . '/app/Http/Controllers/CorporateMerchantController.php',
         'App\\Http\\Controllers\\EdcDataController' => __DIR__ . '/../..' . '/app/Http/Controllers/EdcDataController.php',
+        'App\\Http\\Controllers\\GlobalController' => __DIR__ . '/../..' . '/app/Http/Controllers/GlobalController.php',
         'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
         'App\\Http\\Controllers\\SearchController' => __DIR__ . '/../..' . '/app/Http/Controllers/SearchController.php',
         'App\\Http\\Controllers\\SummaryController' => __DIR__ . '/../..' . '/app/Http/Controllers/SummaryController.php',

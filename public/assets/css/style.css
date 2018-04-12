@@ -570,7 +570,7 @@ customize data table style
 */
 .table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
 font-size: 14px;
-padding: 4px;
+padding: 8px;
 }
 
 .pagination > li:first-child > a, .pagination > li:first-child > span,

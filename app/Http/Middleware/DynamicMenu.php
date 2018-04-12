@@ -32,11 +32,11 @@ class DynamicMenu
 			}
 			else{
 				$client = new \GuzzleHttp\Client();
-				$get_main_menu = $client->request('GET', config('constants.api_server').'menu/main/'.Session::get('group_id').'/api_token='.Session::get('apitoken'));
+				$get_main_menu = $client->request('GET', config('constants.api_server').'menu/main/'.Session::get('group_id').'/'.Session::get('user_id').'/'.Session::get('apitoken'));
 				$main_menu = json_decode($get_main_menu->getBody()->getContents());
 				$main_menu = $main_menu->data;
 
-				$get_sub_menu = $client->request('GET', config('constants.api_server').'menu/regular/'.Session::get('group_id').'/api_token='.Session::get('apitoken'));
+				$get_sub_menu = $client->request('GET', config('constants.api_server').'menu/regular/'.Session::get('group_id').'/'.Session::get('user_id').'/'.Session::get('apitoken'));
 				$sub_menu = json_decode($get_sub_menu->getBody()->getContents());
 				$sub_menu = $sub_menu->data;
 

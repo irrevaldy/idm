@@ -555,7 +555,7 @@ $(function () {
               '<td>'+ CORP_NAME +'</td>',
               '<td>'+ CORP_LOGO +'</td>',
               '<td>'+ REG_DATE +'</td>',
-              '<td><a class="edit btn btn-sm btn-default" href="javascript:;" style="cursor: pointer;" onClick="editCorp('+ ID +', \''+ CORP_NAME +'\')" ><i class="fa fa-pencil-square-o"></i> Edit </a>| <a class="delete btn btn-sm btn-danger" href="javascript:;" style="cursor: pointer;" onClick="deleteCorp('+ ID +', \''+ CORP_NAME +'\')"><i class="fa fa-times"></i> Delete</a></td>'
+              '<td><a class="warn" href="javascript:;" style="cursor: pointer;" onClick="editCorp('+ ID +', \''+ CORP_NAME +'\')" ><i class="fa fa-pencil-square-o"></i> Edit </a><a class="danger" href="javascript:;" style="cursor: pointer;" onClick="deleteCorp('+ ID +', \''+ CORP_NAME +'\')"><i class="fa fa-times"></i> Delete</a></td>'
               );
 
           tableCorporate.row.add(jRow).draw();
@@ -591,7 +591,7 @@ $(function () {
                 '<td>'+ CORP_NAME +'</td>',
                 '<td>'+ FMERCHLOGO +'</td>',
                 '<td>'+ FREG_DATE +'</td>',
-                '<td><a class="edit btn btn-sm btn-default" href="javascript:;" style="cursor: pointer;" onClick="editMerch(\''+ FID +'\', \''+ FMERCHNAME +'\',\''+ ID +'\')" ><i class="fa fa-pencil-square-o"></i> Edit </a> <a class="delete btn btn-sm btn-danger" href="javascript:;" style="cursor: pointer;" onClick="deleteMerch(\''+ FID +'\', \''+ FMERCHNAME +'\')"><i class="fa fa-times"></i> Delete</a></td>'
+                '<td><a class="warn" href="javascript:;" style="cursor: pointer;" onClick="editMerch(\''+ FID +'\', \''+ FMERCHNAME +'\',\''+ ID +'\')" ><i class="fa fa-pencil-square-o"></i> Edit </a> <a class="danger" href="javascript:;" style="cursor: pointer;" onClick="deleteMerch(\''+ FID +'\', \''+ FMERCHNAME +'\')"><i class="fa fa-times"></i> Delete</a></td>'
 
                 );
 

@@ -645,7 +645,7 @@
                 '<td>'+ groupName +'</td>',
                 '<td>'+ fname +'</td>',
                 '<td>'+ status2 +'</td>',
-                '<td><a class="edit btn btn-sm btn-default" href="javascript:;" style="cursor: pointer;" onClick="editUsers(\''+ user_id +'\',\''+ name +'\', \''+ group_id +'\',\''+ branch +'\',\''+ username +'\',\''+ password +'\',\''+ note +'\',\''+ status +'\')" ><i class="fa fa-pencil-square-o"></i> Edit </a> <a class="delete btn btn-sm btn-danger" href="javascript:;" style="cursor: pointer;" onClick="deleteUsers(\''+ user_id +'\',\''+ name +'\')"><i class="fa fa-times"></i> Delete</a></td>'
+                '<td><a class="warn" href="javascript:;" style="cursor: pointer;" onClick="editUsers(\''+ user_id +'\',\''+ name +'\', \''+ group_id +'\',\''+ branch +'\',\''+ username +'\',\''+ password +'\',\''+ note +'\',\''+ status +'\')" ><i class="fa fa-pencil-square-o"></i> Edit </a> <a class="danger" href="javascript:;" style="cursor: pointer;" onClick="deleteUsers(\''+ user_id +'\',\''+ name +'\')"><i class="fa fa-times"></i> Delete</a></td>'
 
                 );
 
@@ -739,7 +739,7 @@
                 '<td>'+ groupName +'</td>',
                 '<td>'+ group_merchant +'</td>',
                 '<td>'+ group_status2 +'</td>',
-                '<td><a class="edit btn btn-sm btn-default" href="javascript:;" style="cursor: pointer;" onClick="editGroups(\''+ group_id +'\', \''+ groupName +'\',\''+ group_fid +'\',\''+ merch_id +'\',\''+ group_policy +'\',\''+ group_status +'\')" ><i class="fa fa-pencil-square-o"></i> Edit </a> <a class="delete btn btn-sm btn-danger" href="javascript:;" style="cursor: pointer;" onClick="deleteGroups(\''+ group_id +'\',\''+ groupName +'\',\''+ group_host +'\')"><i class="fa fa-times"></i> Delete</a></td>'
+                '<td><a class="warn" href="javascript:;" style="cursor: pointer;" onClick="editGroups(\''+ group_id +'\', \''+ groupName +'\',\''+ group_fid +'\',\''+ merch_id +'\',\''+ group_policy +'\',\''+ group_status +'\')" ><i class="fa fa-pencil-square-o"></i> Edit </a> <a class="danger" href="javascript:;" style="cursor: pointer;" onClick="deleteGroups(\''+ group_id +'\',\''+ groupName +'\',\''+ group_host +'\')"><i class="fa fa-times"></i> Delete</a></td>'
 
                 );
 

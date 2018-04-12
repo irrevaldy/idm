@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="{{ asset('assets/plugins/messg/index.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/plugins/daterangepicker/daterangepicker-bs3.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/plugins/select2/select2.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/plugins/bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/plugins/font-awesome/css/font-awesome.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/plugins/ionicons/css/ionicons.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/dist/css/AdminLTE.css') }}">

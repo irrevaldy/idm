@@ -11,7 +11,6 @@ class AuditTrailController extends Controller
 
   public function __construct()
   {
-    //$this->Middleware('auth');
     $this->Middleware(array('CustomAuthChecker','DynamicMenu'));
   }
 
@@ -20,13 +19,7 @@ class AuditTrailController extends Controller
     $this->main_menu = $request->get('main_menu');
     $this->sub_menu = $request->get('sub_menu');
 
-
-
-      return view('audit_trail')->with(['main_menu' => $this->main_menu, 'sub_menu' => $this->sub_menu]);
-
-      //return redirect()->action('HomeController@index');
-      //return $username;
-
+    return view('audit_trail')->with(['main_menu' => $this->main_menu, 'sub_menu' => $this->sub_menu]);
   }
 
   public function getAllData(Request $request)
