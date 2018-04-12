@@ -75,7 +75,7 @@
           collapseButton2.click();
         }
       </script>
-      
+
       <div class="row">
         <div class="col-md-12">
           <div class="box box-primary">
@@ -89,9 +89,19 @@
 
             <!--  get summary data monitoring from database -->
             <?php
-            $percentActive = (int)$total_active / (int)$total_edc * 100;
-            $percentNotActive = (int)$total_not_active / (int)$total_edc * 100;
-            $percentActiveTransaction = (int)$total_active_transaction / (int)$total_edc * 100;
+            if($total_edc != 0)
+            {
+              $percentActive = (int)$total_active / (int)$total_edc * 100;
+              $percentNotActive = (int)$total_not_active / (int)$total_edc * 100;
+              $percentActiveTransaction = (int)$total_active_transaction / (int)$total_edc * 100;
+            }
+            else
+            {
+              $percentActive = 0;
+              $percentNotActive = 0;
+              $percentActiveTransaction = 0;
+            }
+
             ?>
 
 
