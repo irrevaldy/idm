@@ -34,9 +34,9 @@
       <!-- Logo -->
       <a class="logo">
               <!-- mini logo for sidebar mini 50x50 pixels -->
-              <span class="logo-mini"><img src="{{ asset('assets/img/logo.png') }}" width="50px"></span>
+              <span class="logo-mini"><img src="{{ asset('assets/img/'.Session::get('logo').'')}}" width="50px"></span>
               <!-- logo for regular state and mobile devices -->
-              <span class="logo-lg"><img src="{{ asset('assets/img/logo.png') }}" width="125px"></span>
+              <span class="logo-lg"><img src="{{ asset('assets/img/'.Session::get('logo').'')}}" width="125px"></span>
 
             </a>
             <!-- Header Navbar: style can be found in header.less -->

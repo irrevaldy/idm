@@ -38,11 +38,17 @@ class DynamicMenu
 
 				$get_sub_menu = $client->request('GET', config('constants.api_server').'menu/regular/'.Session::get('group_id').'/'.Session::get('user_id').'/'.Session::get('apitoken'));
 				$sub_menu = json_decode($get_sub_menu->getBody()->getContents());
-				$sub_menu = $sub_menu->data;
 
 				$request->attributes->add(['main_menu' => $main_menu]);
-				$request->attributes->add(['sub_menu' => $sub_menu]);
+				if ($sub_menu->success == true)
+				{
+					$sub_menu = $sub_menu->data;
+					$request->attributes->add(['sub_menu' => $sub_menu]);
+				}
+				else
+				{
 
+				}
 				return $next($request);
 			}
 		}

@@ -29,6 +29,27 @@ transition: all 0.4s ease;
   transition: all 0.4s ease;
  }
 
+ .skin-blue .main-header .logo {
+   background-color: #7abcff;
+ }
+
+ .skin-blue .main-header .navbar {
+   /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#7abcff+0,60abf8+2,1f81ba+100 */
+   background: #7abcff; /* Old browsers */
+   background: -moz-linear-gradient(left,  #7abcff 0%, #60abf8 2%, #1f81ba 100%); /* FF3.6-15 */
+   background: -webkit-linear-gradient(left,  #7abcff 0%,#60abf8 2%,#1f81ba 100%); /* Chrome10-25,Safari5.1-6 */
+   background: linear-gradient(to right,  #7abcff 0%,#60abf8 2%,#1f81ba 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7abcff', endColorstr='#1f81ba',GradientType=1 ); /* IE6-9 */
+ }
+
+ .skin-blue .main-header .navbar .sidebar-toggle:hover {
+   background-color: #1f81ba;
+ }
+
+ .skin-blue .main-header .logo:hover {
+   background-color: #7abcff;
+ }
+
 .skin-blue .main-header .navbar .nav > li > a {
   -webkit-transition: all 0.4s ease;
   -moz-transition: all 0.4s ease;
