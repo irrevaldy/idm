@@ -7,15 +7,28 @@ Route::post('/login', ['as' => 'login', 'uses' => 'loginController@sendLoginData
 Route::get('/logout', ['as' => 'logout', 'uses' => 'loginController@logout']);
 
 Route::get('/', function(){
-	if(empty(Session::get('username')) && empty(Session::get('apitoken'))){
+	if(empty(Session::get('username')) && empty(Session::get('apitoken')))
+	{
 		return view('auth.login');
 	}
-	else{
+	else
+	{
 		return redirect('/home');
 	}
-
-	return view('auth.login');
 });
+
+Route::post('/update_password','GlobalController@UpdatePassword');
+Route::get('/host_data','GlobalController@GetHostData');
+Route::get('/branch_data','GlobalController@GetBranchData');
+Route::get('/bank_data','GlobalController@GetBankData');
+Route::get('/card_data','GlobalController@GetCardData');
+Route::get('/corporate_data','GlobalController@GetCorporateData');
+Route::post('/merchant_data','GlobalController@GetMerchantData');
+Route::post('/group_data','GlobalController@GetGroupData');
+Route::get('/merchant_data_all','GlobalController@GetMerchantDataAll');
+Route::get('/institute_data','GlobalController@GetInstituteData');
+Route::post('/policy_data','GlobalController@GetPolicyData');
+Route::get('/sidebar','GlobalController@GetSidebar');
 
 //Auth::routes();
 //home
@@ -40,7 +53,6 @@ Route::post('/report/summary/responsecode','SummaryController@generateSummaryRes
 Route::get('/tcash','TcashController@index');
 Route::post('/tcash/setlimit','TcashController@setLimit')->name('tcash_setup');
 Route::post('/tcash/checkLimit','TcashController@CheckLimit');
-
 
 Route::get('/edc_data','EdcDataController@index');
 Route::post('/edc_data/checkSN','EdcDataController@CheckSN');
@@ -74,16 +86,3 @@ Route::post('/administration/users_groups/deleteGroups','UsersGroupsController@d
 Route::get('/audit_trail','AuditTrailController@index');
 Route::get('/audit_trail/get_all_data','AuditTrailController@getAllData');
 Route::post('/audit_trail/result','AuditTrailController@getAuditTrail')->name('search_audit_trail');
-
-Route::post('/update_password','GlobalController@UpdatePassword');
-Route::get('/host_data','GlobalController@GetHostData');
-Route::get('/branch_data','GlobalController@GetBranchData');
-Route::get('/bank_data','GlobalController@GetBankData');
-Route::get('/card_data','GlobalController@GetCardData');
-Route::get('/corporate_data','GlobalController@GetCorporateData');
-Route::post('/merchant_data','GlobalController@GetMerchantData');
-Route::post('/group_data','GlobalController@GetGroupData');
-Route::get('/merchant_data_all','GlobalController@GetMerchantDataAll');
-Route::get('/institute_data','GlobalController@GetInstituteData');
-Route::post('/policy_data','GlobalController@GetPolicyData');
-Route::get('/sidebar','GlobalController@GetSidebar');

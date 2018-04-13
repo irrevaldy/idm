@@ -75,7 +75,7 @@
           collapseButton2.click();
         }
       </script>
-
+      @if(session('FCODE') == 'pvs1909')
       <div class="row">
         <div class="col-md-12">
           <div class="box box-primary">
@@ -184,7 +184,7 @@
           </div>
         </div> <!-- end of col-md-8 -->
       </div>
-
+      @endif
       </section><!-- /.content -->
 
     </div><!-- /.content-wrapper -->

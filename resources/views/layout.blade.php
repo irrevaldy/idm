@@ -23,7 +23,6 @@
     <link rel="stylesheet" href="{{ asset('assets/plugins/icheck-1.x/skins/flat/red.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/plugins/icheck-1.x/skins/flat/green.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker.css') }}">
-    <link href="" rel="stylesheet">
   </head>
   <body class="hold-transition skin-blue fixed sidebar-mini {{ Session::get('sidebar')}} ">
   <a href="#0" class="cd-top">Top</a>
@@ -31,6 +30,7 @@
   <div class="wrapper">
     <!-- navbar -->
     <header class="main-header">
+
       <!-- Logo -->
       <a class="logo">
               <!-- mini logo for sidebar mini 50x50 pixels -->
@@ -203,6 +203,7 @@
        </div>
      </div>
 
+
     <!-- page content -->
 
     @yield('content')
@@ -221,7 +222,10 @@
     <!-- END MAIN CONTENT -->
     </div>
 
-
+    <div id="overlay">
+        <img src="{{ asset('assets/img/loader.gif') }}" alt="Loading" /><br/>
+        Loading...
+    </div>
   <!-- javascript -->
   <script src="{{ asset('assets/plugins/jquery/jquery-2.1.4.min.js') }}"></script>
   <script src="{{ asset('assets/bootstrap/js/bootstrap.min.js') }}"></script>
@@ -239,7 +243,11 @@
       <script src="{{ asset('assets/plugins/messg/index.js') }}"></script> <!-- Checkbox & Radio Inputs -->
       <script src="{{ asset('assets/plugins/daterangepicker/daterangepicker-mod.js') }}"></script> <!-- Checkbox & Radio Inputs -->
 
-
+      <script>
+          jQuery(window).load(function(){
+          jQuery('#overlay').fadeOut();
+          });
+      </script>
   <script type="text/javascript">
 
     function setSidebar()
