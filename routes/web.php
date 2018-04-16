@@ -86,3 +86,6 @@ Route::post('/administration/users_groups/deleteGroups','UsersGroupsController@d
 Route::get('/audit_trail','AuditTrailController@index');
 Route::get('/audit_trail/get_all_data','AuditTrailController@getAllData');
 Route::post('/audit_trail/result','AuditTrailController@getAuditTrail')->name('search_audit_trail');
+
+Route::get('/chart','ChartController@index');
+Route::get('/monitoring_bar_chart','ChartController@BarChart');
