@@ -17,56 +17,6 @@
 
       <!-- Main content -->
       <section class="content">
-
-        <style type="text/css">
-        .box-table {
-          position: relative;
-        }
-
-        .user-block .username, .user-block .description, .user-block .comment {
-            display: block;
-            margin-left: 0px;
-        }
-
-        .last-active i {
-          font-size: 12px;
-        }
-
-        .last-active .box-body {
-          /* padding-top: 2px; */
-          font-size: 13px;
-        }
-
-        .activeStage {
-            -webkit-box-shadow: 0 0 2px 5px rgba(0, 0, 0, 0.60);
-            box-shadow: 0 0 2px 5px rgba(0, 0, 0, 0.60);
-        }
-
-        .info-box:hover {
-          cursor: pointer;
-          -webkit-box-shadow: 0 0 3px 2px rgba(4,0,255,0.9);
-          box-shadow: 0 0 3px 2px rgba(4,0,255,0.9);
-
-          -webkit-transition: all 0.2s ease-in;
-          -moz-transition: all 0.2s ease-in;
-          -ms-transition: all 0.2s ease-in;
-          -o-transition: all 0.2s ease-in;
-          transition: all 0.2s ease-in;
-        }
-
-        .skin-blue .export-box-2 {
-          left: 280px;
-          position: absolute;
-          top: 8px;
-          z-index: 99;
-        }
-
-        .skin-blue .export-box {
-          width: 105px;
-        }
-
-        </style>
-
         <script type="text/javascript">
         function exp(){
           var collapseButton = document.getElementById('collapseButton');
