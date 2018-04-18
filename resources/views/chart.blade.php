@@ -22,7 +22,7 @@
       <div class="box box-primary">
 
         <div class="box-header with-border" onClick="exp()" style="cursor: pointer;">
-          <h3 class="box-title">Bar Chart</h3>
+          <h3 class="box-title">Count Total EDC Based on Merch ID</h3>
           <div class="box-tools pull-right">
             <button class="btn btn-box-tool" data-widget="collapse" id="collapseButton"><i class="fa fa-minus"></i></button>
             <!-- <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button> -->
