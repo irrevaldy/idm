@@ -33,6 +33,7 @@ Route::get('/sidebar','GlobalController@GetSidebar');
 //Auth::routes();
 //home
 Route::get('home', 'HomeController@index')->name('home');
+Route::get('pie','HomeController@pie');
 
 //search_transaction
 Route::get('/search_transaction', 'SearchController@index');

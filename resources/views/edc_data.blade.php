@@ -86,6 +86,42 @@
           </div>
 
           </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <div class="box box-primary">
+
+                <div class="box-header with-border" onClick="exp()" style="cursor: pointer;">
+                  <h3 class="box-title">Count Total EDC Based on Merchant ID</h3>
+                  <div class="box-tools pull-right">
+                    <button class="btn btn-box-tool" data-widget="collapse" id="collapseButton"><i class="fa fa-minus"></i></button>
+                    <!-- <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button> -->
+                  </div>
+                </div><!-- /.box-header -->
+
+
+                <div class="box-body">
+                  <div class="row">  <!-- first row -->
+                    <div class="col-md-10 col-md-offset-1">
+
+                                <div class="panel panel-default">
+                                    <div class="panel-body">
+
+                                          <canvas id="myChart" width="50" height="300"></canvas>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                  </div>
+                </div>
+
+              </div>
+            </div> <!-- end of col-md-8 -->
+          </div>
+
       </section>
     </div>
 
@@ -290,6 +326,7 @@
 <script src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script> <!-- Tables Filtering, Sorting & Editing -->
 <script src="{{ asset('assets/js/pages/table_dynamic.js') }}"></script>
 <script src="{{ asset('assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js') }}"></script> <!-- >Bootstrap Date Picker -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 <!-- END PAGE SCRIPTS -->
 
 @if(isset($attrib4))
@@ -690,7 +727,72 @@ function deleteDataSn() {
 
 }
 
+//bar chart
+$(function(){
+  $.ajax({
+    dataType: 'JSON',
+    type: 'GET',
+    url: '/monitoring_bar_chart',
+    success: function (result) {
 
+    console.log(result);
+    var labels = [],data=[];
+    for (var i = 0; i < result.length; i++) {
+        labels.push(result[i]['FMERCH_ID']);
+        data.push(result[i]['total']);
+    }
+
+    console.log(labels);
+    console.log(data);
+
+    var buyerData = {
+      labels : labels,
+      datasets : [
+        {
+          fillColor : "rgba(240, 227, 210, 0.3)",
+          backgroundColor:"green",
+          strokeColor : "#f56954",
+          pointColor : "#A62121",
+          pointStrokeColor : "#741F1F",
+          data : data
+        }
+      ]
+    };
+    var buyers = document.getElementById('myChart').getContext('2d');
+
+    var myChart = new Chart(buyers, {
+      type: 'bar',
+      data: buyerData,
+      options: {
+        legend: {
+          display: false,
+        },
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+              yAxes: [{
+                scaleLabel: {
+                    display: true,
+                    labelString: 'Total EDC'
+                  },
+                  ticks: {
+                      beginAtZero:true
+                  }
+              }],
+              xAxes: [{
+                scaleLabel: {
+                    display: true,
+                    labelString: 'Merchant ID'
+                  },
+              }]
+          }
+      }
+    });
+
+    }
+    });
+
+});
 
 
 </script>

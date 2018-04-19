@@ -132,6 +132,25 @@
               </div>
             </div>
           </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <div class="box box-primary">
+                <div class="box-header with-border" onClick="exp()" style="cursor: pointer;">
+                  <h3 class="box-title">EDC Ratio</h3>
+                  <div class="box-tools pull-right">
+                    <!-- <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button> -->
+                  </div>
+                </div><!-- /.box-header -->
+
+                <div id="chart-div"></div>
+                <?= $lava->render('PieChart', 'EDC', 'chart-div') ?>
+
+
+            </div>
+          </div>
+        </div>
+
         </div> <!-- end of col-md-8 -->
       </div>
       @endif
