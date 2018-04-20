@@ -219,6 +219,23 @@
             </div>
     </div>
 
+    <div class="row">
+      <div class="col-md-12">
+        <div class="box box-primary">
+          <div class="box-header with-border" onClick="exp()" style="cursor: pointer;">
+            <h3 class="box-title">Total Transaction by Date</h3>
+            <div class="box-tools pull-right">
+              <!-- <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button> -->
+            </div>
+          </div><!-- /.box-header -->
+
+          <div id="temps_div" style="overflow-x:auto; overflow-y:hidden"></div>
+          <?= $lava->render('LineChart', 'Transaction', 'temps_div') ?>
+
+      </div>
+    </div>
+  </div>
+
   </section>
 
 </div><!-- /.content-wrapper -->

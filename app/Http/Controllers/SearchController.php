@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Khill\Lavacharts\Lavacharts;
 
 class SearchController extends Controller
 {
@@ -20,14 +21,28 @@ class SearchController extends Controller
         $this->main_menu = $request->get('main_menu');
     		$this->sub_menu = $request->get('sub_menu');
 
-        return view('search_transaction')->with(['main_menu' => $this->main_menu, 'sub_menu' => $this->sub_menu]);
+        $client = new \GuzzleHttp\Client();
+        $form_post = $client->request('GET', config('constants.api_server').'search_transaction/line_data');
+    		$var = json_decode($form_post->getBody()->getContents());
+        //return $var;
+
+        $lava = new Lavacharts; // See note below for Laravel
+
+        $transaction = $lava->DataTable();
+
+        $transaction->addDateColumn('Transaction Date')
+                     ->addNumberColumn('Total Transaction')
+                     ->addRows($var);
+
+        $lava->LineChart('Transaction', $transaction, [
+            'title' => 'Total Transaction Per Date'
+        ]);
+
+        return view('search_transaction')->with(['main_menu' => $this->main_menu, 'sub_menu' => $this->sub_menu, 'lava' => $lava]);
       }
 
       public function getDataSearchTransaction(Request $request)
       {
-        $this->main_menu = $request->get('main_menu');
-    		$this->sub_menu = $request->get('sub_menu');
-
         $client = new \GuzzleHttp\Client();
         $store_code = $request->input('store_code');
         $branch_code = $request->input('branch_code');
