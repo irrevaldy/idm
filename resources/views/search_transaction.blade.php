@@ -236,6 +236,22 @@
     </div>
   </div>
 
+  <div class="row">
+    <div class="col-md-12">
+      <div class="box box-primary">
+        <div class="box-header with-border" onClick="exp()" style="cursor: pointer;">
+          <h3 class="box-title">Total Transaction by Seconds</h3>
+          <div class="box-tools pull-right">
+            <!-- <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button> -->
+          </div>
+        </div><!-- /.box-header -->
+
+      <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+
+    </div>
+  </div>
+</div>
+
   </section>
 
 </div><!-- /.content-wrapper -->
@@ -243,10 +259,98 @@
 @endsection
 
 @section('javascript')
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+  <script src="{{ asset('assets/plugins/select2/select2.full.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js') }}"></script> <!-- Checkbox & Radio Inputs -->
 
 <!-- BEGIN PAGE SCRIPTS -->
 
 <!-- END PAGE SCRIPTS -->
+<script type="text/javascript">
+
+Highcharts.setOptions({
+    global: {
+        useUTC: false,
+        credits: false
+    }
+});
+
+Highcharts.chart('container', {
+    chart: {
+
+        type: 'line',
+        marginRight: 10,
+        events: {
+            load: function () {
+
+                // set up the updating of the chart each second
+                var series = this.series[0];
+                setInterval(function () {
+                    var x = (new Date()).getTime(), // current time
+                        y = Math.random() * 100;
+                    console.log('x:' + x);
+                    series.addPoint([x, y], true, true);
+                }, 1000);
+            }
+        }
+    },
+    title: {
+        text: ''
+    },
+    xAxis: {
+        type: 'datetime',
+        tickInterval: 1000,
+    },
+    yAxis: {
+        title: {
+            text: 'Value'
+        },
+        plotLines: [{
+            value: 0,
+            width: 1,
+            color: '#808080'
+        }]
+    },
+    tooltip: {
+        formatter: function () {
+            return '<b>' + this.series.name + '</b><br/>' +
+                Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x) + '<br/>' +
+                Highcharts.numberFormat(this.y, 2);
+        }
+    },
+    legend: {
+        enabled: false
+    },
+    exporting: {
+        enabled: false
+    },
+    credits: {
+    enabled: false
+    },
+    series: [{
+        name: 'Random data',
+        data: (function () {
+            // generate an array of random data
+            var data = [],
+                time = (new Date()).getTime(),
+                i;
+
+
+            for (i = -19; i <= 0; i += 1) {
+
+                data.push({
+                    x: time + i * 1000,
+                    y: Math.random() * 100
+                });
+            }
+            return data;
+        }())
+    }]
+});
+</script>
 
 <script type="text/javascript">
 

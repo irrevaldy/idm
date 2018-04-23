@@ -231,7 +231,6 @@
   <script src="{{ asset('assets/bootstrap/js/bootstrap.min.js') }}"></script>
   <script src="{{ asset('assets/plugins/slimScroll/jquery.slimscroll.min.js') }}"></script>
   <script src="{{ asset('assets/plugins/fastclick/fastclick.min.js') }}"></script>
-  <script src="{{ asset('assets/dist/js/app.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/back-to-top/js/main.js') }}"></script>
   <script src="{{ asset('assets/plugins/daterangepicker/moment.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/daterangepicker/daterangepicker.js') }}"></script>
