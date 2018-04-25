@@ -271,45 +271,28 @@
 <!-- END PAGE SCRIPTS -->
 <script type="text/javascript">
 
-
-
-var chart; // global
-
 Highcharts.setOptions({
     global: {
+        useUTC: false,
         credits: false
     }
-
 });
 
-function requestData() {
-    $.ajax({
-      dataType: 'JSON',
-      type: 'GET',
-        url: '/search_transaction/series_seconds',
-        success: function(point) {
-          var series = chart.series[0],
-              shift = series.data.length > 10; // shift if the series is
-                                               // longer than 20
-         x = parseInt(point[0]['0']+ '000');
-         y = parseInt(point[0]['1']) ;
-         console.log([x,y]);
-          // add the point
-          chart.series[0].addPoint([x,y], true, shift);
-
-          // call it again after one second
-          setTimeout(requestData, 0.0001);
-        }
-    });
-}
-
-document.addEventListener('DOMContentLoaded', (function() {
-chart = Highcharts.chart('container', {
+Highcharts.chart('container', {
     chart: {
         type: 'line',
         marginRight: 10,
         events: {
-          load: requestData
+            load: function () {
+                // set up the updating of the chart each second
+                var series = this.series[0];
+                setInterval(function () {
+                    var x = (Math.round(new Date().getTime() / 1000))*1000, // current time
+                        y = Math.random() * 100;
+                    console.log('x:' + x);
+                    series.addPoint([x, y], true, true);
+                }, 1000);
+            }
         }
     },
     title: {
@@ -317,15 +300,11 @@ chart = Highcharts.chart('container', {
     },
     xAxis: {
         type: 'datetime',
-        tickInterval: 1000,
-        tickPixelInterval: 1000,
-        maxZoom: 20 * 1000
+        tickInterval: 1000
     },
     yAxis: {
-        minPadding: 0.2,
-        maxPadding: 0.2,
         title: {
-            text: 'Value',
+            text: 'Value'
         },
         plotLines: [{
             value: 0,
@@ -353,12 +332,22 @@ chart = Highcharts.chart('container', {
         name: 'Random data',
         data: (function () {
             // generate an array of random data
-            var data = []
+            var data = [],
+                time = (Math.round(new Date().getTime() / 1000))*1000,
+                i;
+
+
+            for (i = -19; i <= 0; i += 1) {
+
+                data.push({
+                    x: time + i * 1000,
+                    y: Math.random() * 100
+                });
+            }
+            return data;
         }())
     }]
 });
-}));
-
 </script>
 
 <script type="text/javascript">

@@ -38,6 +38,8 @@ Route::get('pie','HomeController@pie');
 //search_transaction
 Route::get('/search_transaction', 'SearchController@index');
 Route::post('/search_transaction/main_data', ['as' => 'search_transaction_main','uses' => 'SearchController@getDataSearchTransaction']);
+Route::get('/search_transaction/series_seconds', 'SearchController@GetSeriesSeconds');
+
 
 //report
 Route::get('/report/transaction_report','TransactionReportController@index');
