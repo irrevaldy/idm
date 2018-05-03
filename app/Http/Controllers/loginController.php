@@ -71,7 +71,7 @@ class loginController extends Controller
       //return $username;
 		}
 		else{
-			return Redirect::back()->withInput()->withErrors($var->message);
+			return Redirect::back()->withInput()->withErrors($var->result);
 		}
 	}
 
