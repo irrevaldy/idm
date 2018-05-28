@@ -224,7 +224,7 @@
 
     <div id="overlay">
         <img src="{{ asset('assets/img/loader.gif') }}" alt="Loading" /><br/>
-        Loading...
+        Please wait...
     </div>
   <!-- javascript -->
   <script src="{{ asset('assets/plugins/jquery/jquery-2.1.4.min.js') }}"></script>
